@@ -1,0 +1,18 @@
+﻿@model plv.ViewModels.CurrentUserViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome @Model.UserName</h1>
+</div>
+
+@if (Model.Roles != null)
+{
+    <h2>Your user roles</h2>
+    @foreach (var role in Model.Roles)
+    {
+        <p>@role</p>
+    }
+}
