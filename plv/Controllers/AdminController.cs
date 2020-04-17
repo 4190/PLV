@@ -30,5 +30,6 @@ namespace plv.Controllers
             var users = _context.Users.ToList();
             return View(users);
         }
+
     }
 }

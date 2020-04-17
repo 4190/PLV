@@ -12,9 +12,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 
+
 namespace plv.Controllers
 {
-    [AllowAnonymous]
+
     public class HomeController : Controller
     {
 
@@ -36,6 +37,7 @@ namespace plv.Controllers
             _context.Dispose();
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             // Get the roles for the current user

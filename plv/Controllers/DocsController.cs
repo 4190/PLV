@@ -60,9 +60,9 @@ namespace plv.Controllers
         {
             if (model.File != null)
             {
-                string ImageName = Guid.NewGuid().ToString() + Path.GetExtension(model.File.FileName);
+                string fileName = GetUniqueFileName(model.File.FileName); //Guid.NewGuid().ToString() + Path.GetExtension(model.File.FileName);
 
-                string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", ImageName);
+                string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
 
                 using (var stream = new FileStream(SavePath, FileMode.Create))
                 {
