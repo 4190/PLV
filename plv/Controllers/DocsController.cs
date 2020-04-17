@@ -62,14 +62,14 @@ namespace plv.Controllers
             {
                 string fileName = GetUniqueFileName(model.File.FileName); //Guid.NewGuid().ToString() + Path.GetExtension(model.File.FileName);
 
-                string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
+                string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);  //wwwroot/uploads/{sectionName}
 
                 using (var stream = new FileStream(SavePath, FileMode.Create))
                 {
                     model.File.CopyTo(stream);
                 }
             }
-            return Content("k");
+            return View("Create");  //dorobić jakies potwierdzenie wrzucenia pliku na server, bo póki co wraca po prostu do widoku
         }
     }
 }
