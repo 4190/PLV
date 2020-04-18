@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-plv-983A5341-BE81-4D65-BB02-2447F8607AFA</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200418011255_DocumentsTable.cs" />
+    <Compile Remove="Data\Migrations\20200418011255_DocumentsTable.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200418014609_removedFilesTable.cs" />
+    <Compile Remove="Data\Migrations\20200418014609_removedFilesTable.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
@@ -18,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Docs\" />
-    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>

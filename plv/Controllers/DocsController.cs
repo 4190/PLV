@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,8 +31,114 @@ namespace plv.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            UploadFileViewModel viewModel = new UploadFileViewModel();
+
+            return View(viewModel);
         }
+
+
+        [HttpPost]  //TODO
+        public IActionResult Create(UploadFileViewModel model)
+        {
+            if (model.File != null)
+            {
+                string fileName = GetUniqueFileName(model.File.FileName); //Guid.NewGuid().ToString() + Path.GetExtension(model.File.FileName);
+                
+                if(!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads")))
+                {
+                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads"));
+                }
+
+                string savePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);  //Todo wwwroot/uploads/{sectionName}
+
+                if (Path.GetExtension(savePath) != ".pdf")
+                {
+                    model.LogMessage = "Plik musi być plikiem .pdf";
+                    model.Success = false;
+                    model.File = null;
+                    model.Name = null;
+                }
+                else
+                {
+                    using (var stream = new FileStream(savePath, FileMode.Create))
+                    {
+                        model.File.CopyTo(stream);
+                        model.Success = true;
+                        model.LogMessage = "Dokument dodany do bazy";
+
+                        DocumentInDB doc = new DocumentInDB
+                        {
+                            FilePath = fileName,
+                            Section = ""
+                        };
+                        _context.Documents.Add(doc); _context.SaveChanges();
+                    }
+                }
+            }
+            else
+            {
+                model.LogMessage = "Nie podano żadnego pliku do uploadu";
+                model.Success = false;
+
+            }
+            model.File = null; model.Name = null;
+            return View(model);
+        }
+
+        [Route("Docs/Download/{filename}")]
+        public IActionResult DownloadDocument(string filename)
+        {
+            if (filename == null)
+                return Content("filename not present");
+
+            var path = Path.Combine(
+                           Directory.GetCurrentDirectory(),
+                           "wwwroot/uploads", filename);
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open)) { stream.CopyTo(memory); }
+            memory.Position = 0;
+
+            return File(memory, GetContentType(path), Path.GetFileName(path));
+        }
+
+
+        public IActionResult DocsList()
+        {
+            var docs = _context.Documents.ToList();
+
+            return View(docs);
+        }
+
+
+        #region HelperMethods
+        private string GetContentType(string path)
+        {
+            var types = GetMimeTypes();
+            var ext = Path.GetExtension(path).ToLowerInvariant();
+            return types[ext];
+        }
+
+        private Dictionary<string, string> GetMimeTypes()
+        {
+            return new Dictionary<string, string>
+            {
+                {".pdf", "application/pdf"}
+                /*
+                {".txt", "text/plain"},
+                {".doc", "application/vnd.ms-word"},
+                {".docx", "application/vnd.ms-word"},
+                {".xls", "application/vnd.ms-excel"},
+                {".xlsx", "application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet"},  
+                {".png", "image/png"},
+                {".jpg", "image/jpeg"},
+                {".jpeg", "image/jpeg"},
+                {".gif", "image/gif"},
+                {".csv", "text/csv"}
+                */
+            };
+        }
+
         private string GetUniqueFileName(string fileName)
         {
             fileName = Path.GetFileName(fileName);
@@ -39,37 +147,6 @@ namespace plv.Controllers
                       + Guid.NewGuid().ToString().Substring(0, 4)
                       + Path.GetExtension(fileName);
         }
-        /*
-        [HttpPost]
-        public IActionResult Create(UploadFileViewModel model)
-        {
-            
-            if(model.File != null)
-            {
-                var uniqueFileName = GetUniqueFileName(model.File.FileName);
-                var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
-                var filePath = Path.Combine(uploads, uniqueFileName);
-                model.File.CopyTo(new FileStream(filePath, FileMode.Create));
-            }
-            return Content("ok");
-        }
-        */
-
-        [HttpPost]  //TODO
-        public IActionResult Create(UploadFileViewModel model)
-        {
-            if (model.File != null)
-            {
-                string fileName = GetUniqueFileName(model.File.FileName); //Guid.NewGuid().ToString() + Path.GetExtension(model.File.FileName);
-
-                string SavePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);  //wwwroot/uploads/{sectionName}
-
-                using (var stream = new FileStream(SavePath, FileMode.Create))
-                {
-                    model.File.CopyTo(stream);
-                }
-            }
-            return View("Create");  //dorobić jakies potwierdzenie wrzucenia pliku na server, bo póki co wraca po prostu do widoku
-        }
+        #endregion
     }
 }
