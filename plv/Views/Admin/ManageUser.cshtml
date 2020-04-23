@@ -1,0 +1,25 @@
+﻿@model plv.ViewModels.ManageUserViewModel
+@{
+    ViewData["Title"] = "ManageUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ManageUser</h1>
+
+
+@using (Html.BeginForm("Edit", "Admin"))
+{
+
+    @Html.ValidationSummary(true, "please fix following errors")
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.User.UserName)
+        @Html.TextBoxFor(m => m.User.UserName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.User.UserName)
+    </div>
+
+    @Html.HiddenFor(m => m.User.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
