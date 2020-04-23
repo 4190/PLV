@@ -4,7 +4,7 @@
     font-size: 150px;
 }
 
-.log 
+.plog 
 {
     color: black;
     background-color: white;
@@ -19,4 +19,13 @@
 .pad
 {
     padding-top: 150px;
+}
+.ods
+{
+    height: 80px;
+}
+.blog 
+{
+    color: black;
+    background-color: #e8f0fe;
 }
