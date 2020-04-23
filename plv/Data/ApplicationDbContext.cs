@@ -9,7 +9,7 @@ namespace plv.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<UploadFile> Files { get; set; }
+        public DbSet<DocumentInDB> Documents { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

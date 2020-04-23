@@ -128,5 +128,10 @@ namespace plv.Controllers
             _logger.LogInformation("User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
+
+        public IActionResult Manage()
+        {
+            return View();
+        }
     }
 }

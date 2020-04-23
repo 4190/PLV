@@ -1,0 +1,13 @@
+﻿@model IEnumerable<plv.Models.DocumentInDB>
+
+    @{
+        ViewData["Title"] = "DocsList";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h1>DocsList</h1>
+
+    @foreach (var doc in Model)
+    {
+        <p><a href="/Docs/Download/@doc.FilePath"> @doc.FilePath</a></p>
+    }
