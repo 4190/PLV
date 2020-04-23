@@ -22,12 +22,11 @@
     LockoutEnd
     LockoutEnabled
     AccessFailedCount
-
-    -->
+-->
 
 
 @foreach (var user in Model)
     {
-        <p>@user.UserName</p>
+        <p><a href="/Admin/ManageUser/@user.Id">@user.UserName</a></p>
     }
     
