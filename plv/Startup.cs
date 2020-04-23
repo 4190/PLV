@@ -114,10 +114,15 @@ namespace plv
             IdentityResult roleResult;
             //here in this line we are adding Admin Role
             var roleCheck = await RoleManager.RoleExistsAsync("Admin");
+            var userRoleCheck = await RoleManager.RoleExistsAsync("User");
             if (!roleCheck)
             {
                 //here in this line we are creating admin role and seed it to the database
                 roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+            if(!userRoleCheck)
+            {
+                roleResult = await RoleManager.CreateAsync(new IdentityRole("User"));
             }
 
             //here we are assigning the Admin role to the User that we have registered before

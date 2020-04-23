@@ -6,11 +6,27 @@
 }
 
 <h1>UserList</h1>
+<!-- pola w bazie danych usera-
+    Id
+    UserName
+    NormalizedUserName
+    Email
+    NormalizedEmail
+    EmailConfirmed
+    PasswordHash
+    SecurityStamp
+    ConcurencyStamp
+    PhoneNumber
+    PhoneNumberConfirmed
+    TwoFactorEnabled
+    LockoutEnd
+    LockoutEnabled
+    AccessFailedCount
+-->
 
-@{ foreach(var user in Model)
+
+@foreach (var user in Model)
     {
-
-        <p>@user.UserName</p>
+        <p><a href="/Admin/ManageUser/@user.Id">@user.UserName</a></p>
     }
-
-}
+    

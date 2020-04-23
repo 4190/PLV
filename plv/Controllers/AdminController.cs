@@ -53,7 +53,10 @@ namespace plv.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(ManageUserViewModel user)
         {
+<<<<<<< HEAD
             var User = _userManager.
+=======
+>>>>>>> master
             return Content(user.User.UserName);
             /*
             if(!ModelState.IsValid)
