@@ -48,32 +48,5 @@ namespace plv.Controllers
             };        
             return View(user);
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(ManageUserViewModel user)
-        {
-<<<<<<< HEAD
-            var User = _userManager.
-=======
->>>>>>> master
-            return Content(user.User.UserName);
-            /*
-            if(!ModelState.IsValid)
-            {
-                ManageUserViewModel model = user;
-                return View("ManageUser", user);
-            }
-
-            if (user.User.Id == "" || user.User.Id == null) { return NotFound(); }
-
-            else
-            {
-                _userManager.AddToRoleAsync(user.User, user.SelectedRole.Name);
-            }
-            return RedirectToAction("Admin", "UserList");
-            */
-        }
-        
     }
 }
