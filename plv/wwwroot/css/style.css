@@ -1,0 +1,22 @@
+.test 
+{
+    color: red;
+    font-size: 150px;
+}
+
+.log 
+{
+    color: black;
+    background-color: white;
+    padding: 50px;
+    border-radius: 20px;
+
+}
+.row
+{
+    //text-align: center;
+}
+.pad
+{
+    padding-top: 150px;
+}

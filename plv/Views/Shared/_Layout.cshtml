@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - plv</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min-slate.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
 </head>
 <body>
     @if(this.User.IsInRole("Admin"))
@@ -17,7 +18,7 @@
         <partial name="_navBar" />
     }
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" style="padding-top: 70px;">
             @RenderBody()
         </main>
     </div>
