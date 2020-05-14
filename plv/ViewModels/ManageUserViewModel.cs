@@ -10,7 +10,7 @@ namespace plv.ViewModels
     public class ManageUserViewModel
     {
         public ApplicationUser User { get; set; }
-        public IEnumerable<IdentityRole> Role { get; set; }
-        public string[] SelectedRoles { get; set; }
+        public List<string> CurrentUserRoles { get; set; }
+        public IEnumerable<IdentityRole> RolesList { get; set; }
     }
 }

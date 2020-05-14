@@ -26,12 +26,21 @@
     -->
     <div class="form-group overrides">
         <ul>
-            @foreach (var roles in Model.Role)
+            @foreach (var role in Model.RolesList)
             {
                 <li>
                     <label>
-                        @roles.Name
-                        <input type="checkbox" name="idList" value="@roles.Name">
+                        @role.Name
+                        @if (Model.CurrentUserRoles.Contains(role.Name))
+                        {
+                            <input id="hidden-@role.Name" type="hidden" name="idList" value="unchecked-@role.Name" disabled>
+                            <input id="@role.Name" type="checkbox" name="idList" value="@role.Name" checked onclick=" if (document.getElementById('@role.Name').checked) { document.getElementById('hidden-@role.Name').disabled = true; } else { document.getElementById('hidden-@role.Name').disabled = false; document.getElementById('hidden-@role.Name').checked }">
+                        }
+                        else
+                        {
+                            <input id="hidden-@role.Name" type="hidden" name="idList" value="unchecked-@role.Name" checked>
+                            <input id="@role.Name" type="checkbox" name="idList" value="@role.Name" onclick=" if (document.getElementById('@role.Name').checked) { document.getElementById('hidden-@role.Name').disabled = true; } else { document.getElementById('hidden-@role.Name').disabled = false; document.getElementById('hidden-@role.Name').checked }">
+                        }
                         <span class="check"></span>
                     </label>
                 </li>

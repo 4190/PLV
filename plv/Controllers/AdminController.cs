@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections;
 
 namespace plv.Controllers
 {
@@ -32,18 +33,40 @@ namespace plv.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ManageUserViewModel model)
         {
-            string list = Request.Form["idList"];
+            string selectedRoleCheckboxes = Request.Form["idList"];
+            string[] checkboxesRoleValuesTable = selectedRoleCheckboxes.Split(',');
+
+            List<string> rolesToRemoveList = new List<string>();
+            List<string> rolesToAddList = new List<string>();
             ApplicationUser user = await _userManager.FindByIdAsync(model.User.Id);
-/*
-            // Select the user, and then add the role to the user
-            if (!_userManager.IsInRoleAsync(user, roleName).Result)
+
+
+            foreach (var role in checkboxesRoleValuesTable)
             {
-                var userResult = await _userManager.AddToRoleAsync(user, roleName);
+                if(role.Contains("unchecked-"))
+                    rolesToRemoveList.Add(role.Substring(role.IndexOf('-') + 1));
+                else
+                    rolesToAddList.Add(role);
             }
-            */
-            return Content($"{list}\n");
+            foreach(string role in rolesToAddList)
+            {
+                if (!_userManager.IsInRoleAsync(user, role).Result)
+                {
+                    var userResult = await _userManager.AddToRoleAsync(user, role);
+                }
+            }
+            foreach(string removeRole in rolesToRemoveList)
+            {
+                if(_userManager.IsInRoleAsync(user, removeRole).Result)
+                {
+                    var userResult = await _userManager.RemoveFromRoleAsync(user, removeRole);
+                }
+            }
+
+            return RedirectToAction("UserList");
         }
 
         public IActionResult ManageRoles()
@@ -59,12 +82,14 @@ namespace plv.Controllers
         [Route("admin/ManageUser/{id}")]
         public IActionResult ManageUser(string id)
         {
-            ManageUserViewModel user = new ManageUserViewModel
+            var selectedUser = _userManager.FindByIdAsync(id).Result;
+            ManageUserViewModel viewModel = new ManageUserViewModel
             {
-                User = _userManager.FindByIdAsync(id).Result,
-                Role = _roleManager.Roles.ToList()
-            };        
-            return View(user);
+                User = selectedUser,
+                RolesList = _roleManager.Roles.ToList(),
+                CurrentUserRoles = _userManager.GetRolesAsync(selectedUser).Result.ToList()
+            };
+            return View(viewModel);
         }
 
         public IActionResult UserList()
