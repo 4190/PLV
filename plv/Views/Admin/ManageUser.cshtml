@@ -12,18 +12,9 @@
 
     @Html.ValidationSummary(true, "please fix following errors")
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.User.UserName)
-        @Html.TextBoxFor(m => m.User.UserName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.User.UserName)
+    <div class="jumbotron">
+        <h1>@Model.User.UserName</h1>
     </div>
-    <!--
-    <div class="form-group">
-      @*  @Html.LabelFor(m => m.SelectedRoleId)
-        @Html.DropDownListFor(m => m.SelectedRoleId, new SelectList(Model.Role, "Id", "Name"), "", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.SelectedRoleId)*@
-    </div>
-    -->
     <div class="form-group overrides">
         <ul>
             @foreach (var role in Model.RolesList)
