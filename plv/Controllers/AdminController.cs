@@ -31,11 +31,29 @@ namespace plv.Controllers
             _context.Dispose();
         }
 
-        
-        public IActionResult UserList()
+        [HttpPost]
+        public async Task<IActionResult> Edit(ManageUserViewModel model)
         {
-            var users = _context.Users.ToList();
-            return View(users);
+            string list = Request.Form["idList"];
+            ApplicationUser user = await _userManager.FindByIdAsync(model.User.Id);
+/*
+            // Select the user, and then add the role to the user
+            if (!_userManager.IsInRoleAsync(user, roleName).Result)
+            {
+                var userResult = await _userManager.AddToRoleAsync(user, roleName);
+            }
+            */
+            return Content($"{list}\n");
+        }
+
+        public IActionResult ManageRoles()
+        {
+            var viewModel = new ManageRoleViewModel
+            {
+                Role = _roleManager.Roles.ToList()
+            };
+
+            return View(viewModel);
         }
 
         [Route("admin/ManageUser/{id}")]
@@ -47,6 +65,12 @@ namespace plv.Controllers
                 Role = _roleManager.Roles.ToList()
             };        
             return View(user);
+        }
+
+        public IActionResult UserList()
+        {
+            var users = _context.Users.ToList();
+            return View(users);
         }
     }
 }

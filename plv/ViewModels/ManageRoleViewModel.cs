@@ -7,10 +7,8 @@ using plv.Models;
 
 namespace plv.ViewModels
 {
-    public class ManageUserViewModel
+    public class ManageRoleViewModel
     {
-        public ApplicationUser User { get; set; }
         public IEnumerable<IdentityRole> Role { get; set; }
-        public string[] SelectedRoles { get; set; }
     }
 }

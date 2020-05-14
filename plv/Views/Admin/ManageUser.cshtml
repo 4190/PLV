@@ -17,6 +17,28 @@
         @Html.TextBoxFor(m => m.User.UserName, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.User.UserName)
     </div>
+    <!--
+    <div class="form-group">
+      @*  @Html.LabelFor(m => m.SelectedRoleId)
+        @Html.DropDownListFor(m => m.SelectedRoleId, new SelectList(Model.Role, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.SelectedRoleId)*@
+    </div>
+    -->
+    <div class="form-group overrides">
+        <ul>
+            @foreach (var roles in Model.Role)
+            {
+                <li>
+                    <label>
+                        @roles.Name
+                        <input type="checkbox" name="idList" value="@roles.Name">
+                        <span class="check"></span>
+                    </label>
+                </li>
+            }
+        </ul>
+    </div>
+    
 
     @Html.HiddenFor(m => m.User.Id)
     @Html.AntiForgeryToken()

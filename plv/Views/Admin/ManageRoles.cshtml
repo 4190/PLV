@@ -1,0 +1,13 @@
+﻿@model plv.ViewModels.ManageRoleViewModel
+
+@{
+    ViewData["Title"] = "ManageRoles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ManageRoles</h1>
+
+@foreach(var role in Model.Role)
+{
+    <p>@role.Name</p>
+}
