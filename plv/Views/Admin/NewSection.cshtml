@@ -1,0 +1,18 @@
+﻿@model plv.Models.Section
+
+@{
+    ViewData["Title"] = "NewSection";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>NewSection</h1>
+
+@using (Html.BeginForm("CreateSection", "Admin"))
+{
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name)
+    @Html.ValidationMessageFor(m => m.Name)
+
+    @Html.HiddenFor(m => m.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}

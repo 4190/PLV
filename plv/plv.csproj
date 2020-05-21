@@ -10,6 +10,12 @@
     <Compile Remove="Data\Migrations\20200418011255_DocumentsTable.Designer.cs" />
     <Compile Remove="Data\Migrations\20200418014609_removedFilesTable.cs" />
     <Compile Remove="Data\Migrations\20200418014609_removedFilesTable.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200521061028_DocumentSections.cs" />
+    <Compile Remove="Data\Migrations\20200521061028_DocumentSections.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200521061508_DocumentSections.cs" />
+    <Compile Remove="Data\Migrations\20200521061508_DocumentSections.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200521090910_DocumetsSections.cs" />
+    <Compile Remove="Data\Migrations\20200521090910_DocumetsSections.Designer.cs" />
   </ItemGroup>
 
 

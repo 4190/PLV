@@ -10,6 +10,8 @@ namespace plv.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<DocumentInDB> Documents { get; set; }
+        public DbSet<Section> Sections { get; set; }
+        public DbSet<DocumentsSection> DocumentsSections { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

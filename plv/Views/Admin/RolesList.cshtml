@@ -9,5 +9,5 @@
 
 @foreach(var role in Model.Role)
 {
-    <p>@role.Name</p>
+    <p><a href="/Admin/ManageRole/@role.Id">@role.Name</a></p>
 }

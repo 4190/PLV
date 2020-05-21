@@ -10,5 +10,6 @@ namespace plv.ViewModels
     public class ManageRoleViewModel
     {
         public IEnumerable<IdentityRole> Role { get; set; }
+        public string RoleToDelete { get; set; }
     }
 }

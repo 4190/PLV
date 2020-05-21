@@ -14,7 +14,7 @@ using System.Collections;
 
 namespace plv.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -33,8 +33,30 @@ namespace plv.Controllers
         }
 
         [HttpPost]
+        public IActionResult CreateSection(Section section)
+        {
+            if (String.IsNullOrWhiteSpace(section.Id))
+            {
+                section.Id = Guid.NewGuid().ToString();
+               _context.Sections.Add(section);
+            }
+              _context.SaveChanges();
+              return RedirectToAction("SectionList", "Admin");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteSection()
+        {
+            string sectionId = Request.Form["Sect.Id"];
+            var section = _context.Sections.SingleOrDefault(c => c.Id == sectionId);
+            _context.Sections.Remove(section);
+            _context.SaveChanges();
+            return RedirectToAction("SectionList", "Admin");
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ManageUserViewModel model)
+        public async Task<IActionResult> EditUser(ManageUserViewModel model)
         {
             string selectedRoleCheckboxes = Request.Form["idList"];
             string[] checkboxesRoleValuesTable = selectedRoleCheckboxes.Split(',');
@@ -43,40 +65,28 @@ namespace plv.Controllers
             List<string> rolesToAddList = new List<string>();
             ApplicationUser user = await _userManager.FindByIdAsync(model.User.Id);
 
-
             foreach (var role in checkboxesRoleValuesTable)
             {
-                if(role.Contains("unchecked-"))
+                if (role.Contains("unchecked-"))
                     rolesToRemoveList.Add(role.Substring(role.IndexOf('-') + 1));
                 else
                     rolesToAddList.Add(role);
             }
-            foreach(string role in rolesToAddList)
+            foreach (string role in rolesToAddList)
             {
                 if (!_userManager.IsInRoleAsync(user, role).Result)
                 {
-                    var userResult = await _userManager.AddToRoleAsync(user, role);
+                    var _ = await _userManager.AddToRoleAsync(user, role);
                 }
             }
-            foreach(string removeRole in rolesToRemoveList)
+            foreach (string removeRole in rolesToRemoveList)
             {
-                if(_userManager.IsInRoleAsync(user, removeRole).Result)
+                if (_userManager.IsInRoleAsync(user, removeRole).Result)
                 {
-                    var userResult = await _userManager.RemoveFromRoleAsync(user, removeRole);
+                    var _ = await _userManager.RemoveFromRoleAsync(user, removeRole);
                 }
             }
-
             return RedirectToAction("UserList");
-        }
-
-        public IActionResult ManageRoles()
-        {
-            var viewModel = new ManageRoleViewModel
-            {
-                Role = _roleManager.Roles.ToList()
-            };
-
-            return View(viewModel);
         }
 
         [Route("admin/ManageUser/{id}")]
@@ -88,6 +98,29 @@ namespace plv.Controllers
                 User = selectedUser,
                 RolesList = _roleManager.Roles.ToList(),
                 CurrentUserRoles = _userManager.GetRolesAsync(selectedUser).Result.ToList()
+            };
+            return View(viewModel);
+        }
+
+        public IActionResult NewSection()
+        {
+            return View();
+        }
+
+        public IActionResult RolesList()
+        {
+            var viewModel = new ManageRoleViewModel
+            {
+                Role = _roleManager.Roles.ToList()
+            };
+            return View(viewModel);
+        }
+
+        public IActionResult SectionList()
+        {
+            var viewModel = new SectionListViewModel
+            {
+                SectionList = _context.Sections.ToList()
             };
             return View(viewModel);
         }
