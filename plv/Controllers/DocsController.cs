@@ -31,30 +31,39 @@ namespace plv.Controllers
 
         public IActionResult Create()
         {
-            UploadFileViewModel viewModel = new UploadFileViewModel();
-
+            UploadFileViewModel viewModel = new UploadFileViewModel()
+            {
+                SectionList = _context.Sections.ToList()
+            };
             return View(viewModel);
         }
 
 
-        [HttpPost]  //TODO
+        [HttpPost]  
         public IActionResult Create(UploadFileViewModel model)
         {
+            string selectedSectionName = _context.Sections.Find(model.SelectedSectionGuid).Name;
+            if(String.IsNullOrEmpty(selectedSectionName))
+            {
+                model.Success = false;
+                model.LogMessage = "Choose section";
+                return RedirectToAction("Create");
+            }
+
             if (model.File != null)
             {
-                string fileName = GetUniqueFileName(model.File.FileName); //Guid.NewGuid().ToString() + Path.GetExtension(model.File.FileName);
-                
-                if(!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads")))
-                {
-                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads"));
-                }
+                string fileName = GetUniqueFileName(model.File.FileName);
 
-                string savePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);  //Todo wwwroot/uploads/{sectionName}
+                CreateUploadDirectoryIfDoesNotExist();
+                CreateSectionDirectoryIfDoesNotExist(selectedSectionName);
+
+                string savePath = Path.Combine(Directory.GetCurrentDirectory(), 
+                    $"wwwroot/uploads/{selectedSectionName}", 
+                    fileName);  
 
                 if (Path.GetExtension(savePath) != ".pdf")
                 {
                     model.LogMessage = "Plik musi być plikiem .pdf";
-                    model.Success = false;
                     model.File = null;
                     model.Name = null;
                 }
@@ -62,44 +71,36 @@ namespace plv.Controllers
                 {
                     using (var stream = new FileStream(savePath, FileMode.Create))
                     {
-                        model.File.CopyTo(stream);
-                        model.Success = true;
-                        model.LogMessage = "Dokument dodany do bazy";
-
-                        DocumentInDB doc = new DocumentInDB
-                        {
-                            FilePath = fileName,
-                            Section = ""
-                        };
-                        _context.Documents.Add(doc); _context.SaveChanges();
+                        model.File.CopyTo(stream); model.Success = true;
+                        model.LogMessage = "Doc added to database";
+                        SaveDocumentToDB(fileName, selectedSectionName, model.SelectedSectionGuid); 
                     }
                 }
             }
-            else
-            {
-                model.LogMessage = "Nie podano żadnego pliku do uploadu";
-                model.Success = false;
-
-            }
-            model.File = null; model.Name = null;
+            model.File = null; model.Name = null; model.SectionList = _context.Sections.ToList();
             return View(model);
         }
 
-        [Route("Docs/Download/{filename}")]
-        public IActionResult DownloadDocument(string filename)
+        [Route("Docs/Download/{sectionName}/{filename}")]
+        public IActionResult DownloadDocument(string sectionName, string filename)
         {
             if (filename == null)
                 return Content("filename not present");
+            try
+            {
+                var path = Path.Combine(
+                               Directory.GetCurrentDirectory(),
+                               $"wwwroot/uploads/{sectionName}", filename);
 
-            var path = Path.Combine(
-                           Directory.GetCurrentDirectory(),
-                           "wwwroot/uploads", filename);
-
-            var memory = new MemoryStream();
-            using (var stream = new FileStream(path, FileMode.Open)) { stream.CopyTo(memory); }
-            memory.Position = 0;
-
-            return File(memory, GetContentType(path), Path.GetFileName(path));
+                var memory = new MemoryStream();
+                using (var stream = new FileStream(path, FileMode.Open)) { stream.CopyTo(memory); }
+                memory.Position = 0;
+                return File(memory, GetContentType(path), Path.GetFileName(path));
+            }
+            catch(Exception e)
+            {
+                return NotFound();
+            }
         }
 
 
@@ -111,7 +112,25 @@ namespace plv.Controllers
         }
 
 
-        #region HelperMethods
+#region HelperMethods
+
+        private void CreateSectionDirectoryIfDoesNotExist(string sectionName)
+        {
+            if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/uploads/{sectionName}")))
+            {
+                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), 
+                    $"wwwroot/uploads/{sectionName}"));
+            }
+        }
+
+        private void CreateUploadDirectoryIfDoesNotExist()
+        {
+            if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads")))
+            {
+                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads"));
+            }
+        }
+
         private string GetContentType(string path)
         {
             var types = GetMimeTypes();
@@ -144,9 +163,26 @@ namespace plv.Controllers
             fileName = Path.GetFileName(fileName);
             return Path.GetFileNameWithoutExtension(fileName)
                       + "_"
-                      + Guid.NewGuid().ToString().Substring(0, 4)
+                      + Guid.NewGuid().ToString().Substring(0, 6)
                       + Path.GetExtension(fileName);
         }
-        #endregion
+
+        private void SaveDocumentToDB(string fileName, string selectedSectionName, string selectedSectionGuid)
+        {
+            DocumentInDB doc = new DocumentInDB
+            {
+                FilePath = fileName,
+                Section = selectedSectionName
+            };
+            DocumentsSection docSection = new DocumentsSection
+            {
+                DocumentInDB = doc,
+                Section = _context.Sections.Find(selectedSectionGuid)
+            };
+            _context.Documents.Add(doc);
+            _context.DocumentsSections.Add(docSection);
+            _context.SaveChanges();
+        }
+#endregion
     }
 }

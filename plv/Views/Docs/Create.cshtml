@@ -27,6 +27,12 @@
                 <label class="custom-file-label">Choose File...</label>
             </div>
         </div>
+        @Html.ValidationMessageFor(m=>m.File, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SelectedSectionGuid)
+        @Html.DropDownListFor(m => m.SelectedSectionGuid, new SelectList(Model.SectionList, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.SelectedSectionGuid, "", new { @class = "text-danger" })
     </div>
     <input type="submit" value="upload" />
 </form>
@@ -42,4 +48,7 @@
 
         });
     </script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
 }
