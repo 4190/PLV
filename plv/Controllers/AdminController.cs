@@ -27,30 +27,33 @@ namespace plv.Controllers
             _userManager = userManager;
             this._context = _context;
         }
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
 
         [HttpPost]
-        public IActionResult CreateSection(Section section)
+        public async Task<IActionResult> CreateSectionWithRole(Section section)
         {
             if (String.IsNullOrWhiteSpace(section.Id))
             {
                 section.Id = Guid.NewGuid().ToString();
                _context.Sections.Add(section);
             }
-              _context.SaveChanges();
-              return RedirectToAction("SectionList", "Admin");
+            _context.SaveChanges();
+            
+            await _roleManager.CreateAsync(new IdentityRole(section.Name));
+            
+            return RedirectToAction("SectionList", "Admin");
         }
 
+
         [HttpPost]
-        public IActionResult DeleteSection()
+        public async Task<IActionResult> DeleteSectionAndSectionRole()
         {
             string sectionId = Request.Form["Sect.Id"];
             var section = _context.Sections.SingleOrDefault(c => c.Id == sectionId);
-            _context.Sections.Remove(section);
-            _context.SaveChanges();
+            _context.Sections.Remove(section); _context.SaveChanges();
+
+            var role = await _roleManager.FindByNameAsync(section.Name);
+            await _roleManager.DeleteAsync(role);
+
             return RedirectToAction("SectionList", "Admin");
         }
 
@@ -61,17 +64,12 @@ namespace plv.Controllers
             string selectedRoleCheckboxes = Request.Form["idList"];
             string[] checkboxesRoleValuesTable = selectedRoleCheckboxes.Split(',');
 
-            List<string> rolesToRemoveList = new List<string>();
-            List<string> rolesToAddList = new List<string>();
+            Dictionary<string, List<string>> rolesDictionary = ReturnListOfRolesToAddAndRemove(checkboxesRoleValuesTable);
+
+            List<string> rolesToRemoveList = rolesDictionary["rolesToRemove"];
+            List<string> rolesToAddList = rolesDictionary["rolesToAdd"];
             ApplicationUser user = await _userManager.FindByIdAsync(model.User.Id);
 
-            foreach (var role in checkboxesRoleValuesTable)
-            {
-                if (role.Contains("unchecked-"))
-                    rolesToRemoveList.Add(role.Substring(role.IndexOf('-') + 1));
-                else
-                    rolesToAddList.Add(role);
-            }
             foreach (string role in rolesToAddList)
             {
                 if (!_userManager.IsInRoleAsync(user, role).Result)
@@ -130,5 +128,25 @@ namespace plv.Controllers
             var users = _context.Users.ToList();
             return View(users);
         }
+
+        #region HelperMethods
+        private Dictionary<string, List<string>> ReturnListOfRolesToAddAndRemove(string[] rolesFromFormList)
+        {
+            List<string> rolesToRemoveList = new List<string>();
+            List<string> rolesToAddList = new List<string>();
+            foreach (var role in rolesFromFormList)
+            {
+                if (role.Contains("unchecked-"))
+                    rolesToRemoveList.Add(role.Substring(role.IndexOf('-') + 1));
+                else
+                    rolesToAddList.Add(role);
+            }
+            Dictionary<string, List<string>> rolesDict = new Dictionary<string, List<string>>();
+            rolesDict["rolesToRemove"] = rolesToRemoveList;
+            rolesDict["rolesToAdd"] = rolesToAddList;
+
+            return rolesDict;
+        }
+        #endregion
     }
 }
