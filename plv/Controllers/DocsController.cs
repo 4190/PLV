@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace plv.Controllers
 {
+    [Authorize(Roles = "User, Admin")]
     public class DocsController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -43,11 +45,11 @@ namespace plv.Controllers
         }
 
 
-        [HttpPost]  
+        [HttpPost]
         public IActionResult Create(UploadFileViewModel model)
         {
             string selectedSectionName = _context.Sections.Find(model.SelectedSectionGuid).Name;
-            if(String.IsNullOrEmpty(selectedSectionName))
+            if (String.IsNullOrEmpty(selectedSectionName))
             {
                 model.Success = false;
                 model.LogMessage = "Choose section";
@@ -61,9 +63,9 @@ namespace plv.Controllers
                 CreateUploadDirectoryIfDoesNotExist();
                 CreateSectionDirectoryIfDoesNotExist(selectedSectionName);
 
-                string savePath = Path.Combine(Directory.GetCurrentDirectory(), 
-                    $"wwwroot/uploads/{selectedSectionName}", 
-                    fileName);  
+                string savePath = Path.Combine(Directory.GetCurrentDirectory(),
+                    $"wwwroot/uploads/{selectedSectionName}",
+                    fileName);
 
                 if (Path.GetExtension(savePath) != ".pdf")
                 {
@@ -77,7 +79,7 @@ namespace plv.Controllers
                     {
                         model.File.CopyTo(stream); model.Success = true;
                         model.LogMessage = "Doc added to database";
-                        SaveDocumentToDB(fileName, selectedSectionName, model.SelectedSectionGuid); 
+                        SaveDocumentToDB(fileName, selectedSectionName, model.SelectedSectionGuid);
                     }
                 }
             }
@@ -88,40 +90,42 @@ namespace plv.Controllers
         [Route("Docs/Download/{sectionName}/{filename}")]
         public IActionResult DownloadDocument(string sectionName, string filename)
         {
-            if(User.Identity.Name != null)
-            {
-                ApplicationUser currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
-                if(!_userManager.IsInRoleAsync(currentUser, sectionName + "-download").Result)
-                {
-                    return Content("you can't download in this section");
-                }
-                else
-                {
-                    return Content("you can download in this section");
-                }
-            }
             if (filename == null)
                 return Content("filename not present");
-            try
-            {
-                var path = Path.Combine(
-                               Directory.GetCurrentDirectory(),
-                               $"wwwroot/uploads/{sectionName}", filename);
 
-                var memory = new MemoryStream();
-                using (var stream = new FileStream(path, FileMode.Open)) { stream.CopyTo(memory); }
-                memory.Position = 0;
-                return File(memory, GetContentType(path), Path.GetFileName(path));
-            }
-            catch(Exception e)
+            ApplicationUser currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            if (!_userManager.IsInRoleAsync(currentUser, sectionName + "-download").Result && !_userManager.IsInRoleAsync(currentUser, "Admin").Result)
             {
-                return NotFound();
+                return Content("you can't download in this section");
+            }
+            else
+            {
+                try
+                {
+                    var path = Path.Combine(
+                                   Directory.GetCurrentDirectory(),
+                                   $"wwwroot/uploads/{sectionName}", filename);
+                    var memory = new MemoryStream();
+                    using (var stream = new FileStream(path, FileMode.Open)) { stream.CopyTo(memory); }
+                    memory.Position = 0;
+                    return File(memory, GetContentType(path), Path.GetFileName(path));
+                }
+                catch (Exception e)
+                {
+                    return NotFound();
+                }
             }
         }
 
         [Route("Docs/DocsList/{sectionName}")]
         public IActionResult DocsList(string sectionName)
         {
+            ApplicationUser currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            if (!_userManager.IsInRoleAsync(currentUser, sectionName).Result && !_userManager.IsInRoleAsync(currentUser, "Admin").Result)
+            {
+                return Content("you can't browse in this section");
+            }
+
             var docs = _context.Documents.Where(c => c.Section == $"{sectionName}").ToList();
             return View(docs);
         }
