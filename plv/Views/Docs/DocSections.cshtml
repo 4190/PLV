@@ -1,0 +1,13 @@
+﻿@model IEnumerable<plv.Models.Section>
+
+@{
+    ViewData["Title"] = "DocSections";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>DocSections</h1>
+
+@foreach (var sect in Model)
+{
+    <p><a href="/Docs/DocsList/@sect.Name">@sect.Name</a></p>
+}

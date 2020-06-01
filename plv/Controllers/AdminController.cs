@@ -39,7 +39,7 @@ namespace plv.Controllers
             _context.SaveChanges();
             
             await _roleManager.CreateAsync(new IdentityRole(section.Name));
-            
+            await _roleManager.CreateAsync(new IdentityRole(section.Name + "-download"));
             return RedirectToAction("SectionList", "Admin");
         }
 
@@ -51,8 +51,10 @@ namespace plv.Controllers
             var section = _context.Sections.SingleOrDefault(c => c.Id == sectionId);
             _context.Sections.Remove(section); _context.SaveChanges();
 
-            var role = await _roleManager.FindByNameAsync(section.Name);
-            await _roleManager.DeleteAsync(role);
+            var uploadRole = await _roleManager.FindByNameAsync(section.Name);
+            var downloadRole = await _roleManager.FindByNameAsync(section.Name + "-download");
+            await _roleManager.DeleteAsync(uploadRole);
+            await _roleManager.DeleteAsync(downloadRole);
 
             return RedirectToAction("SectionList", "Admin");
         }
