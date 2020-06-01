@@ -122,7 +122,7 @@ namespace plv.Controllers
         [Route("Docs/DocsList/{sectionName}")]
         public IActionResult DocsList(string sectionName)
         {
-            var docs = _context.Documents.Include(c => c.Section).Where(c => c.Section == $"{sectionName}").ToList();
+            var docs = _context.Documents.Where(c => c.Section == $"{sectionName}").ToList();
             return View(docs);
         }
 
