@@ -20,7 +20,7 @@ else
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@sect.Name</a>
             <div class="dropdown-menu" style="">
-                @using (Html.BeginForm("DeleteSection", "Admin"))
+                @using (Html.BeginForm("DeleteSectionAndSectionRole", "Admin"))
                 {
                     <input id="Sect_Id" name="Sect.Id" type="hidden" value="@sect.Id">
                     <button type="submit" class="dropdown-item btn btn-primary">Delete</button>
