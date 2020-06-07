@@ -16,6 +16,8 @@
     <Compile Remove="Data\Migrations\20200521061508_DocumentSections.Designer.cs" />
     <Compile Remove="Data\Migrations\20200521090910_DocumetsSections.cs" />
     <Compile Remove="Data\Migrations\20200521090910_DocumetsSections.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200607013647_DocumentModelExtended.cs" />
+    <Compile Remove="Data\Migrations\20200607013647_DocumentModelExtended.Designer.cs" />
   </ItemGroup>
 
 
