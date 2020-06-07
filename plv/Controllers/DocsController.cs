@@ -69,9 +69,8 @@ namespace plv.Controllers
 
                 if (Path.GetExtension(savePath) != ".pdf")
                 {
+                    model.Success = false;
                     model.LogMessage = "Plik musi być plikiem .pdf";
-                    model.File = null;
-                    model.Name = null;
                 }
                 else
                 {
@@ -83,7 +82,7 @@ namespace plv.Controllers
                     }
                 }
             }
-            model.File = null; model.Name = null; model.SectionList = _context.Sections.ToList();
+            model.SectionList = _context.Sections.ToList();
             return View(model);
         }
 
@@ -93,6 +92,7 @@ namespace plv.Controllers
             if (filename == null)
                 return Content("filename not present");
 
+            string currentUserName = User.Identity.Name;
             ApplicationUser currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
             if (!_userManager.IsInRoleAsync(currentUser, sectionName + "-download").Result && !_userManager.IsInRoleAsync(currentUser, "Admin").Result)
             {
