@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="~/css/style.css" />
 </head>
 <body>
-    @if(this.User.IsInRole("Admin"))
+
+    @if (this.User.IsInRole("Admin"))
     {
         <partial name="_adminNavBar" />
     }
@@ -17,13 +18,16 @@
     {
         <partial name="_navBar" />
     }
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="row">
+        <div class="col-md-2">
+            <partial name="_Sidebar" />
+        </div>
+        <div class="col-md-10">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
     </div>
-
-    <partial name="_Sidebar" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
