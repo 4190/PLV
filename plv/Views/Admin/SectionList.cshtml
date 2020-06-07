@@ -4,31 +4,37 @@
     ViewData["Title"] = "SectionList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-8">
+        <div class="plog">
+            <h1>SectionList</h1>
 
-<h1>SectionList</h1>
+            @if (Model.SectionList.Count == 0)
+            {
+                <p>There are no sections created yet.</p>
+                <p>Click <a href="NewSection">here</a> to create a new one.</p>
+            }
+            else
+            {
+                <ul class="nav nav-pills flex-column">
+                    @foreach (var sect in Model.SectionList)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@sect.Name</a>
+                            <div class="dropdown-menu" style="">
+                                @using (Html.BeginForm("DeleteSectionAndSectionRole", "Admin"))
+                                {
+                                    <input id="Sect_Id" name="Sect.Id" type="hidden" value="@sect.Id">
+                                    <button type="submit" class="dropdown-item btn btn-primary">Delete</button>
+                                }
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <p><a href="NewSection">Add</a> new section</p>
+            }
 
-@if (Model.SectionList.Count == 0)
-{
-    <p>There are no sections created yet.</p>
-    <p>Click <a href="NewSection">here</a> to create a new one.</p>
-}
-else
-{
-<ul class="nav nav-pills flex-column">
-    @foreach (var sect in Model.SectionList)
-    {
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@sect.Name</a>
-            <div class="dropdown-menu" style="">
-                @using (Html.BeginForm("DeleteSectionAndSectionRole", "Admin"))
-                {
-                    <input id="Sect_Id" name="Sect.Id" type="hidden" value="@sect.Id">
-                    <button type="submit" class="dropdown-item btn btn-primary">Delete</button>
-                }
-            </div>
-        </li>
-    }
-</ul>
-<p><a href="NewSection">Add</a> new section</p>
-}
-
+        </div>
+    </div>
+</div>

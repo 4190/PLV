@@ -3,43 +3,49 @@
     ViewData["Title"] = "ManageUser";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-8">
+        <div class="plog">
+            <h1>ManageUser</h1>
 
-<h1>ManageUser</h1>
 
-
-@using (Html.BeginForm("EditUser", "Admin"))
-{
-
-    @Html.ValidationSummary(true, "please fix following errors")
-
-    <div class="jumbotron">
-        <h1>@Model.User.UserName</h1>
-    </div>
-    <div class="form-group overrides">
-        <ul>
-            @foreach (var role in Model.RolesList)
+            @using (Html.BeginForm("EditUser", "Admin"))
             {
-                <li>
-                    <label>
-                        @role.Name
-                        @if (Model.CurrentUserRoles.Contains(role.Name))
-                        {
-                            <input id="hidden-@role.Name" type="hidden" name="idList" value="unchecked-@role.Name" disabled>
-                            <input id="@role.Name" type="checkbox" name="idList" value="@role.Name" checked onclick=" if (document.getElementById('@role.Name').checked) { document.getElementById('hidden-@role.Name').disabled = true; } else { document.getElementById('hidden-@role.Name').disabled = false; document.getElementById('hidden-@role.Name').checked }">
-                        }
-                        else
-                        {
-                            <input id="hidden-@role.Name" type="hidden" name="idList" value="unchecked-@role.Name" checked>
-                            <input id="@role.Name" type="checkbox" name="idList" value="@role.Name" onclick=" if (document.getElementById('@role.Name').checked) { document.getElementById('hidden-@role.Name').disabled = true; } else { document.getElementById('hidden-@role.Name').disabled = false; document.getElementById('hidden-@role.Name').checked }">
-                        }
-                        <span class="check"></span>
-                    </label>
-                </li>
-            }
-        </ul>
-    </div>
-    @Html.HiddenFor(m => m.User.Id)
-    @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-primary">Save</button>
-}
 
+                @Html.ValidationSummary(true, "please fix following errors")
+
+                <div class="jumbotron">
+                    <h1>@Model.User.UserName</h1>
+                </div>
+                <div class="form-group overrides">
+                    <ul>
+                        @foreach (var role in Model.RolesList)
+                        {
+                            <li>
+                                <label>
+                                    @role.Name
+                                    @if (Model.CurrentUserRoles.Contains(role.Name))
+                                    {
+                                        <input id="hidden-@role.Name" type="hidden" name="idList" value="unchecked-@role.Name" disabled>
+                                        <input id="@role.Name" type="checkbox" name="idList" value="@role.Name" checked onclick=" if (document.getElementById('@role.Name').checked) { document.getElementById('hidden-@role.Name').disabled = true; } else { document.getElementById('hidden-@role.Name').disabled = false; document.getElementById('hidden-@role.Name').checked }">
+                                    }
+                                    else
+                                    {
+                                        <input id="hidden-@role.Name" type="hidden" name="idList" value="unchecked-@role.Name" checked>
+                                        <input id="@role.Name" type="checkbox" name="idList" value="@role.Name" onclick=" if (document.getElementById('@role.Name').checked) { document.getElementById('hidden-@role.Name').disabled = true; } else { document.getElementById('hidden-@role.Name').disabled = false; document.getElementById('hidden-@role.Name').checked }">
+                                    }
+                                    <span class="check"></span>
+                                </label>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                @Html.HiddenFor(m => m.User.Id)
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-primary">Save</button>
+            }
+
+        </div>
+    </div>
+</div>

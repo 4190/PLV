@@ -17,46 +17,52 @@
     }
 }
 
-
-<form asp-action="Create" enctype="multipart/form-data">
-    <div class="form-group row">
-        <label asp-for="File" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-            <div class="custom-file">
-                <input asp-for="File" class="form-control custom-file-input" />
-                <label class="custom-file-label">Choose File...</label>
-            </div>
+<div class="row">
+<div class="col-md-1"></div>
+    <div class="col-md-8">
+        <div class="plog">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <label asp-for="File" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <div class="custom-file">
+                            <input asp-for="File" class="form-control custom-file-input" />
+                            <label class="custom-file-label">Choose File...</label>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.File, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SelectedSectionGuid)
+                    @Html.DropDownListFor(m => m.SelectedSectionGuid, new SelectList(Model.SectionList, "Id", "Name"), "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SelectedSectionGuid, "", new { @class = "text-danger" })
+                </div>
+                <!-- <select class="form-control" data-val="true" data-val-required="Choose section" id="SelectedSectionGuid" name="SelectedSectionGuid"><option value=""></option>-->
+                <!--<span class="field-validation-valid text-danger" data-valmsg-for="SelectedSectionGuid" data-valmsg-replace="true"></span>-->
+                <div class="form-group">
+                    <input class="form-control" type="date" data-val="true" data-val-required="Choose date" id="DateReceived" name="DateReceived" />
+                    <span class="field-validation-valid text-danger" data-valmsg-for="DateReceived" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group">
+                </div>
+                <input type="submit" value="upload" />
+            </form>
         </div>
-        @Html.ValidationMessageFor(m => m.File, "", new { @class = "text-danger" })
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.SelectedSectionGuid)
-        @Html.DropDownListFor(m => m.SelectedSectionGuid, new SelectList(Model.SectionList, "Id", "Name"), "", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.SelectedSectionGuid, "", new { @class = "text-danger" })
-    </div>
-    <!-- <select class="form-control" data-val="true" data-val-required="Choose section" id="SelectedSectionGuid" name="SelectedSectionGuid"><option value=""></option>-->
-    <!--<span class="field-validation-valid text-danger" data-valmsg-for="SelectedSectionGuid" data-valmsg-replace="true"></span>-->
-    <div class="form-group">
-        <input class="form-control" type="date" data-val="true" data-val-required="Choose date" id="DateReceived" name="DateReceived" />
-        <span class="field-validation-valid text-danger" data-valmsg-for="DateReceived" data-valmsg-replace="true" ></span>
-    </div>
-    <div class="form-group">
-    </div>
-    <input type="submit" value="upload" />
-</form>
+</div>
 
-@section Scripts
+    @section Scripts
 {
-    <script>
-        $(document).ready(function () {
-            $('.custom-file-input').on("change", function () {
-                var fileName = $(this).val().split("\\").pop();
-                $(this).next('.custom-file-label').html(fileName);
-            })
+        <script>
+            $(document).ready(function () {
+                $('.custom-file-input').on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next('.custom-file-label').html(fileName);
+                })
 
-        });
-    </script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+            });
+        </script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
-}
+    }

@@ -5,9 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>DocSections</h1>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-8">
+        <div class="plog">
+            <h1>DocSections</h1>
 
-@foreach (var sect in Model)
-{
-    <p><a href="/Docs/DocsList/@sect.Name">@sect.Name</a></p>
-}
+            @foreach (var sect in Model)
+            {
+                <p><a href="/Docs/DocsList/@sect.Name">@sect.Name</a></p>
+            }
+        </div>
+    </div>
+</div>
