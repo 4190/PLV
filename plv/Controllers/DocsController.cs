@@ -86,6 +86,14 @@ namespace plv.Controllers
             return View(model);
         }
 
+        [Route("Docs/Details/{id}")]
+        public IActionResult Details(int id)
+        {
+            DocumentInDB doc = _context.Documents.Find(id);
+
+            return View(doc);
+        }
+
         [Route("Docs/Download/{sectionName}/{filename}")]
         public IActionResult DownloadDocument(string sectionName, string filename)
         {
