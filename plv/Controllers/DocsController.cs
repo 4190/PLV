@@ -14,6 +14,7 @@ using plv.Models;
 using plv.Data;
 using plv.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.CodeAnalysis.Differencing;
 
 namespace plv.Controllers
 {
@@ -91,6 +92,7 @@ namespace plv.Controllers
         {
             DocumentInDB doc = _context.Documents.Find(id);
 
+            
             return View(doc);
         }
 
@@ -142,6 +144,35 @@ namespace plv.Controllers
         {
             var sections = _context.Sections.ToList();
             return View(sections);
+        }
+
+        [Route("Docs/Edit/{id}")]
+        public IActionResult Edit(int id)
+        {
+            DocumentInDB doc = _context.Documents.Find(id);
+            EditDocumentViewModel viewModel = new EditDocumentViewModel
+            {
+                Document = doc,
+                Users = _context.Users.ToList()
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditDoc(EditDocumentViewModel model)
+        {
+
+
+            var docInDB = _context.Documents.Single(c => c.Id == model.Document.Id);
+            docInDB.Receiver = model.Document.Receiver;
+            docInDB.Sender = model.Document.Sender;
+            docInDB.ShortOptionalDescription = model.Document.ShortOptionalDescription;
+            docInDB.LastUser = docInDB.CurrentUser;
+            docInDB.CurrentUser = model.Document.CurrentUser;
+
+            _context.SaveChanges();
+
+            return Redirect($"Details/{model.Document.Id}");
         }
 
 #region HelperMethods
