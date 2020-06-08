@@ -14,6 +14,7 @@ using plv.Models;
 using plv.Data;
 using plv.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.CodeAnalysis.Differencing;
 
 namespace plv.Controllers
 {
@@ -78,12 +79,21 @@ namespace plv.Controllers
                     {
                         model.File.CopyTo(stream); model.Success = true;
                         model.LogMessage = "Doc added to database";
-                        SaveDocumentToDB(fileName, selectedSectionName, model.SelectedSectionGuid);
+                        SaveDocumentToDB(fileName, selectedSectionName, model);
                     }
                 }
             }
             model.SectionList = _context.Sections.ToList();
             return View(model);
+        }
+
+        [Route("Docs/Details/{id}")]
+        public IActionResult Details(int id)
+        {
+            DocumentInDB doc = _context.Documents.Find(id);
+
+            
+            return View(doc);
         }
 
         [Route("Docs/Download/{sectionName}/{filename}")]
@@ -134,6 +144,35 @@ namespace plv.Controllers
         {
             var sections = _context.Sections.ToList();
             return View(sections);
+        }
+
+        [Route("Docs/Edit/{id}")]
+        public IActionResult Edit(int id)
+        {
+            DocumentInDB doc = _context.Documents.Find(id);
+            EditDocumentViewModel viewModel = new EditDocumentViewModel
+            {
+                Document = doc,
+                Users = _context.Users.ToList()
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditDoc(EditDocumentViewModel model)
+        {
+
+
+            var docInDB = _context.Documents.Single(c => c.Id == model.Document.Id);
+            docInDB.Receiver = model.Document.Receiver;
+            docInDB.Sender = model.Document.Sender;
+            docInDB.ShortOptionalDescription = model.Document.ShortOptionalDescription;
+            docInDB.LastUser = docInDB.CurrentUser;
+            docInDB.CurrentUser = model.Document.CurrentUser;
+
+            _context.SaveChanges();
+
+            return Redirect($"Details/{model.Document.Id}");
         }
 
 #region HelperMethods
@@ -191,17 +230,24 @@ namespace plv.Controllers
                       + Path.GetExtension(fileName);
         }
 
-        private void SaveDocumentToDB(string fileName, string selectedSectionName, string selectedSectionGuid)
+        private void SaveDocumentToDB(string fileName, string selectedSectionName, UploadFileViewModel model)
         {
             DocumentInDB doc = new DocumentInDB
             {
                 FilePath = fileName,
-                Section = selectedSectionName
+                Section = selectedSectionName,
+                AddedBy = User.Identity.Name,
+                CurrentUser = User.Identity.Name,
+                Receiver = model.Receiver,
+                Sender = model.Sender,
+                ShortOptionalDescription = model.ShortOptionalDescription,
+                DateAdded = DateTime.Now,
+                DateReceived = model.DateReceived
             };
             DocumentsSection docSection = new DocumentsSection
             {
                 DocumentInDB = doc,
-                Section = _context.Sections.Find(selectedSectionGuid)
+                Section = _context.Sections.Find(model.SelectedSectionGuid)
             };
             _context.Documents.Add(doc);
             _context.DocumentsSections.Add(docSection);

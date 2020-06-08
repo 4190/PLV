@@ -1,0 +1,40 @@
+﻿@model plv.ViewModels.EditDocumentViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("EditDoc", "Docs"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Document.Receiver)
+        @Html.TextBoxFor(m => m.Document.Receiver, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Document.Receiver, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Document.Sender)
+        @Html.TextBoxFor(m => m.Document.Sender, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Document.Sender, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Document.ShortOptionalDescription)
+        @Html.TextBoxFor(m => m.Document.ShortOptionalDescription, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Document.ShortOptionalDescription, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="Document_CurrentUser">Przekazano użytkownikowi: </label>
+        @Html.DropDownListFor(m => m.Document.CurrentUser, new SelectList(Model.Users, "UserName", "UserName"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Document.CurrentUser, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.HiddenFor(m => m.Document.Id)
+
+    <input type="submit" value="upload" />
+}
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

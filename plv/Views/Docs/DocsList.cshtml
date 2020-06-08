@@ -5,14 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
-    <div class="col-md-1"></div>
     <div class="col-md-8">
         <div class="plog">
             <h1>DocsList</h1>
-
             @foreach (var doc in Model)
             {
-                <p><a href="/Docs/Download/@doc.Section/@doc.FilePath"> @doc.FilePath</a></p>
+                <p><a href="/Docs/Details/@doc.Id"> @doc.FilePath</a></p>
             }
         </div>
     </div>
