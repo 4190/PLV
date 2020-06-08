@@ -78,7 +78,7 @@ namespace plv.Controllers
                     {
                         model.File.CopyTo(stream); model.Success = true;
                         model.LogMessage = "Doc added to database";
-                        SaveDocumentToDB(fileName, selectedSectionName, model.SelectedSectionGuid);
+                        SaveDocumentToDB(fileName, selectedSectionName, model);
                     }
                 }
             }
@@ -191,17 +191,24 @@ namespace plv.Controllers
                       + Path.GetExtension(fileName);
         }
 
-        private void SaveDocumentToDB(string fileName, string selectedSectionName, string selectedSectionGuid)
+        private void SaveDocumentToDB(string fileName, string selectedSectionName, UploadFileViewModel model)
         {
             DocumentInDB doc = new DocumentInDB
             {
                 FilePath = fileName,
-                Section = selectedSectionName
+                Section = selectedSectionName,
+                AddedBy = User.Identity.Name,
+                CurrentUser = User.Identity.Name,
+                Receiver = model.Receiver,
+                Sender = model.Sender,
+                ShortOptionalDescription = model.ShortOptionalDescription,
+                DateAdded = DateTime.Now,
+                DateReceived = model.DateReceived
             };
             DocumentsSection docSection = new DocumentsSection
             {
                 DocumentInDB = doc,
-                Section = _context.Sections.Find(selectedSectionGuid)
+                Section = _context.Sections.Find(model.SelectedSectionGuid)
             };
             _context.Documents.Add(doc);
             _context.DocumentsSections.Add(docSection);
