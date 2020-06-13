@@ -118,13 +118,14 @@
 
 
 /* Shrinking the sidebar from 250px to 80px and center aligining its content*/
+/*
 #sidebar.active 
 {
     min-width: 80px;
     max-width: 80px;
     text-align: center;
 }
-
+    */
 /* Toggling the sidebar header content, hide the big heading [h3] and showing the small heading [strong] and vice versa*/
 #sidebar .sidebar-header strong {
     display: none;
