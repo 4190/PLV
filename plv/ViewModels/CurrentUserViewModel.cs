@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using plv.Models;
 
-namespace plv.ViewModels
+namespace plv.ViewModels  //Home/Index.cshtml
 {
     public class CurrentUserViewModel : ApplicationUser
     {

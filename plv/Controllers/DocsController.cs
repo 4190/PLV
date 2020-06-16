@@ -92,8 +92,14 @@ namespace plv.Controllers
         {
             DocumentInDB doc = _context.Documents.Find(id);
 
-            
-            return View(doc);
+            DocumentDetailsViewModel viewModel = new DocumentDetailsViewModel
+            {
+                Document = doc,
+                IsOwnedByCurrentUser = (doc.CurrentUser == User.Identity.Name) ? true : false
+            };
+
+
+            return View(viewModel);
         }
 
         [Route("Docs/Download/{sectionName}/{filename}")]
@@ -150,10 +156,12 @@ namespace plv.Controllers
         public IActionResult Edit(int id)
         {
             DocumentInDB doc = _context.Documents.Find(id);
+
+            List<ApplicationUser> currentSectionUsers = GetCurrentSectionUsers(doc.Section);
             EditDocumentViewModel viewModel = new EditDocumentViewModel
             {
                 Document = doc,
-                Users = _context.Users.ToList()
+                Users = currentSectionUsers
             };
             return View(viewModel);
         }
@@ -199,6 +207,22 @@ namespace plv.Controllers
             var types = GetMimeTypes();
             var ext = Path.GetExtension(path).ToLowerInvariant();
             return types[ext];
+        }
+
+        private List<ApplicationUser> GetCurrentSectionUsers(string sectionName)
+        {
+            List<ApplicationUser> users = _context.Users.ToList();
+            List<ApplicationUser> currentSectionUsers = new List<ApplicationUser>();
+
+            foreach(var user in users)
+            {
+                if(_userManager.IsInRoleAsync(user, sectionName).Result)
+                {
+                    currentSectionUsers.Add(user);
+                }
+            }
+
+            return currentSectionUsers;
         }
 
         private Dictionary<string, string> GetMimeTypes()
