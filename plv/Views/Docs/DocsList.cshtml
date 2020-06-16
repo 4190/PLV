@@ -1,4 +1,4 @@
-﻿@model IEnumerable<plv.Models.DocumentInDB>
+﻿@model plv.ViewModels.DocumentListViewModel
 
 @{
     ViewData["Title"] = "DocsList";
@@ -6,8 +6,8 @@
 }
 <div class="row">
         <div class="plog">
-            <h1>DocsList</h1>
-            @foreach (var doc in Model)
+            <h1>@Model.CurrentSection</h1>
+            @foreach (var doc in Model.Documents)
             {
                 <p><a href="/Docs/Details/@doc.Id"> @doc.FilePath</a></p>
             }

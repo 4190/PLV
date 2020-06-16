@@ -141,9 +141,16 @@ namespace plv.Controllers
             {
                 return Content("you can't browse in this section");
             }
-
+            
             var docs = _context.Documents.Where(c => c.Section == $"{sectionName}").ToList();
-            return View(docs);
+
+            DocumentListViewModel viewModel = new DocumentListViewModel
+            {
+                Documents = docs,
+                CurrentSection = sectionName
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult DocSections()
