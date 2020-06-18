@@ -116,6 +116,12 @@
     flex: 9;
 }
 
+.link-image
+{
+    height: 80%;
+    width: 80%;
+}
+
 .main-content
 {
     margin-left: auto;
