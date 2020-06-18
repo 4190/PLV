@@ -18,19 +18,23 @@
     {
         <partial name="_navBar" />
     }
-    <!--
-    <div class="col-md-1">
-        <partial name="_Sidebar" />
-    </div>
-        -->
-    <div class="col-md-2 sidebar">
-        Side
-    </div>
-    <div class="container col-md-6">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+<div class="wrapper">
+        <div class="row">
+            @if (this.User.Identity.IsAuthenticated)
+            {
+                <div class="col-md-1 flex-1">
+                    <nav id="sidebar" class="active">
+                        <partial name="_Sidebar" />
+                    </nav>
+                </div>
+            }
+            <div class="col-md-8 main-content flex-9">
+                <main role="main" class="pb-3  mt-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+</div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
