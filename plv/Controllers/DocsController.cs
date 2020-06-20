@@ -39,6 +39,12 @@ namespace plv.Controllers
         [Route("Docs/Create/{sectionName}")]
         public IActionResult Create(string sectionName)
         {
+            ApplicationUser currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            if(!_userManager.IsInRoleAsync(currentUser, sectionName + "-upload").Result)
+            {
+                return RedirectToAction("DocSections");
+            }
+
             UploadFileViewModel viewModel = new UploadFileViewModel()
             {
                 Section = sectionName
