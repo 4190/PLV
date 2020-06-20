@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 @using (Html.BeginForm("EditDoc", "Docs"))
 {
     <div class="form-group">
@@ -16,6 +17,20 @@
         @Html.LabelFor(m => m.Document.Sender)
         @Html.TextBoxFor(m => m.Document.Sender, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Document.Sender, "", new { @class = "text-danger" })
+    </div>
+    <div class="custom-control custom-switch mb-3">
+        <input type="checkbox" class="custom-control-input" id="switch">
+        <label class="custom-control-label" for="switchType">Wychodzące/Przychodzące</label>
+    </div>
+
+    <div class="form-group">
+        <label for="Document_DateReceived">Data otrzymania: </label>
+        <input class="form-control" disabled type="date" data-val="true" value="@Model.Document.DateReceived.Year-@Model.Document.DateReceived.Month-@Model.Document.DateReceived.Day" data-val-required="Choose date" id="Document_DateReceived" name="Document.DateReceived" />
+        <span class="field-validation-valid text-danger" data-valmsg-for="Document.DateReceived" data-valmsg-replace="true"></span>
+    </div>
+    <div class="custom-control custom-switch mb-3">
+        <input type="checkbox" class="custom-control-input" id="switch">
+        <label class="custom-control-label" for="switch">Change date received</label>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Document.ShortOptionalDescription)
@@ -35,6 +50,28 @@
 
 @section Scripts
 {
+    <script>
+        $("#switch").click(function () {
+            if ($("#switch").prop("checked") == true) {
+                $("#Document_DateReceived").prop("disabled", false)
+            }
+            else {
+                $("#Document_DateReceived").prop("disabled", true)
+            }
+        });
+
+        $("#switchType").click(function () {
+            if ($("#switchType").prop("checked") == true) {
+                $("#Document_Sender").prop("disabled", false);
+                $("#Document_Receiver").prop("disabled", true);
+            }
+            else {
+                $("#Document_Sender").prop("disabled", true);
+                $("#Document_Receiver").prop("disabled", false);
+            }
+        });
+
+    </script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }

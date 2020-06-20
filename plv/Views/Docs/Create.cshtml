@@ -42,6 +42,10 @@
         @Html.TextBoxFor(m => m.Sender, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Sender, "", new { @class = "text-danger" })
     </div>
+    <div class="custom-control custom-switch mb-3">
+        <input type="checkbox" class="custom-control-input" id="switch">
+        <label class="custom-control-label" for="switch">Wychodzące/Przychodzące</label>
+    </div>
     <div class="form-group">
         @Html.LabelFor(m => m.ShortOptionalDescription)
         @Html.TextBoxFor(m => m.ShortOptionalDescription, "", new { @class = "form-control" })
@@ -55,11 +59,24 @@
 {
     <script>
         $(document).ready(function () {
+            $("#Sender").prop("disabled", true);
             $('.custom-file-input').on("change", function () {
                 var fileName = $(this).val().split("\\").pop();
                 $(this).next('.custom-file-label').html(fileName);
             })
         });
+
+        $("#switch").click(function () {
+            if ($("#switch").prop("checked") == true) {
+                $("#Sender").prop("disabled", false);
+                $("#Receiver").prop("disabled", true);
+            }
+            else {
+                $("#Sender").prop("disabled", true);
+                $("#Receiver").prop("disabled", false);
+            }
+        });
+
     </script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

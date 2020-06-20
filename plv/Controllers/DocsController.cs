@@ -79,13 +79,21 @@ namespace plv.Controllers
                 {
                     using (var stream = new FileStream(savePath, FileMode.Create))
                     {
+                        if(model.Sender == null)
+                        {
+                            model.Sender = "";
+                        }
+                        else if(model.Receiver == null)
+                        {
+                            model.Receiver = "";
+                        }
                         model.File.CopyTo(stream); model.Success = true;
                         model.LogMessage = "Doc added to database";
                         SaveDocumentToDB(fileName, selectedSectionName, model);
                     }
                 }
             }
-            return View("Create/"+selectedSectionName, model);
+            return View("Create", model);
         }
 
         [Route("Docs/Details/{id}")]
@@ -143,7 +151,7 @@ namespace plv.Controllers
                 return Content("you can't browse in this section");
             }
             
-            var docs = _context.Documents.Where(c => c.Section == $"{sectionName}").ToList();
+            List<DocumentInDB> docs = _context.Documents.Where(c => c.Section == $"{sectionName}").ToList();
 
             DocumentListViewModel viewModel = new DocumentListViewModel
             {
@@ -180,11 +188,22 @@ namespace plv.Controllers
 
 
             var docInDB = _context.Documents.Single(c => c.Id == model.Document.Id);
-            docInDB.Receiver = model.Document.Receiver;
-            docInDB.Sender = model.Document.Sender;
+            if(!String.IsNullOrEmpty(model.Document.Receiver))
+            {
+                docInDB.Receiver = model.Document.Receiver;
+            }
+            if (!String.IsNullOrEmpty(model.Document.Sender))
+            {
+                docInDB.Sender = model.Document.Sender;
+            }   
             docInDB.ShortOptionalDescription = model.Document.ShortOptionalDescription;
             docInDB.LastUser = docInDB.CurrentUser;
             docInDB.CurrentUser = model.Document.CurrentUser;
+            if(model.Document.DateReceived != null)
+            {
+                docInDB.DateReceived = model.Document.DateReceived;
+            }
+            
 
             _context.SaveChanges();
 
