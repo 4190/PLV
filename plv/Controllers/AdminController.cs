@@ -29,6 +29,7 @@ namespace plv.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateSectionWithRole(Section section)
         {
             if (String.IsNullOrWhiteSpace(section.Id))
@@ -46,6 +47,7 @@ namespace plv.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteSectionAndSectionRole()
         {
             string sectionId = Request.Form["Sect.Id"];

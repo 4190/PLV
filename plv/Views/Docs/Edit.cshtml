@@ -44,6 +44,7 @@
     </div>
 
     @Html.HiddenFor(m => m.Document.Id)
+    @Html.AntiForgeryToken()
 
     <input type="submit" value="upload" />
 }

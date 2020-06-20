@@ -189,6 +189,7 @@ namespace plv.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditDoc(EditDocumentViewModel model)
         {
 

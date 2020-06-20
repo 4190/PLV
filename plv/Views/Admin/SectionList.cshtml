@@ -24,6 +24,8 @@
                                 @using (Html.BeginForm("DeleteSectionAndSectionRole", "Admin"))
                                 {
                                     <input id="Sect_Id" name="Sect.Id" type="hidden" value="@sect.Id">
+
+                                    @Html.AntiForgeryToken()
                                     <button type="submit" class="dropdown-item btn btn-primary">Delete</button>
                                 }
                             </div>
