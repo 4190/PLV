@@ -1,35 +1,35 @@
-.wrapper 
-{
-    width: 99%;
-}
-.plog 
-{
-    margin-left: auto;
-    margin-right: auto;
-    color: black;
-    background-color: white;
-    padding: 50px;
-    border-radius: 20px;
-
-}
-.pad
-{
-    padding-top: 150px;
-}
-.ods
-{
-    height: 80px;
-}
 .blog 
 {
     color: black;
     background-color: #e8f0fe;
 }
 
-.accform
+.flex-1 
 {
-    margin: auto;
-    margin-top: 50px;
+    flex: 1;
+}
+
+.flex-9 
+{
+    flex: 9;
+}
+
+
+.link-image 
+{
+    height: 50%;
+    width: 50%;
+}
+
+.main-content 
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ods 
+{
+    height: 80px;
 }
 
 .overrides .overrides ul 
@@ -63,9 +63,10 @@
 .overrides ul li label 
 {
     font-size: 18px;
-    color: #fff;
+    color: #000;
     padding-left: 30px;
     cursor: pointer;
+    margin-bottom: 5px;
 }
 
 .overrides ul li label input 
@@ -107,25 +108,20 @@
     transform: translateX(0);
 }
 
-.flex-1
-{
-    flex: 1;
-}
-.flex-9
-{
-    flex: 9;
-}
 
-.link-image
-{
-    height: 80%;
-    width: 80%;
-}
-
-.main-content
+.plog 
 {
     margin-left: auto;
     margin-right: auto;
+    color: black;
+    background-color: white;
+    padding: 50px;
+    border-radius: 20px;
+}
+
+.wrapper 
+{
+    width: 95%;
 }
 
 #sidebar 

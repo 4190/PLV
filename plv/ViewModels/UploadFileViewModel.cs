@@ -33,9 +33,7 @@ namespace plv.ViewModels
         public DateTime DateReceived { get; set; }
 
 
-        public List<Section> SectionList { get; set; }
-        [Display(Name = "Section: ")]
-        [Required(ErrorMessage = "Choose section")]
+        public string Section { get; set; }
         public string SelectedSectionGuid { get; set; }
     }
 }

@@ -36,20 +36,22 @@ namespace plv.Controllers
             _context.Dispose();
         }
 
-        public IActionResult Create()
+        [Route("Docs/Create/{sectionName}")]
+        public IActionResult Create(string sectionName)
         {
             UploadFileViewModel viewModel = new UploadFileViewModel()
             {
-                SectionList = _context.Sections.ToList()
+                Section = sectionName
             };
             return View(viewModel);
         }
 
 
         [HttpPost]
-        public IActionResult Create(UploadFileViewModel model)
+        [ValidateAntiForgeryToken]
+        public IActionResult Add(UploadFileViewModel model)
         {
-            string selectedSectionName = _context.Sections.Find(model.SelectedSectionGuid).Name;
+            string selectedSectionName = model.Section;
             if (String.IsNullOrEmpty(selectedSectionName))
             {
                 model.Success = false;
@@ -83,8 +85,7 @@ namespace plv.Controllers
                     }
                 }
             }
-            model.SectionList = _context.Sections.ToList();
-            return View(model);
+            return View("Create/"+selectedSectionName, model);
         }
 
         [Route("Docs/Details/{id}")]

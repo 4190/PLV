@@ -6,12 +6,15 @@
 }
 
 <div class="row">
-        <div class="plog">
-            <h1>DocSections</h1>
+    <div class="plog">
+        <h1>DocSections</h1>
 
-            @foreach (var sect in Model)
+        @foreach (var sect in Model)
+        {
+            if (this.User.IsInRole(sect.Name))
             {
                 <p><a href="/Docs/DocsList/@sect.Name">@sect.Name</a></p>
             }
-        </div>
+        }
+    </div>
 </div>

@@ -14,7 +14,7 @@
         <p class="text-danger">@Model.LogMessage</p>
     }
 }
-<form asp-action="Create" enctype="multipart/form-data">
+<form asp-action="Add" enctype="multipart/form-data">
     <div class="form-group row">
         <label asp-for="File" class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
@@ -24,11 +24,6 @@
             </div>
         </div>
         @Html.ValidationMessageFor(m => m.File, "", new { @class = "text-danger" })
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.SelectedSectionGuid)
-        @Html.DropDownListFor(m => m.SelectedSectionGuid, new SelectList(Model.SectionList, "Id", "Name"), "", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.SelectedSectionGuid, "", new { @class = "text-danger" })
     </div>
     <!-- <select class="form-control" data-val="true" data-val-required="Choose section" id="SelectedSectionGuid" name="SelectedSectionGuid"><option value=""></option>-->
     <!--<span class="field-validation-valid text-danger" data-valmsg-for="SelectedSectionGuid" data-valmsg-replace="true"></span>-->
@@ -51,6 +46,9 @@
         @Html.LabelFor(m => m.ShortOptionalDescription)
         @Html.TextBoxFor(m => m.ShortOptionalDescription, "", new { @class = "form-control" })
     </div>
+
+    @Html.HiddenFor(m => m.Section)
+    @Html.AntiForgeryToken()
     <input type="submit" value="upload" />
 </form>
 @section Scripts
