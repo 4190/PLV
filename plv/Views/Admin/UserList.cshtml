@@ -7,34 +7,35 @@
 
     <div class="plog col-md-6">
         <h1 class="display-4 text-center emboss">UserList</h1>
-        <!-- pola w bazie danych usera-
-        Id
-        UserName
-        NormalizedUserName
-        Email
-        NormalizedEmail
-        EmailConfirmed
-        PasswordHash
-        SecurityStamp
-        ConcurencyStamp
-        PhoneNumber
-        PhoneNumberConfirmed
-        TwoFactorEnabled
-        LockoutEnd
-        LockoutEnabled
-        AccessFailedCount
-    -->
+        <table class="table table-hover">
+            <thead>
+                <tr> <!-- kolor czcionki zmienic w headingach bo sa biale na bialym tle-->
+                    <th scope="col">Type</th>
+                    <th scope="col">Column heading</th>
+                    <th scope="col">Column heading</th>
+                    <th scope="col">Column heading</th>
+                </tr>
+            </thead>
+            <tbody>
 
-
-        @foreach (var user in Model)
-        {
-            <a href="/Admin/ManageUser/@user.Id">
-                
-                <p>
-                    <img src="~/images/user.svg" />
-                    @user.UserName
-                </p>
-            </a>
-        }
-
+                @foreach (var user in Model)
+                {
+                    
+                        <tr class="table-info">
+                            <th scope="row">
+                                <p>
+                                    <a href="/Admin/ManageUser/@user.Id">
+                                        <img src="~/images/user.svg" />
+                                        @user.UserName
+                                    </a>
+                                </p>
+                            </th>
+                            <td></td>
+                            <td>Column content</td>
+                            <td>Column content</td>
+                        </tr>
+                    
+                }
+            </tbody>
+        </table>
     </div>
