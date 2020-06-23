@@ -3,8 +3,7 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="col-md-3 ml-auto mr-auto">
-    <div class="plog">
+    <div class="plog col-md-3">
         <section>
             <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
                 <h2>@ViewData["Title"]</h2>
@@ -31,7 +30,7 @@
             </form>
         </section>
     </div>
-</div>
+
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

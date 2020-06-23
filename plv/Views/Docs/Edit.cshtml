@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="col-md-6 ml-auto mr-auto">
-        <div class="plog">
+
+        <div class="plog col-md-6">
             @using (Html.BeginForm("EditDoc", "Docs"))
             {
                 <div class="form-group">
@@ -50,7 +50,7 @@
                 <input type="submit" value="upload" />
             }
         </div>
-    </div>
+
             @section Scripts
 {
                 <script>

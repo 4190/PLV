@@ -3,8 +3,8 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="col-md-6 ml-auto mr-auto">
-    <div class="plog">
+
+    <div class="plog col-md-6">
         @if (Model.LogMessage != null)
         {
             @if (Model.Success == true)
@@ -59,7 +59,7 @@
             <div><input class="button button2" type="submit" value="Upload" /></div>
         </form>
     </div>
-</div>
+
 @section Scripts
 {
     <script>
