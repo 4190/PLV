@@ -4,13 +4,13 @@
     ViewData["Title"] = "ManageRoles";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-        <div class="plog">
-            <h1>ManageRoles</h1>
+<div class="col-md-6 ml-auto mr-auto">
+    <div class="plog">
+        <h1 class="display-4 text-center emboss">ManageRoles</h1>
 
-            @foreach (var role in Model.Role)
-            {
-                <p><a href="/Admin/ManageRole/@role.Id">@role.Name</a></p>
-            }
-        </div>
+        @foreach (var role in Model.Role)
+        {
+            <p><a href="/Admin/ManageRole/@role.Id">@role.Name</a></p>
+        }
+    </div>
 </div>

@@ -18,31 +18,30 @@
     {
         <partial name="_navBar" />
     }
-<div class="wrapper">
-    <div class="row">
-        @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
-        {
-            <div class="col-md-1 flex-1">
-                <nav id="sidebar" class="active">
-                    <partial name="_AdminSidebar" />
-                </nav>
-            </div>
-        }
-        else if (this.User.Identity.IsAuthenticated && !this.User.IsInRole("Admin"))
-        {
-            <div class="col-md-1 flex-1">
-                <nav id="sidebar" class="active">
-                    <partial name="_Sidebar" />
-                </nav>
-            </div>
-        }
-        <div class="col-md-8 main-content flex-9">
-            <main role="main" class="pb-3  mt-3">
+
+
+    @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
+    {
+            <nav id="sidebar" class="active">
+                <partial name="_AdminSidebar" />
+            </nav>
+    }
+    else if (this.User.Identity.IsAuthenticated && !this.User.IsInRole("Admin"))
+    {
+            <nav id="sidebar" class="active">
+                <partial name="_Sidebar" />
+            </nav>
+    }
+    <div class="main-content">
+        <main role="main">
+            <div class="row">
                 @RenderBody()
-            </main>
-        </div>
+            </div>
+
+        </main>
     </div>
-</div>
+
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

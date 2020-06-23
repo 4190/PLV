@@ -5,17 +5,19 @@
 }
 
 
-<div class="plog">
-    <div class="text-center">
-        <h1 class="display-4">Welcome @Model.UserName</h1>
-    </div>
-    @if (Model.Roles != null)
-    {
-        <h2>Your user roles</h2>
-        @foreach (var role in Model.Roles)
+<div class="col-md-6 ml-auto mr-auto">
+    <div class="plog">
+        <div class="text-center">
+            <h1 class="display-4 emboss">Welcome @Model.UserName</h1>
+        </div>
+        @if (Model.Roles != null)
         {
-            <p>@role</p>
+            <h2>Your user roles</h2>
+            @foreach (var role in Model.Roles)
+            {
+                <p>@role</p>
+            }
         }
-    }
-</div>
 
+    </div>
+</div>

@@ -5,15 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
+<div class="col-md-6 ml-auto mr-auto">
     <div class="plog">
-        <h1>DocSections</h1>
+        <h1 class="display-4 text-center emboss">DocSections</h1>
 
         @foreach (var sect in Model)
         {
             if (this.User.IsInRole(sect.Name))
             {
-                <p><a href="/Docs/DocsList/@sect.Name">@sect.Name</a></p>
+                <a href="/Docs/DocsList/@sect.Name"><p class="clikp">@sect.Name</p></a>
             }
         }
     </div>

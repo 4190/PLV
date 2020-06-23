@@ -4,19 +4,20 @@
     ViewData["Title"] = "NewSection";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-        <div class="plog">
-            <h1>New Section</h1>
+<div class="col-md-6 ml-auto mr-auto">
+    <div class="plog">
+        <h1 class="display-4 text-center emboss">New Section</h1>
 
-            @using (Html.BeginForm("CreateSectionWithRole", "Admin"))
-            {
-                @Html.LabelFor(m => m.Name)
-                @Html.TextBoxFor(m => m.Name)
-                @Html.ValidationMessageFor(m => m.Name)
+        @using (Html.BeginForm("CreateSectionWithRole", "Admin"))
+        {
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
 
-                @Html.HiddenFor(m => m.Id)
-                @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-primary">Save</button>
-            }
-        </div>
+            @Html.HiddenFor(m => m.Id)
+            @Html.AntiForgeryToken()
+
+        <div><button type="submit" class="button button2">Save</button></div>
+        }
+    </div>
 </div>

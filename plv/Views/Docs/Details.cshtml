@@ -3,37 +3,39 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="col-md-6 ml-auto mr-auto">
+    <div class="plog">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">@Model.Document.FilePath</h4>
+                @if (!String.IsNullOrEmpty(Model.Document.Receiver))
+                {
+                    <h6 class="card-subtitle mb-2 text-muted">Wychodzące</h6>
+                }
+                else
+                {
+                    <h6 class="card-subtitle mb-2 text-muted">Przychodzące</h6>
+                }
 
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">@Model.Document.FilePath</h4>
-        @if (!String.IsNullOrEmpty(Model.Document.Receiver))
-        {
-            <h6 class="card-subtitle mb-2 text-muted">Wychodzące</h6>
-        }
-        else
-        {
-            <h6 class="card-subtitle mb-2 text-muted">Przychodzące</h6>
-        }
-        
-        <p class="card-text">Otrzymano: @Model.Document.DateReceived.ToShortDateString()</p>
-        @if (!String.IsNullOrEmpty(Model.Document.Receiver))
-        {
-            <p class="card-text">Odbiorca: @Model.Document.Receiver</p>
-        }
-        else
-        {
-            <p class="card-text">Nadawca: @Model.Document.Sender</p>
-        }
-        <p class="card-text">@Model.Document.ShortOptionalDescription</p>
+                <p class="card-text">Otrzymano: @Model.Document.DateReceived.ToShortDateString()</p>
+                @if (!String.IsNullOrEmpty(Model.Document.Receiver))
+                {
+                    <p class="card-text">Odbiorca: @Model.Document.Receiver</p>
+                }
+                else
+                {
+                    <p class="card-text">Nadawca: @Model.Document.Sender</p>
+                }
+                <p class="card-text">@Model.Document.ShortOptionalDescription</p>
 
 
-        <a href="/Docs/Download/@Model.Document.Section/@Model.Document.FilePath" class="card-link">Downloads</a>
-        @if (Model.IsOwnedByCurrentUser)
-        {
-            <a href="/Docs/Edit/@Model.Document.Id" class="card-link">Edit</a>
-        }
+                <a href="/Docs/Download/@Model.Document.Section/@Model.Document.FilePath" class="card-link">Downloads</a>
+                @if (Model.IsOwnedByCurrentUser)
+                {
+                    <a href="/Docs/Edit/@Model.Document.Id" class="card-link">Edit</a>
+                }
+            </div>
+        </div>
     </div>
 </div>
-
 

@@ -3,40 +3,35 @@
     ViewData["Title"] = "Register";
 }
 
-    <div class="row">
-        <div class="col-md-6 accform">
-            <div class="plog">
-                <div>
-                    <section>
-                        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-                            <h2>@ViewData["Title"]</h2>
-                            <h4>Create a new account.</h4>
-                            <hr />
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                            <div class="form-group">
-                                <label asp-for="Email"></label>
-                                <input asp-for="Email" class="form-control blog" />
-                                <span asp-validation-for="Email" class="text-danger "></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Password"></label>
-                                <input asp-for="Password" class="form-control blog" />
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="ConfirmPassword"></label>
-                                <input asp-for="ConfirmPassword" class="form-control blog" />
-                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                            </div>
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-default blog">Register</button>
-                        </form>
-
-                    </section>
+<div class="col-md-3 ml-auto mr-auto">
+    <div class="plog">
+        <section>
+            <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                <h2>@ViewData["Title"]</h2>
+                <h4>Create a new account.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control blog" />
+                    <span asp-validation-for="Email" class="text-danger "></span>
                 </div>
-            </div>
-        </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control blog" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control blog" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-default blog">Register</button>
+            </form>
+        </section>
     </div>
-                        @section Scripts {
-                            @await Html.PartialAsync("_ValidationScriptsPartial")
-                        }
+</div>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

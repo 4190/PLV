@@ -4,32 +4,38 @@
     ViewData["Title"] = "UserList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-        <div class="plog">
-            <h1>UserList</h1>
-            <!-- pola w bazie danych usera-
-                Id
-                UserName
-                NormalizedUserName
-                Email
-                NormalizedEmail
-                EmailConfirmed
-                PasswordHash
-                SecurityStamp
-                ConcurencyStamp
-                PhoneNumber
-                PhoneNumberConfirmed
-                TwoFactorEnabled
-                LockoutEnd
-                LockoutEnabled
-                AccessFailedCount
-            -->
+<div class="col-md-6 ml-auto mr-auto">
+    <div class="plog">
+        <h1 class="display-4 text-center emboss">UserList</h1>
+        <!-- pola w bazie danych usera-
+        Id
+        UserName
+        NormalizedUserName
+        Email
+        NormalizedEmail
+        EmailConfirmed
+        PasswordHash
+        SecurityStamp
+        ConcurencyStamp
+        PhoneNumber
+        PhoneNumberConfirmed
+        TwoFactorEnabled
+        LockoutEnd
+        LockoutEnabled
+        AccessFailedCount
+    -->
 
 
-            @foreach (var user in Model)
-            {
-                <p><a href="/Admin/ManageUser/@user.Id">@user.UserName</a></p>
-            }
+        @foreach (var user in Model)
+        {
+            <a href="/Admin/ManageUser/@user.Id">
+                
+                <p>
+                    <img src="~/images/user.svg" />
+                    @user.UserName
+                </p>
+            </a>
+        }
 
-        </div>
+    </div>
 </div>

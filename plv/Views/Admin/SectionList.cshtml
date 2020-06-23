@@ -4,36 +4,38 @@
     ViewData["Title"] = "SectionList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-        <div class="plog">
-            <h1>SectionList</h1>
+<div class="col-md-6 ml-auto mr-auto">
+    <div class="plog">
+        <h1 class="display-4 text-center emboss">SectionList</h1>
 
-            @if (Model.SectionList.Count == 0)
-            {
-                <p>There are no sections created yet.</p>
-                <p>Click <a href="NewSection">here</a> to create a new one.</p>
-            }
-            else
-            {
-                <ul class="nav nav-pills flex-column">
-                    @foreach (var sect in Model.SectionList)
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@sect.Name</a>
-                            <div class="dropdown-menu" style="">
-                                @using (Html.BeginForm("DeleteSectionAndSectionRole", "Admin"))
-                                {
-                                    <input id="Sect_Id" name="Sect.Id" type="hidden" value="@sect.Id">
+        @if (Model.SectionList.Count == 0)
+        {
+            <p>There are no sections created yet.</p>
+            <p>Click <a href="NewSection">here</a> to create a new one.</p>
+        }
+        else
+        {
+            <ul class="nav nav-pills flex-column">
+                @foreach (var sect in Model.SectionList)
+                {
 
-                                    @Html.AntiForgeryToken()
-                                    <button type="submit" class="dropdown-item btn btn-primary">Delete</button>
-                                }
-                            </div>
-                        </li>
-                    }
-                </ul>
-                <p><a href="NewSection">Add</a> new section</p>
-            }
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@sect.Name</a>
+                        <div class="dropdown-menu">
+                            @using (Html.BeginForm("DeleteSectionAndSectionRole", "Admin"))
+                            {
+                                <input id="Sect_Id" name="Sect.Id" type="hidden" value="@sect.Id">
 
-        </div>
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="dropdown-item">Delete</button>
+                            }
+                        </div>
+                    </li>
+
+                }
+            </ul>
+            <br><a href="NewSection"><p>Add new section</p></a>
+        }
+
+    </div>
 </div>
