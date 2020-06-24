@@ -22,16 +22,16 @@
                     {
                         <li>
                             <label>
-                                @role.Name
-                                @if (Model.CurrentUserRoles.Contains(role.Name))
+                                @role
+                                @if (Model.CurrentUserRoles.Contains(role))
                                 {
-                                    <input id="hidden-@role.Name" type="hidden" name="idList" value="unchecked-@role.Name" disabled>
-                                    <input id="@role.Name" type="checkbox" name="idList" value="@role.Name" checked onclick=" if (document.getElementById('@role.Name').checked) { document.getElementById('hidden-@role.Name').disabled = true; } else { document.getElementById('hidden-@role.Name').disabled = false; document.getElementById('hidden-@role.Name').checked }">
+                                    <input id="hidden-@role" type="hidden" name="idList" value="unchecked-@role" disabled>
+                                    <input id="@role" type="checkbox" name="idList" value="@role" checked onclick=" if (document.getElementById('@role').checked) { document.getElementById('hidden-@role').disabled = true; } else { document.getElementById('hidden-@role').disabled = false; document.getElementById('hidden-@role').checked }">
                                 }
                                 else
                                 {
-                                    <input id="hidden-@role.Name" type="hidden" name="idList" value="unchecked-@role.Name" checked>
-                                    <input id="@role.Name" type="checkbox" name="idList" value="@role.Name" onclick=" if (document.getElementById('@role.Name').checked) { document.getElementById('hidden-@role.Name').disabled = true; } else { document.getElementById('hidden-@role.Name').disabled = false; document.getElementById('hidden-@role.Name').checked }">
+                                    <input id="hidden-@role" type="hidden" name="idList" value="unchecked-@role" checked>
+                                    <input id="@role" type="checkbox" name="idList" value="@role" onclick=" if (document.getElementById('@role').checked) { document.getElementById('hidden-@role').disabled = true; } else { document.getElementById('hidden-@role').disabled = false; document.getElementById('hidden-@role').checked }">
                                 }
                                 <span class="check"></span>
                             </label>

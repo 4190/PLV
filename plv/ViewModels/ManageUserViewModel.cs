@@ -11,6 +11,6 @@ namespace plv.ViewModels
     {
         public ApplicationUser User { get; set; }
         public List<string> CurrentUserRoles { get; set; }
-        public IEnumerable<IdentityRole> RolesList { get; set; }
+        public List<string> RolesList { get; set; }
     }
 }

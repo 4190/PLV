@@ -99,10 +99,14 @@ namespace plv.Controllers
         public IActionResult ManageUser(string id)
         {
             var selectedUser = _userManager.FindByIdAsync(id).Result;
+            var roles = _roleManager.Roles.Select(u => u.Name).ToList();
+
+            var sortedRoles = ReturnSortedListOfRoles(roles); //set Admin and User first on list
+
             ManageUserViewModel viewModel = new ManageUserViewModel
             {
                 User = selectedUser,
-                RolesList = _roleManager.Roles.ToList(),
+                RolesList = sortedRoles,
                 CurrentUserRoles = _userManager.GetRolesAsync(selectedUser).Result.ToList()
             };
             return View(viewModel);
@@ -138,6 +142,18 @@ namespace plv.Controllers
         }
 
         #region HelperMethods
+
+        private List<string> ReturnSortedListOfRoles(List<string> roles) //set Admin and User first on list
+        {
+            roles.Sort();
+            roles.Remove("Admin");
+            roles.Remove("User");
+            roles.Insert(0, "Admin");
+            roles.Insert(1, "User");
+
+            return roles;
+        }
+
         private Dictionary<string, List<string>> ReturnListOfRolesToAddAndRemove(string[] rolesFromFormList)
         {
             List<string> rolesToRemoveList = new List<string>();
