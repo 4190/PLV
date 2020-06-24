@@ -146,6 +146,7 @@ body
 {
     border-color: #2b6fa2;
     border-radius: 5px;
+    /*border: 3px;*/
 }
 
 
@@ -277,7 +278,6 @@ body
 
 .button 
 {
-    background-color: #4CAF50; /* Green */
     border: none;
     border-radius: 5px;
     color: white;
@@ -291,18 +291,58 @@ body
     cursor: pointer;
 }
 
-
-
-.button2 
+.buttonorg
 {
     background-color: white;
     color: black;
     border: 2px solid #2b6fa2;
 }
 
-
-
-.button2:hover {
+.buttonorg:hover {
     background-color: #2b6fa2;
     color: white;
+}
+
+
+.tableuser {
+    color: black;
+    background-color: white;
+    width:100%;
+}
+
+.tableuser p
+{
+    font-size:1vw;
+    background: none ;
+}
+
+.tableuser thead tr
+{
+    border-bottom: 2px solid black;
+}
+.tableuser thead tr p
+{
+    color:black;
+}
+.tableuser tbody tr
+{
+    background-color: #2b6fa2;
+    color: gainsboro;
+    border-bottom: 2px solid black;
+}
+.tableuser tbody tr:hover p
+{
+    color: #2b6fa2;
+}
+
+.tableuser tbody tr:hover {
+    background-color: gainsboro;
+    cursor: pointer;
+    color: #2b6fa2;
+}
+.tableuser tbody tr:hover a
+{
+    background-color: gainsboro;
+    cursor: pointer;
+    color: #2b6fa2;
 }

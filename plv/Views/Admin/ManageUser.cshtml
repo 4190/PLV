@@ -13,7 +13,7 @@
 
             @Html.ValidationSummary(true, "please fix following errors")
 
-            <div class="jumbotron muser">
+            <div style="text-align:center;">
                 <h1>@Model.User.UserName</h1>
             </div>
             <div class="form-group overrides">
@@ -41,7 +41,7 @@
             </div>
             @Html.HiddenFor(m => m.User.Id)
             @Html.AntiForgeryToken()
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="button buttonorg">Save</button>
         }
 
     </div>

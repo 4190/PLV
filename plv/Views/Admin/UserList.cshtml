@@ -5,37 +5,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="plog col-md-6">
-        <h1 class="display-4 text-center emboss">UserList</h1>
-        <table class="table table-hover">
+<div class="plog col-md-6">
+    <h1 class="display-4 text-center emboss">UserList</h1>
+    <div class="tableuser">
+        <table>
             <thead>
-                <tr> <!-- kolor czcionki zmienic w headingach bo sa biale na bialym tle-->
-                    <th scope="col">Type</th>
-                    <th scope="col">Column heading</th>
-                    <th scope="col">Column heading</th>
-                    <th scope="col">Column heading</th>
+                <tr>
+                    <td scope="col"><p>Name User</p></td>
+                    <td scope="col"><p>Email</p></td>
+                    <td scope="col"><p>Column heading</p></td>
                 </tr>
             </thead>
-            <tbody>
 
+            <tbody>
                 @foreach (var user in Model)
                 {
-                    
-                        <tr class="table-info">
-                            <th scope="row">
-                                <p>
-                                    <a href="/Admin/ManageUser/@user.Id">
-                                        <img src="~/images/user.svg" />
-                                        @user.UserName
-                                    </a>
-                                </p>
-                            </th>
-                            <td></td>
-                            <td>Column content</td>
-                            <td>Column content</td>
-                        </tr>
-                    
+                        
+                    <tr onclick="window.location.href='/Admin/ManageUser/@user.Id'">
+                        <td>
+                            <p>
+                                <img src="~/images/user.svg" />
+                                @user.UserName
+                            </p>
+                        </td>
+                        <td>
+                            <p>Column content</p>
+                        </td>
+                        <td>
+                            <p>Column content</p>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
+</div>
