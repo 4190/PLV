@@ -192,10 +192,13 @@ namespace plv.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditDoc(EditDocumentViewModel model)
         {
-
-
+            string currentUserName = User.Identity.Name;
             var docInDB = _context.Documents.Single(c => c.Id == model.Document.Id);
-            if(!String.IsNullOrEmpty(model.Document.Receiver))
+
+            SaveDocEdits(currentUserName, docInDB, model);
+
+
+            if (!String.IsNullOrEmpty(model.Document.Receiver))
             {
                 docInDB.Receiver = model.Document.Receiver;
             }
@@ -210,8 +213,8 @@ namespace plv.Controllers
             {
                 docInDB.DateReceived = model.Document.DateReceived;
             }
-            
 
+            
             _context.SaveChanges();
 
             return Redirect($"Details/{model.Document.Id}");
@@ -286,6 +289,45 @@ namespace plv.Controllers
                       + "_"
                       + Guid.NewGuid().ToString().Substring(0, 6)
                       + Path.GetExtension(fileName);
+        }
+
+        private void SaveDocEdits(string currentUserName, 
+            DocumentInDB oldDocState, 
+            EditDocumentViewModel newDocState)
+        {
+            DocEdits edits = new DocEdits();
+
+            edits.EditedBy = currentUserName;
+            if(oldDocState.DateReceived != newDocState.Document.DateReceived)
+            {
+                edits.NewDateIssued = newDocState.Document.DateReceived;
+            }
+            if(oldDocState.CurrentUser != newDocState.Document.CurrentUser)
+            {
+                edits.PreviousUser = oldDocState.CurrentUser;
+                edits.NewUser = newDocState.Document.CurrentUser;
+            }
+            if(oldDocState.Receiver != newDocState.Document.Receiver)
+            {
+                edits.PreviousReceiver = oldDocState.Receiver;
+                edits.NewReceiver = newDocState.Document.Receiver;
+            }
+            if(oldDocState.Sender != newDocState.Document.Sender)
+            {
+                edits.PreviousSender = oldDocState.Sender;
+                edits.NewSender = newDocState.Document.Sender;
+            }
+            if(oldDocState.ShortOptionalDescription != newDocState.Document.ShortOptionalDescription)
+            {
+                edits.PreviousDescription = oldDocState.ShortOptionalDescription;
+                edits.NewDescription = newDocState.Document.ShortOptionalDescription;
+            }
+            if(edits.NewDateIssued == null)
+            {
+                edits.NewDateIssued = DateTime.MinValue;
+            }
+
+            _context.DocumentEdits.Add(edits); _context.SaveChanges();
         }
 
         private void SaveDocumentToDB(string fileName, string selectedSectionName, UploadFileViewModel model)
