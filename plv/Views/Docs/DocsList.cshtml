@@ -9,7 +9,7 @@
         <h1 class="display-4 text-center emboss">@Model.CurrentSection</h1>
         @foreach (var doc in Model.Documents)
         {
-            <p><a href="/Docs/Details/@doc.Id"> @doc.FilePath</a></p>
+            <a href="/Docs/Details/@doc.Id"> <p>@doc.FilePath</p></a>
         }
         @if (this.User.IsInRole(Model.CurrentSection + "-upload") || this.User.IsInRole("Admin"))
         {
