@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">@Model.Document.FilePath</h4>
-                @if (!String.IsNullOrEmpty(Model.Document.Receiver))
+                @if (!String.IsNullOrWhiteSpace(Model.Document.Receiver))
                 {
                     <h6 class="card-subtitle mb-2 text-muted">Wychodzące</h6>
                 }
@@ -18,7 +18,7 @@
                 }
 
                 <p class="card-text">Otrzymano: @Model.Document.DateReceived.ToShortDateString()</p>
-                @if (!String.IsNullOrEmpty(Model.Document.Receiver))
+                @if (!String.IsNullOrWhiteSpace(Model.Document.Receiver))
                 {
                     <p class="card-text">Odbiorca: @Model.Document.Receiver</p>
                 }
