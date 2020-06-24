@@ -13,6 +13,7 @@ namespace plv.Data
         public DbSet<Section> Sections { get; set; }
         public DbSet<DocumentsSection> DocumentsSections { get; set; }
         public DbSet<DocEdits> DocumentEdits { get; set; }
+        public DbSet<Downloads> Downloads { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

@@ -124,6 +124,7 @@ namespace plv.Controllers
                 return Content("filename not present");
 
             string currentUserName = User.Identity.Name;
+
             ApplicationUser currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
             if (!_userManager.IsInRoleAsync(currentUser, sectionName + "-download").Result && !_userManager.IsInRoleAsync(currentUser, "Admin").Result)
             {
@@ -139,7 +140,8 @@ namespace plv.Controllers
                     var memory = new MemoryStream();
                     using (var stream = new FileStream(path, FileMode.Open)) { stream.CopyTo(memory); }
                     memory.Position = 0;
-                    return File(memory, GetContentType(path), Path.GetFileName(path));
+                    SaveDownloadLog(currentUserName, sectionName, filename);
+                    return File(memory, GetContentType(path), Path.GetFileName(path));  
                 }
                 catch (Exception e)
                 {
@@ -209,7 +211,7 @@ namespace plv.Controllers
             docInDB.ShortOptionalDescription = model.Document.ShortOptionalDescription;
             docInDB.LastUser = docInDB.CurrentUser;
             docInDB.CurrentUser = model.Document.CurrentUser;
-            if(model.Document.DateReceived != null)
+            if(model.Document.DateReceived != null && model.Document.DateReceived != DateTime.MinValue)
             {
                 docInDB.DateReceived = model.Document.DateReceived;
             }
@@ -352,6 +354,18 @@ namespace plv.Controllers
             _context.Documents.Add(doc);
             _context.DocumentsSections.Add(docSection);
             _context.SaveChanges();
+        }
+
+        private void SaveDownloadLog(string userName, string sectionName, string fileName)
+        {
+            Downloads _ = new Downloads
+            {
+                UserName = userName,
+                SectionName = sectionName,
+                FileName = fileName
+            };
+
+            _context.Add(_); _context.SaveChanges();
         }
 #endregion
     }
