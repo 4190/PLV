@@ -222,6 +222,15 @@ namespace plv.Controllers
             return Redirect($"Details/{model.Document.Id}");
         }
 
+        [Route("Docs/EditHistory/{id}")]
+        [Authorize(Roles="Admin")]
+        public IActionResult EditHistory(int id)
+        {
+            var history = _context.DocumentEdits.Where(c => c.DocumentId == id).ToList(); ;
+
+            return View(history);
+        }
+
 #region HelperMethods
 
         private void CreateSectionDirectoryIfDoesNotExist(string sectionName)

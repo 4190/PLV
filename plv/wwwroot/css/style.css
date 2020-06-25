@@ -1,13 +1,86 @@
+table 
+{
+    min-width: 100%;
+}
+
+table td 
+{
+    border: 1px solid silver;
+    position: relative;
+    color: black;
+}
+
+table td.crossed::after 
+{
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-image: linear-gradient(to bottom right, transparent calc(50% - 1px), red, transparent calc(50% + 1px));
+}
+
+.button 
+{
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+
 .blog 
 {
     color: black;
     background-color: #e8f0fe;
 }
+
+.buttonorg 
+{
+    background-color: white;
+    color: #2b6fa2;
+    border: 2px solid #2b6fa2;
+}
+
+.buttonorg a 
+{
+    background: none;
+    color: #2b6fa2;
+}
+
+.buttonorg:hover a 
+{
+    color: gainsboro;
+}
+
+.buttonorg:hover 
+{
+    background-color: #2b6fa2;
+    color: white;
+}
+
+
+
 .colo
 {
     background-color: #2b6fa2;
     color: gainsboro;
 }
+
+.emboss 
+{
+    color: rgba(0,0,0,.6);
+    text-shadow: rgba(0,0,0,.2) 2px 6px 5px,rgba(255,255,255,.4) 0 -4px 30px;
+}
+
 .link-image 
 {
     height: 50%;
@@ -138,6 +211,13 @@ body
     font-size: 20px;
     text-decoration: none;
 }
+
+.plog .buttonorg a 
+{
+    background: none;
+    color: #2b6fa2;
+}
+
 .plog label
 {
     margin-right:20px;
@@ -148,6 +228,51 @@ body
     border-radius: 5px;
     /*border: 3px;*/
 }
+
+.table-style 
+{
+    color: black;
+    background-color: white;
+    width: 100%;
+}
+
+.table-style p 
+{
+    color: black;
+    font-size: 1vw;
+    background: none;
+}
+
+.table-style thead tr 
+{
+    border-bottom: 2px solid black;
+}
+
+.table-style thead tr p 
+{
+    color: black;
+}
+
+.table-style tbody tr 
+{
+    background-color: #2b6fa2;
+    color: black;
+    border-bottom: 2px solid black;
+}
+
+.table-style tbody tr:hover p 
+{
+    color: #2b6fa2;
+}
+
+.table-style tbody tr:hover 
+{
+    background-color: gainsboro;
+    cursor: pointer;
+    color: #2b6fa2;
+}
+
+
 
 
 #sidebar {
@@ -269,82 +394,6 @@ body
     background: transparent;
     color: #fff;
 }
-.emboss
-{
-    color: rgba(0,0,0,.6);
-    text-shadow: rgba(0,0,0,.2) 2px 6px 5px,rgba(255,255,255,.4) 0 -4px 30px;
-}
 
 
-.button 
-{
-    border: none;
-    border-radius: 5px;
-    color: white;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-}
 
-.buttonorg {
-    background-color: white;
-    color: #2b6fa2;
-    border: 2px solid #2b6fa2;
-}
-
-.buttonorg a{
-    background: none;
-    color: #2b6fa2;
-}
-
-.buttonorg:hover a{
-    color: gainsboro;
-}
-
-.buttonorg:hover {
-    background-color: #2b6fa2;
-    color: white;
-}
-
-.table-style {
-    color: black;
-    background-color: white;
-    width:100%;
-}
-
-.table-style p
-{
-    font-size:1vw;
-    background: none ;
-}
-
-.table-style thead tr
-{
-    border-bottom: 2px solid black;
-}
-.table-style thead tr p
-{
-    color:black;
-}
-.table-style tbody tr
-{
-    background-color: #2b6fa2;
-    color: gainsboro;
-    border-bottom: 2px solid black;
-}
-
-.table-style tbody tr:hover p
-{
-    color: #2b6fa2;
-}
-
-.table-style tbody tr:hover {
-    background-color: gainsboro;
-    cursor: pointer;
-    color: #2b6fa2;
-}

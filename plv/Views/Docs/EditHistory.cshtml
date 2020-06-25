@@ -1,0 +1,86 @@
+﻿@model IEnumerable<plv.Models.DocEdits>
+
+@{
+    ViewData["Title"] = "EditHistory";
+}
+
+
+<div class="plog col-md-6">
+    <h1>File Edit History</h1>
+    <div class="table-style">
+        <table id="edit-history">
+            <thead>
+                <tr>
+                    <th>Edited by</th>
+                    <th>New Date</th>
+                    <th>Previous User</th>
+                    <th>New User</th>
+                    <th>Previous Receiver</th>
+                    <th>New Receiver</th>
+                    <th>Previous Sender</th>
+                    <th>New Sender</th>
+                    <th>Time of Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var edit in Model)
+                {
+                    <tr>
+                        <td>@edit.EditedBy</td>
+                        @if (edit.NewDateIssued != DateTime.MinValue)
+                        {
+                            <td>@edit.NewDateIssued</td>
+                        }
+                        else
+                        {
+                            <td class="crossed"></td>
+                        }
+
+                        @if (!String.IsNullOrWhiteSpace(edit.NewUser))
+                        {
+                            <td>@edit.PreviousUser</td>
+                            <td>@edit.NewUser</td>
+                        }
+                        else
+                        {
+                            <td class="crossed"></td>
+                            <td class="crossed"></td>
+                        }
+
+                        @if (!String.IsNullOrWhiteSpace(edit.NewReceiver))
+                        {
+                            <td>@edit.PreviousReceiver</td>
+                            <td>@edit.NewReceiver</td>
+                        }
+                        else
+                        {
+                            <td class="crossed"></td>
+                            <td class="crossed"></td>
+                        }
+
+                        @if (!String.IsNullOrWhiteSpace(edit.NewSender))
+                        {
+                            <td>@edit.PreviousSender</td>
+                            <td>@edit.NewSender</td>
+                        }
+                        else
+                        {
+                            <td class="crossed"></td>
+                            <td class="crossed"></td>
+                        }
+                        <td>@edit.EditTime</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+                $(document).ready(function () {
+                    $('#edit-history').DataTable();
+                });
+    </script>
+}
