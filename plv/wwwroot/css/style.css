@@ -311,39 +311,39 @@ body
     color: white;
 }
 
-.tableuser {
+.table-style {
     color: black;
     background-color: white;
     width:100%;
 }
 
-.tableuser p
+.table-style p
 {
     font-size:1vw;
     background: none ;
 }
 
-.tableuser thead tr
+.table-style thead tr
 {
     border-bottom: 2px solid black;
 }
-.tableuser thead tr p
+.table-style thead tr p
 {
     color:black;
 }
-.tableuser tbody tr
+.table-style tbody tr
 {
     background-color: #2b6fa2;
     color: gainsboro;
     border-bottom: 2px solid black;
 }
 
-.tableuser tbody tr:hover p
+.table-style tbody tr:hover p
 {
     color: #2b6fa2;
 }
 
-.tableuser tbody tr:hover {
+.table-style tbody tr:hover {
     background-color: gainsboro;
     cursor: pointer;
     color: #2b6fa2;
