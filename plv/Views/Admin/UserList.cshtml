@@ -20,21 +20,30 @@
             <tbody>
                 @foreach (var user in Model)
                 {
-                        
-                    <tr onclick="window.location.href='/Admin/ManageUser/@user.Id'">
-                        <td>
+                       
+                <tr>
+                    
+                    <td>
+                        <a href="/Admin/ManageUser/@user.Id">
                             <p>
                                 <img src="~/images/user.svg" />
                                 @user.UserName
                             </p>
-                        </td>
-                        <td>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/Admin/ManageUser/@user.Id">
                             <p>Column content</p>
-                        </td>
-                        <td>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/Admin/ManageUser/@user.Id">
                             <p>Column content</p>
-                        </td>
-                    </tr>
+                        </a>
+                    </td>
+                    
+                </tr>
+                           
                 }
             </tbody>
         </table>

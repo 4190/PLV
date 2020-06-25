@@ -337,18 +337,13 @@ body
     color: gainsboro;
     border-bottom: 2px solid black;
 }
+
 .tableuser tbody tr:hover p
 {
     color: #2b6fa2;
 }
 
 .tableuser tbody tr:hover {
-    background-color: gainsboro;
-    cursor: pointer;
-    color: #2b6fa2;
-}
-.tableuser tbody tr:hover a
-{
     background-color: gainsboro;
     cursor: pointer;
     color: #2b6fa2;
