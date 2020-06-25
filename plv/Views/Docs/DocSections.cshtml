@@ -6,14 +6,26 @@
 }
 
 
-    <div class="plog col-md-6">
-        <h1 class="display-4 text-center emboss">DocSections</h1>
+<div class="plog col-md-6">
+    <h1 class="display-4 text-center emboss">DocSections</h1>
 
-        @foreach (var sect in Model)
+    @foreach (var sect in Model)
+    {
+        if (this.User.IsInRole(sect.Name))
         {
-            if (this.User.IsInRole(sect.Name))
-            {
-                <a href="/Docs/DocsList/@sect.Name"><p class="clikp">@sect.Name</p></a>
-            }
+            <a href="/Docs/DocsList/@sect.Name"><p class="clikp">@sect.Name</p></a>
         }
-    </div>
+    }
+</div>
+
+
+@*
+    @section Scripts
+    {
+        <script>
+            $(document).ready(function () {
+                $('#IdTabeli').DataTable();
+            });
+        </script>
+    }
+*@

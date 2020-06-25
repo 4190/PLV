@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min-slate.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/style.css" />
+    <<link rel="stylesheet" href="~/datatables/datatables.min.css" />
 </head>
 <body>
 
@@ -22,15 +23,15 @@
 
     @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
     {
-            <nav id="sidebar" class="active">
-                <partial name="_AdminSidebar" />
-            </nav>
+        <nav id="sidebar" class="active">
+            <partial name="_AdminSidebar" />
+        </nav>
     }
     else if (this.User.Identity.IsAuthenticated && !this.User.IsInRole("Admin"))
     {
-            <nav id="sidebar" class="active">
-                <partial name="_Sidebar" />
-            </nav>
+        <nav id="sidebar" class="active">
+            <partial name="_Sidebar" />
+        </nav>
     }
     <div class="main-content">
         <main role="main">
@@ -46,6 +47,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/datatables/datatables.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
