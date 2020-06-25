@@ -117,15 +117,6 @@ namespace plv.Controllers
             return View();
         }
 
-        public IActionResult RolesList()
-        {
-            var viewModel = new ManageRoleViewModel
-            {
-                Role = _roleManager.Roles.ToList()
-            };
-            return View(viewModel);
-        }
-
         public IActionResult SectionList()
         {
             var viewModel = new SectionListViewModel
