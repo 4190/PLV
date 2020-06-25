@@ -1,3 +1,4 @@
+
 table 
 {
     min-width: 100%;
@@ -36,12 +37,14 @@ table td.crossed::after
     cursor: pointer;
 }
 
-
-.blog 
+/*.blog*/
+:root 
 {
-    color: black;
-    background-color: #e8f0fe;
+    --pastalavista: #2b6fa2;
+    --pastalavistalight: #3587C6;
+    --tlo: gainsboro;
 }
+
 
 .buttonorg 
 {
@@ -69,9 +72,17 @@ table td.crossed::after
 
 
 
+
+body
+{
+    background-color: gainsboro;
+    width: 95%;
+}
+
+
 .colo
 {
-    background-color: #2b6fa2;
+    background-color: var(--pastalavista);
     color: gainsboro;
 }
 
@@ -93,14 +104,6 @@ table td.crossed::after
     margin-right: auto;
 }
 
-.ods 
-{
-    height: 80px;
-}
-body
-{
-    background-color: gainsboro;
-}
 .overrides .overrides ul 
 {
     margin: 0;
@@ -122,7 +125,6 @@ body
     padding: 10px 0;
     border-bottom: 1px solid rgba(0,0,0,.2);
 }
-
 
 .overrides ul li:last-child 
 {
@@ -177,7 +179,6 @@ body
     transform: translateX(0);
 }
 
-
 .plog 
 {
     margin-left: auto;
@@ -191,7 +192,7 @@ body
 
 .plog p
 {
-    background-color: #2b6fa2;
+    background-color: var(--pastalavista);
     color: gainsboro;
     font-size: 20px;
     padding: 5px;
@@ -199,15 +200,14 @@ body
 }
 .plog a
 {
-    background-color: #2b6fa2;
+    background-color: var(--pastalavista);
     color: gainsboro;
     font-size: 20px;
     text-decoration: none;
 }
 .plog a:hover p
 {
-    background-color: gainsboro;
-    color: #2b6fa2;
+    background-color: var(--pastalavistalight);
     font-size: 20px;
     text-decoration: none;
 }
@@ -224,10 +224,10 @@ body
 }
 .plog input
 {
-    border-color: #2b6fa2;
+    border-color: var(--pastalavista);
     border-radius: 5px;
-    /*border: 3px;*/
 }
+
 
 .table-style 
 {
@@ -273,8 +273,6 @@ body
 }
 
 
-
-
 #sidebar {
     position: fixed;
     height: 100vh;
@@ -284,6 +282,11 @@ body
     background: #2b6fa2;
     color: indianred;
     margin: 0;
+}
+
+#sidebar.active ul li:hover a
+{
+    background: var(--pastalavistalight);
 }
 
 @media (max-width: 568px) 
@@ -311,7 +314,6 @@ body
     font-weight: 900;
     padding: 10px 30px;
 }
-
 
 #sidebar.active 
 {
@@ -355,7 +357,6 @@ body
     transition: 0.3s;
 }
 
-
 #sidebar ul li 
 {
     font-size: 16px;
@@ -394,6 +395,127 @@ body
     background: transparent;
     color: #fff;
 }
+.emboss
+{
+    color: rgba(0,0,0,.6);
+    text-shadow: rgba(0,0,0,.2) 2px 6px 5px,rgba(255,255,255,.4) 0 -4px 30px;
+}
 
+.button 
+{
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
 
+.buttonorg {
+    background-color: white;
+    color: var(--pastalavista);
+    border: 2px solid #2b6fa2;
+}
+
+.buttonorg a{
+    background: none;
+    color: var(--pastalavista);
+}
+
+.buttonorg:hover a{
+    color: gainsboro;
+}
+
+.buttonorg:hover {
+    background-color: var(--pastalavista);
+    color: white;
+}
+/*---------------------------------------------------------------------*/
+.table-style {
+    color: black;
+    background-color: white;
+    width: 100%;
+    font-size: 1vw;
+}
+
+.table-style p
+{
+    background: none;
+    font-size: 1vw;
+}
+
+.table-style a
+{
+    font-size: 1vw;
+}
+
+.table-style thead tr
+{
+    border-bottom: 2px solid black;
+}
+
+.table-style table tbody tr td p
+{
+    color: black;
+    padding:10px;
+    margin:0;
+}
+
+.table-style thead tr p
+{
+    color:black;
+}
+.table-style tbody tr
+{
+    background-color: var(--pastalavista);
+    color: gainsboro;
+    border-bottom: 2px solid black;
+}
+
+.table-style tbody tr:hover 
+{
+    background-color: gainsboro;
+    cursor: pointer;
+    color: var(--pastalavista);
+}
+
+.table-style tbody tr:hover a 
+{
+    background-color: gainsboro;
+    cursor: pointer;
+    color: var(--pastalavista);
+}
+
+.plvlight:hover 
+{
+    background: var(--pastalavistalight);
+}
+#section 
+{
+    width: 100%;
+}
+#section thead tr th
+{
+    width: 90%;
+}
+#section tbody tr
+{
+    background-color:white;
+    cursor: auto;
+}
+#section button
+{
+    font-size:1vw;
+    padding: 1vw;
+}
+.manus
+{
+    text-align:center;
+    font-size: 1vw;
+}
 

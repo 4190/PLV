@@ -20,24 +20,18 @@
 
                 @foreach (var user in Model)
                 { 
-                <tr>
+                <tr onclick="window.location.href='/Admin/ManageUser/@user.Id'">
                     <td>
-                        <a href="/Admin/ManageUser/@user.Id">
-                            <p>
-                                <img src="~/images/user.svg" />
-                                @user.UserName
-                            </p>
-                        </a>
+                        <p>
+                            <img src="~/images/user.svg" />
+                            @user.UserName
+                        </p>
                     </td>
                     <td>
-                        <a href="/Admin/ManageUser/@user.Id">
-                            <p>Column content</p>
-                        </a>
+                        <p>Column content</p>
                     </td>
                     <td>
-                        <a href="/Admin/ManageUser/@user.Id">
-                            <p>Column content</p>
-                        </a>
+                        <p>Column content</p>
                     </td>   
                 </tr>
                 }
