@@ -20,6 +20,12 @@
     <Compile Remove="Data\Migrations\20200607013647_DocumentModelExtended.Designer.cs" />
     <Compile Remove="Data\Migrations\20200624080020_DocEditsTable.cs" />
     <Compile Remove="Data\Migrations\20200624080020_DocEditsTable.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200625074022_DocumentNameAndIdToLogTables.cs" />
+    <Compile Remove="Data\Migrations\20200625074022_DocumentNameAndIdToLogTables.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200625074749_AddedDocumentFieldsToLogTables.cs" />
+    <Compile Remove="Data\Migrations\20200625074749_AddedDocumentFieldsToLogTables.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200625075134_AddedDocumentFieldsToLogTables.cs" />
+    <Compile Remove="Data\Migrations\20200625075134_AddedDocumentFieldsToLogTables.Designer.cs" />
   </ItemGroup>
 
 

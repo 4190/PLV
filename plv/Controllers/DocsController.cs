@@ -330,6 +330,8 @@ namespace plv.Controllers
             }
 
             edits.EditTime = DateTime.Now;
+            edits.DocumentId = newDocState.Document.Id;
+            edits.DocumentName = oldDocState.FilePath;
 
             _context.DocumentEdits.Add(edits); _context.SaveChanges();
         }

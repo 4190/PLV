@@ -10,8 +10,8 @@ using plv.Data;
 namespace plv.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200625074022_DocumentNameAndIdToLogTables")]
-    partial class DocumentNameAndIdToLogTables
+    [Migration("20200625075158_AddedDocumentFieldsToDocumentEditsTable")]
+    partial class AddedDocumentFieldsToDocumentEditsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -340,12 +340,6 @@ namespace plv.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DocumentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DocumentName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DownloadTime")
                         .HasColumnType("datetime2");

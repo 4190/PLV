@@ -2,21 +2,10 @@
 
 namespace plv.Data.Migrations
 {
-    public partial class DocumentNameAndIdToLogTables : Migration
+    public partial class AddedDocumentFieldsToDocumentEditsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "DocumentId",
-                table: "Downloads",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<string>(
-                name: "DocumentName",
-                table: "Downloads",
-                nullable: true);
-
             migrationBuilder.AddColumn<int>(
                 name: "DocumentId",
                 table: "DocumentEdits",
@@ -31,14 +20,6 @@ namespace plv.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "DocumentId",
-                table: "Downloads");
-
-            migrationBuilder.DropColumn(
-                name: "DocumentName",
-                table: "Downloads");
-
             migrationBuilder.DropColumn(
                 name: "DocumentId",
                 table: "DocumentEdits");
