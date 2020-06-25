@@ -366,3 +366,26 @@ body
 {
     background: var(--pastalavistalight);
 }
+#section 
+{
+    width: 100%;
+}
+#section thead tr th
+{
+    width: 90%;
+}
+#section tbody tr
+{
+    background-color:white;
+    cursor: auto;
+}
+#section button
+{
+    font-size:1vw;
+    padding: 1vw;
+}
+.manus
+{
+    text-align:center;
+    font-size: 1vw;
+}

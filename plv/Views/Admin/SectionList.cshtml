@@ -15,25 +15,41 @@
         }
         else
         {
-            <ul class="nav nav-pills flex-column">
+            
+            
+    <div class="table-style">
+        <table id="section">
+            <thead>
+                <tr>
+                    <th scope="col"><p>Name Section</p></th>
+                    <th scope="col"><p>Action</p></th>
+                </tr>
+            </thead>
+            <tbody>
+
                 @foreach (var sect in Model.SectionList)
                 {
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@sect.Name</a>
-                        <div class="dropdown-menu">
+                    <tr>
+                        <td>
+                            <p>
+                                @sect.Name
+                            </p>
+                        </td>
+                        <td>
                             @using (Html.BeginForm("DeleteSectionAndSectionRole", "Admin"))
                             {
                                 <input id="Sect_Id" name="Sect.Id" type="hidden" value="@sect.Id">
 
                                 @Html.AntiForgeryToken()
-                                <button type="submit" class="dropdown-item">Delete</button>
+                                <button type="submit" class="button buttonorg">Delete</button>
                             }
-                        </div>
-                    </li>
-
+                        </td>
+                    </tr>
                 }
-            </ul>
+            </tbody>
+        </table>
+    </div>
+            
             <br><a href="NewSection"><p>Add new section</p></a>
         }
 
