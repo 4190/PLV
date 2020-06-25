@@ -13,7 +13,7 @@
             <table id="sections">
                 <thead>
                     <tr>
-                        <th>Section</th>
+                        <th>Section Name</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,9 +21,9 @@
                     {
                         if (this.User.IsInRole(sect.Name))
                         {
-                            <tr>
+                            <tr onclick="window.location.href='/Docs/DocsList/@sect.Name'">
                                 <td>
-                                    <a href="/Docs/DocsList/@sect.Name"><p>@sect.Name</p></a>
+                                    <p>@sect.Name</p>
                                 </td>
                             </tr>
                         }

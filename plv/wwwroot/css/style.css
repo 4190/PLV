@@ -1,11 +1,18 @@
-.blog 
+:root 
 {
-    color: black;
-    background-color: #e8f0fe;
+    --pastalavista: #2b6fa2;
+    --pastalavistalight: #3587C6;
+    --tlo: gainsboro;
 }
+
+body
+{
+    background-color: gainsboro;
+}
+
 .colo
 {
-    background-color: #2b6fa2;
+    background-color: var(--pastalavista);
     color: gainsboro;
 }
 .link-image 
@@ -20,14 +27,6 @@
     margin-right: auto;
 }
 
-.ods 
-{
-    height: 80px;
-}
-body
-{
-    background-color: gainsboro;
-}
 .overrides .overrides ul 
 {
     margin: 0;
@@ -49,7 +48,6 @@ body
     padding: 10px 0;
     border-bottom: 1px solid rgba(0,0,0,.2);
 }
-
 
 .overrides ul li:last-child 
 {
@@ -104,7 +102,6 @@ body
     transform: translateX(0);
 }
 
-
 .plog 
 {
     margin-left: auto;
@@ -118,7 +115,7 @@ body
 
 .plog p
 {
-    background-color: #2b6fa2;
+    background-color: var(--pastalavista);
     color: gainsboro;
     font-size: 20px;
     padding: 5px;
@@ -126,15 +123,14 @@ body
 }
 .plog a
 {
-    background-color: #2b6fa2;
+    background-color: var(--pastalavista);
     color: gainsboro;
     font-size: 20px;
     text-decoration: none;
 }
 .plog a:hover p
 {
-    background-color: gainsboro;
-    color: #2b6fa2;
+    background-color: var(--pastalavistalight);
     font-size: 20px;
     text-decoration: none;
 }
@@ -144,11 +140,9 @@ body
 }
 .plog input
 {
-    border-color: #2b6fa2;
+    border-color: var(--pastalavista);
     border-radius: 5px;
-    /*border: 3px;*/
 }
-
 
 #sidebar {
     position: fixed;
@@ -159,6 +153,11 @@ body
     background: #2b6fa2;
     color: indianred;
     margin: 0;
+}
+
+#sidebar.active ul li:hover a
+{
+    background: var(--pastalavistalight);
 }
 
 @media (max-width: 568px) 
@@ -186,7 +185,6 @@ body
     font-weight: 900;
     padding: 10px 30px;
 }
-
 
 #sidebar.active 
 {
@@ -229,7 +227,6 @@ body
     -o-transition: 0.3s;
     transition: 0.3s;
 }
-
 
 #sidebar ul li 
 {
@@ -275,7 +272,6 @@ body
     text-shadow: rgba(0,0,0,.2) 2px 6px 5px,rgba(255,255,255,.4) 0 -4px 30px;
 }
 
-
 .button 
 {
     border: none;
@@ -293,13 +289,13 @@ body
 
 .buttonorg {
     background-color: white;
-    color: #2b6fa2;
+    color: var(--pastalavista);
     border: 2px solid #2b6fa2;
 }
 
 .buttonorg a{
     background: none;
-    color: #2b6fa2;
+    color: var(--pastalavista);
 }
 
 .buttonorg:hover a{
@@ -307,44 +303,66 @@ body
 }
 
 .buttonorg:hover {
-    background-color: #2b6fa2;
+    background-color: var(--pastalavista);
     color: white;
 }
-
+/*---------------------------------------------------------------------*/
 .table-style {
     color: black;
     background-color: white;
-    width:100%;
+    width: 100%;
+    font-size: 1vw;
 }
 
 .table-style p
 {
-    font-size:1vw;
-    background: none ;
+    background: none;
+    font-size: 1vw;
+}
+
+.table-style a
+{
+    font-size: 1vw;
 }
 
 .table-style thead tr
 {
     border-bottom: 2px solid black;
 }
+
+.table-style table tbody tr td p
+{
+    color: black;
+    padding:10px;
+    margin:0;
+}
+
 .table-style thead tr p
 {
     color:black;
 }
 .table-style tbody tr
 {
-    background-color: #2b6fa2;
+    background-color: var(--pastalavista);
     color: gainsboro;
     border-bottom: 2px solid black;
 }
 
-.table-style tbody tr:hover p
+.table-style tbody tr:hover 
 {
-    color: #2b6fa2;
-}
-
-.table-style tbody tr:hover {
     background-color: gainsboro;
     cursor: pointer;
-    color: #2b6fa2;
+    color: var(--pastalavista);
+}
+
+.table-style tbody tr:hover a 
+{
+    background-color: gainsboro;
+    cursor: pointer;
+    color: var(--pastalavista);
+}
+
+.plvlight:hover 
+{
+    background: var(--pastalavistalight);
 }

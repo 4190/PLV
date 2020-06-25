@@ -11,20 +11,20 @@
             <table id="docs">
                 <thead>
                     <tr>
-                        <th>Nazwa</th>
-                        <th>aaa</th>
-                        <th>aaa</th>
+                        <th><p>Nazwa</p></th>
+                        <th><p>aaa</p></th>
+                        <th><p>aaa</p></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var doc in Model.Documents)
                     {
-                        <tr>
+                        <tr onclick="window.location.href='/Docs/Details/@doc.Id'">
                             <td>
-                                <a href="/Docs/Details/@doc.Id"> <p>@doc.FilePath</p></a>
+                                <p>@doc.FilePath</p>
                             </td>
-                            <td>aaa</td>
-                            <td>aaa</td>
+                            <td><p>aaa</p></td>
+                            <td><p>aaa</p></td>
                         </tr>
                     }
                 </tbody>
@@ -34,9 +34,9 @@
 
             @if (this.User.IsInRole(Model.CurrentSection + "-upload") || this.User.IsInRole("Admin"))
             {
-                <a href="/Docs/Create/@Model.CurrentSection"><p class="clikp">Add document</p></a>
+                <a href="/Docs/Create/@Model.CurrentSection"><p class="clikp mt-3">Add document</p></a>
             }
-        </div>
+     </div>
 
 
         @section Scripts
