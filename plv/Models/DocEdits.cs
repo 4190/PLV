@@ -9,6 +9,7 @@ namespace plv.Models
     {
         public int Id { get; set; }
         public string EditedBy { get; set; }
+        public DateTime EditTime { get; set; }
 
         public DateTime NewDateIssued { get; set; }
         public string PreviousUser { get; set; }

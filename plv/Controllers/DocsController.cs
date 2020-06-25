@@ -329,6 +329,8 @@ namespace plv.Controllers
                 edits.NewDateIssued = DateTime.MinValue;
             }
 
+            edits.EditTime = DateTime.Now;
+
             _context.DocumentEdits.Add(edits); _context.SaveChanges();
         }
 
@@ -362,7 +364,8 @@ namespace plv.Controllers
             {
                 UserName = userName,
                 SectionName = sectionName,
-                FileName = fileName
+                FileName = fileName,
+                DownloadTime = DateTime.Now
             };
 
             _context.Add(_); _context.SaveChanges();

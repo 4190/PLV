@@ -17,6 +17,7 @@
     }
 
     <p class="card-text">Otrzymano: @Model.Document.DateReceived.ToShortDateString()</p>
+    
     @if (!String.IsNullOrWhiteSpace(Model.Document.Receiver))
     {
         <p class="card-text">Odbiorca: @Model.Document.Receiver</p>
@@ -25,10 +26,14 @@
     {
         <p class="card-text">Nadawca: @Model.Document.Sender</p>
     }
+
     <p class="card-text">@Model.Document.ShortOptionalDescription</p>
 
 
-        <div class="button buttonorg"><a href="/Docs/Download/@Model.Document.Section/@Model.Document.FilePath">Downloads</a></div>
+    <div class="button buttonorg">
+        <a href="/Docs/Download/@Model.Document.Section/@Model.Document.FilePath">Downloads</a>
+    </div>
+
     @if (Model.IsOwnedByCurrentUser)
     {
         <div class="button buttonorg"><a href="/Docs/Edit/@Model.Document.Id">Edit</a></div>
