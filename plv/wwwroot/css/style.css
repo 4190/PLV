@@ -297,14 +297,15 @@ body
     }
 }
 
-#sidebar.active .logo 
-{
-    padding: 10px 0;
-}
+
 
 #sidebar.active .footer 
 {
     display: none;
+}
+
+#sidebar.active .logo {
+    padding: 10px 0;
 }
 
 #sidebar .logo 
