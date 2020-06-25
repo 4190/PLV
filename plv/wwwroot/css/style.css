@@ -1,25 +1,8 @@
-
-table 
+:root 
 {
-    min-width: 100%;
-}
-
-table td 
-{
-    border: 1px solid silver;
-    position: relative;
-    color: black;
-}
-
-table td.crossed::after 
-{
-    position: absolute;
-    content: "";
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-image: linear-gradient(to bottom right, transparent calc(50% - 1px), red, transparent calc(50% + 1px));
+    --pastalavista: #2b6fa2;
+    --pastalavistalight: #3587C6;
+    --tlo: gainsboro;
 }
 
 .button 
@@ -36,15 +19,6 @@ table td.crossed::after
     transition-duration: 0.4s;
     cursor: pointer;
 }
-
-/*.blog*/
-:root 
-{
-    --pastalavista: #2b6fa2;
-    --pastalavistalight: #3587C6;
-    --tlo: gainsboro;
-}
-
 
 .buttonorg 
 {
@@ -70,15 +44,11 @@ table td.crossed::after
     color: white;
 }
 
-
-
-
 body
 {
     background-color: gainsboro;
     width: 95%;
 }
-
 
 .colo
 {
@@ -227,7 +197,10 @@ body
     border-color: var(--pastalavista);
     border-radius: 5px;
 }
-
+.plog text-danger
+{
+    color:white !important;
+}
 
 .table-style 
 {
@@ -520,3 +493,23 @@ body
     font-size: 1vw;
 }
 
+
+table {
+    min-width: 100%;
+}
+
+table td {
+    border: 1px solid silver;
+    position: relative;
+    color: black;
+}
+
+table td.crossed::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-image: linear-gradient(to bottom right, transparent calc(50% - 1px), red, transparent calc(50% + 1px));
+}
