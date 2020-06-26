@@ -41,6 +41,7 @@
         @if (this.User.IsInRole("Admin"))
         {
             <div class="button buttonorg"><a href="/Docs/EditHistory/@Model.Document.Id">Edit History</a></div>
+            <div class="button buttonorg"><a href="/Docs/DownloadHistory/@Model.Document.FilePath">Download History</a></div>
         }
     </div>
 

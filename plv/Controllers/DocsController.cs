@@ -40,7 +40,7 @@ namespace plv.Controllers
         public IActionResult Create(string sectionName)
         {
             ApplicationUser currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
-            if(!_userManager.IsInRoleAsync(currentUser, sectionName + "-upload").Result)
+            if (!_userManager.IsInRoleAsync(currentUser, sectionName + "-upload").Result)
             {
                 return RedirectToAction("DocSections");
             }
@@ -85,11 +85,11 @@ namespace plv.Controllers
                 {
                     using (var stream = new FileStream(savePath, FileMode.Create))
                     {
-                        if(model.Sender == null)
+                        if (model.Sender == null)
                         {
                             model.Sender = "";
                         }
-                        else if(model.Receiver == null)
+                        else if (model.Receiver == null)
                         {
                             model.Receiver = "";
                         }
@@ -141,7 +141,7 @@ namespace plv.Controllers
                     using (var stream = new FileStream(path, FileMode.Open)) { stream.CopyTo(memory); }
                     memory.Position = 0;
                     SaveDownloadLog(currentUserName, sectionName, filename);
-                    return File(memory, GetContentType(path), Path.GetFileName(path));  
+                    return File(memory, GetContentType(path), Path.GetFileName(path));
                 }
                 catch (Exception e)
                 {
@@ -158,7 +158,7 @@ namespace plv.Controllers
             {
                 return Content("you can't browse in this section");
             }
-            
+
             List<DocumentInDB> docs = _context.Documents.Where(c => c.Section == $"{sectionName}").ToList();
 
             DocumentListViewModel viewModel = new DocumentListViewModel
@@ -174,6 +174,24 @@ namespace plv.Controllers
         {
             var sections = _context.Sections.ToList();
             return View(sections);
+        }
+
+        [Route("Docs/DownloadHistory/{filename}")]
+        [Authorize(Roles="Admin")]
+        public IActionResult DownloadHistory(string filename)
+        {
+            List<Downloads> downloadLog = new List<Downloads>();
+            if(filename == "all")
+            {
+                downloadLog = _context.Downloads.ToList();
+            }
+            else
+            {
+                downloadLog = _context.Downloads.Where(x => x.FileName == filename).ToList();
+            }
+
+
+            return View(downloadLog);
         }
 
         [Route("Docs/Edit/{id}")]
@@ -207,26 +225,35 @@ namespace plv.Controllers
             if (!String.IsNullOrEmpty(model.Document.Sender))
             {
                 docInDB.Sender = model.Document.Sender;
-            }   
+            }
             docInDB.ShortOptionalDescription = model.Document.ShortOptionalDescription;
             docInDB.LastUser = docInDB.CurrentUser;
             docInDB.CurrentUser = model.Document.CurrentUser;
-            if(model.Document.DateReceived != null && model.Document.DateReceived != DateTime.MinValue)
+            if (model.Document.DateReceived != null && model.Document.DateReceived != DateTime.MinValue)
             {
                 docInDB.DateReceived = model.Document.DateReceived;
             }
 
-            
+
             _context.SaveChanges();
 
             return Redirect($"Details/{model.Document.Id}");
         }
 
         [Route("Docs/EditHistory/{id}")]
-        [Authorize(Roles="Admin")]
-        public IActionResult EditHistory(int id)
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditHistory(int? id)
         {
-            var history = _context.DocumentEdits.Where(c => c.DocumentId == id).ToList(); ;
+            List<DocEdits> history = new List<DocEdits>();
+            if (id == null || id == 0 )
+            {
+                history = _context.DocumentEdits.ToList();
+            }
+            else
+            {
+                history = _context.DocumentEdits.Where(c => c.DocumentId == id).ToList();
+            }
+            
 
             return View(history);
         }

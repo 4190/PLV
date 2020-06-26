@@ -1,0 +1,41 @@
+﻿@model IEnumerable<plv.Models.Downloads>
+
+@{
+    ViewData["Title"] = "DownloadHistory";
+}
+
+<h1>DownloadHistory</h1>
+<div class="plog col-md-6">
+    <div class="table-style">
+        <table id="downloads-table">
+            <thead>
+                <tr>
+                    <th>Downloaded by</th>
+                    <th>Section</th>
+                    <th>File</th>
+                    <th>Download time</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var log in Model)
+                {
+                    <tr>
+                        <th>@log.UserName</th>
+                        <th>@log.SectionName</th>
+                        <th>@log.FileName</th>
+                        <th>@log.DownloadTime</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    @section Scripts
+{
+        <script>
+            $(document).ready(function () {
+                $("#downloads-table").DataTable();
+            })
+        </script>
+    }

@@ -29,11 +29,15 @@
                         }
                     }
                 </tbody>
-
             </table>
         </div>
 
-        </div>
+        @if (this.User.IsInRole("Admin"))
+        {
+            <a href="/Docs/EditHistory/0"><p class="clikp mt-3">Doc edits history</p></a>
+            <a href="/Docs/DownloadHistory/all"><p class="clikp mt-3">Doc downloads history</p></a>
+        }
+    </div>
 
 
 
