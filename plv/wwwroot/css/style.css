@@ -1,35 +1,32 @@
-body {
-    background-color: gainsboro;
-    width: 95%;
-}
-
-
 :root 
 {
     --pastalavista: #2b6fa2;
     --pastalavistalight: #3587C6;
-    --tlo: gainsboro;
+    --pastalavistaverylight: #44AEFF;
+    --lblight: gainsboro;
+    --lbverylight: white;
+    --lbdark: black;
 }
+
+body 
+{
+    background-color: var(--lblight);
+}
+
+input
+{
+    border: 2px solid var(--pastalavista);
+}
+
+/*===========================================================================*/
+/*=============================== BUTTON/BUTTONORG ==========================*/
+/*===========================================================================*/
 
 .button 
 {
     border: none;
     border-radius: 5px;
-    color: white;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-}
-
-.button {
-    border: none;
-    border-radius: 5px;
-    color: white;
+    color: var(--lbverylight);
     padding: 16px 32px;
     text-align: center;
     text-decoration: none;
@@ -42,58 +39,25 @@ body {
 
 .buttonorg 
 {
-    background-color: white;
+    background-color: var(--lbverylight);
     color: var(--pastalavista);
     border: 2px solid #2b6fa2;
 }
-
+.buttonorg:hover 
+{
+    background-color: var(--pastalavista);
+    color: var(--lbverylight);
+}
 .buttonorg a 
 {
     background: none;
     color: var(--pastalavista);
 }
 
-.buttonorg:hover a 
-{
-    color: gainsboro;
-}
 
-.buttonorg:hover 
-{
-    background-color: var(--pastalavista);
-    color: white;
-}
-
-.colo
-{
-    background-color: var(--pastalavista);
-    color: gainsboro;
-}
-
-.emboss 
-{
-    color: rgba(0,0,0,.6);
-    text-shadow: rgba(0,0,0,.2) 2px 6px 5px,rgba(255,255,255,.4) 0 -4px 30px;
-}
-
-.link-image 
-{
-    height: 50%;
-    width: 50%;
-}
-
-.main-content 
-{
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.manus 
-{
-    text-align: center;
-    font-size: 1vw;
-}
-
+/*===========================================================================*/
+/*================================== OVERRIDES ==============================*/
+/*===========================================================================*/
 
 .overrides .overrides ul 
 {
@@ -125,7 +89,7 @@ body {
 .overrides ul li label 
 {
     font-size: 18px;
-    color: #000;
+    color: var(--lbdark);
     padding-left: 30px;
     cursor: pointer;
     margin-bottom: 5px;
@@ -143,7 +107,7 @@ body {
     left: 0;
     width: 20px;
     height: 20px;
-    background: #000;
+    background: var(--lbdark);
     display: block;
     box-sizing: border-box;
     border-radius: 4px;
@@ -157,7 +121,7 @@ body {
     left: 3px;
     right: 3px;
     bottom: 3px;
-    background: #000b10;
+    background: var(--lbdark);
     border-radius: 2px;
     transition: 0.5s;
     transform: translateX(600px);
@@ -170,11 +134,15 @@ body {
     transform: translateX(0);
 }
 
+/*===========================================================================*/
+/*===================================== PLOG ================================*/
+/*===========================================================================*/
+
 .plog 
 {
     margin-left: auto;
     margin-right: auto;
-    color: black;
+    color: var(--lbdark);
     background-color: white;
     padding: 50px;
     border-radius: 20px;
@@ -184,7 +152,7 @@ body {
 .plog p
 {
     background-color: var(--pastalavista);
-    color: gainsboro;
+    color: var(--lblight);
     font-size: 20px;
     padding: 5px;
     border-radius: 5px;
@@ -192,7 +160,7 @@ body {
 .plog a
 {
     background-color: var(--pastalavista);
-    color: gainsboro;
+    color: var(--lblight);
     font-size: 20px;
     text-decoration: none;
 }
@@ -220,22 +188,50 @@ body {
 }
 .plog text-danger
 {
-    color:white !important;
+    color: var(--lbverylight) !important;
 }
 
-.plvlight:hover 
+/*===========================================================================*/
+/*===================================== TABLE ===============================*/
+/*===========================================================================*/
+
+table 
 {
-    background: var(--pastalavistalight);
+    max-width:100%;
+    /*table-layout:fixed;*/
+}
+table tr
+{
+    max-width:100%;
 }
 
+table td 
+{
+    border: 1px solid var(--lbdark);
+    position: relative;
+    color: var(--lbdark);
+}
 
+table td.crossed::after 
+{
+    position: absolute;
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-image: linear-gradient(to bottom right, transparent calc(50% - 1px), red, transparent calc(50% + 1px));
+}
+
+/*===========================================================================*/
+/*================================== TABLE-STYLE ============================*/
+/*===========================================================================*/
 
 .table-style 
 {
-    color: black;
-    background-color: white;
+    color: var(--lbdark);
+    background-color: var(--lbverylight);
     width: 100%;
-    font-size: 1vw;
 }
 
 .table-style a 
@@ -245,7 +241,7 @@ body {
 
 .table-style p 
 {
-    color: black;
+    color: var(--lbdark);
     font-size: 1vw;
     background: none;
 }
@@ -255,21 +251,17 @@ body {
     border-bottom: 2px solid black;
 }
 
-
 .table-style thead tr p 
 {
-    color: black;
+    color: var(--lbdark);
 }
-
-
 
 .table-style tbody tr 
 {
     background-color: var(--pastalavista);
-    color: black;
+    color: var(--lbdark);
     border-bottom: 2px solid black;
 }
-
 
 .table-style tbody tr:hover p 
 {
@@ -278,26 +270,34 @@ body {
 
 .table-style tbody tr:hover 
 {
-    background-color: gainsboro;
+    background-color: var(--lblight) !important;
     cursor: pointer;
     color: var(--pastalavista);
 }
-
+.table-style table tbody tr td
+{
+    padding:0!important;
+}
 .table-style table tbody tr td p 
 {
-    color: black;
-    padding: 10px;
+    color: var(--lbdark);
+    padding: 0.6vw;
     margin: 0;
 }
 
-#sidebar {
+/*===========================================================================*/
+/*=====================================SIDEBAR===============================*/
+/*===========================================================================*/
+
+#sidebar 
+{
     position: fixed;
     height: 100vh;
     z-index: 1;
     min-width: 270px;
     max-width: 270px;
     background: #2b6fa2;
-    color: indianred;
+    color: red;
     margin: 0;
 }
 
@@ -314,8 +314,6 @@ body {
     }
 }
 
-
-
 #sidebar.active .footer 
 {
     display: none;
@@ -328,8 +326,6 @@ body {
 #sidebar .logo 
 {
     display: block;
-    color: #fff;
-    font-weight: 900;
     padding: 10px 30px;
 }
 
@@ -338,10 +334,6 @@ body {
     min-width: 80px;
     max-width: 80px;
     text-align: center;
-}
-    
-#sidebar.active ul.components li 
-{
     font-size: 14px;
 }
        
@@ -355,16 +347,6 @@ body {
     margin-right: 0;
     display: block;
     font-size: 24px;
-}
-
-#sidebar.active .logo 
-{
-    padding: 10px 0;
-}
-
-#sidebar.active .footer 
-{
-    display: none;
 }
 
 #sidebar ul.components 
@@ -385,16 +367,11 @@ body {
     margin-left: 10px;
 }
 
-#sidebar ul li > ul li 
-{
-    font-size: 14px;
-}
-
 #sidebar ul li a
 {
     padding: 10px 30px;
     display: block;
-    color: white;
+    color: var(--lbverylight);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -403,21 +380,9 @@ body {
     margin-right: 15px;
 }
 
-#sidebar ul li a:hover 
-{
-    color: #fff;
-}
-
-#sidebar ul li.active > a 
-{
-    background: transparent;
-    color: #fff;
-}
-
-
-
-/*---------------------------------------------------------------------*/
-
+/*===========================================================================*/
+/*==================================== SECTION ==============================*/
+/*===========================================================================*/
 
 #section 
 {
@@ -429,7 +394,7 @@ body {
 }
 #section tbody tr
 {
-    background-color:white;
+    background-color: var(--lbverylight);
     cursor: auto;
 }
 #section button
@@ -438,23 +403,59 @@ body {
     padding: 1vw;
 }
 
+/*===========================================================================*/
+/*==================================== ======= ==============================*/
+/*===========================================================================*/
 
-table {
-    min-width: 100%;
+.colo 
+{
+    background-color: var(--pastalavista);
+    color: var(--lblight);
 }
 
-table td {
-    border: 1px solid silver;
-    position: relative;
-    color: black;
+.emboss 
+{
+    color: rgba(0,0,0,.6);
+    text-shadow: rgba(0,0,0,.2) 2px 6px 5px,rgba(255,255,255,.4) 0 -4px 30px;
 }
 
-table td.crossed::after {
-    position: absolute;
-    content: "";
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-image: linear-gradient(to bottom right, transparent calc(50% - 1px), red, transparent calc(50% + 1px));
+.link-image 
+{
+    height: 50%;
+    width: 50%;
+}
+
+.main-content 
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.manus 
+{
+    text-align: center;
+    font-size: 1vw;
+    margin-top: 1vw;
+}
+
+.plvlight:hover 
+{
+    background: var(--pastalavistalight);
+}
+
+#users_length
+{
+    float:left;
+}
+#users_filter 
+{
+    float: right;
+}
+#users_info
+{
+    float: left;
+}
+#users_paginate
+{
+    float: right;
 }
