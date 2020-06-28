@@ -11,6 +11,7 @@
 body 
 {
     background-color: var(--lblight);
+    width: 95%;
 }
 
 input
@@ -157,13 +158,16 @@ input
     padding: 5px;
     border-radius: 5px;
 }
-.plog a
+
+.plog a 
 {
-    background-color: var(--pastalavista);
-    color: var(--lblight);
+    /* background-color: var(--pastalavista); */
+    background-color: white;
+    color: #2b6fa2;
     font-size: 20px;
     text-decoration: none;
 }
+
 .plog a:hover p
 {
     background-color: var(--pastalavistalight);

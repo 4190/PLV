@@ -30,18 +30,18 @@
         <p class="card-text">@Model.Document.ShortOptionalDescription</p>
 
 
-        <div class="button buttonorg">
-            <a href="/Docs/Download/@Model.Document.Section/@Model.Document.FilePath">Downloads</a>
-        </div>
+
+            <a class="button buttonorg" href="/Docs/Download/@Model.Document.Section/@Model.Document.FilePath">Download</a>
+
 
         @if (Model.IsOwnedByCurrentUser)
         {
-            <div class="button buttonorg"><a href="/Docs/Edit/@Model.Document.Id">Edit</a></div>
+            <a class="button buttonorg" href="/Docs/Edit/@Model.Document.Id">Edit</a>
         }
         @if (this.User.IsInRole("Admin"))
         {
-            <div class="button buttonorg"><a href="/Docs/EditHistory/@Model.Document.Id">Edit History</a></div>
-            <div class="button buttonorg"><a href="/Docs/DownloadHistory/@Model.Document.FilePath">Download History</a></div>
+            <a class="button buttonorg" href="/Docs/EditHistory/@Model.Document.Id">Edit History</a>
+            <a class="button buttonorg" href="/Docs/DownloadHistory/@Model.Document.FilePath">Download History</a>
         }
     </div>
 
