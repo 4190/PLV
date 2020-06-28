@@ -38,6 +38,17 @@ namespace plv.Controllers
             }
         }
 
+        private bool isDigits(string s)
+        {
+            if (s == null || s == "") return false;
+
+            for (int i = 0; i < s.Length; i++)
+                if ((s[i] ^ '0') > 9)
+                    return false;
+
+            return true;
+        }
+
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl)) { return Redirect(returnUrl); }
@@ -68,7 +79,38 @@ namespace plv.Controllers
                 model.ErrorMessage = "Something went wrong, try again";
                 return View(model);
             }
-            
+        }
+
+        [HttpGet]
+        public IActionResult ChangePhoneNumber()
+        {
+            ChangePhoneNumberViewModel model = new ChangePhoneNumberViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePhoneNumber(ChangePhoneNumberViewModel model)
+        {
+            ApplicationUser currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            var _ = await _userManager.SetPhoneNumberAsync(currentUser, model.PhoneNumber);
+            if(isDigits(model.PhoneNumber))
+            {
+                if (_.Succeeded)
+                {
+                    return RedirectToAction("Manage", "Account");
+                }
+                else
+                {
+                    model.ErrorMessage = "Something went wrong, try again";
+                    return View(model);
+                }
+            }
+            else
+            {
+                model.ErrorMessage = "Something went wrong, try again";
+                return View(model);
+            }
         }
 
         [HttpGet]
