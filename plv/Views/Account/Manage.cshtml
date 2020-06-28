@@ -1,4 +1,5 @@
-﻿
+﻿@model plv.ViewModels.CurrentUserViewModel
+
 @{
     ViewData["Title"] = "Manage";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,4 +7,10 @@
 
     <div class="plog col-md-6">
         <h1 class="display-4 text-center emboss">Manage</h1>
+        <p><strong>Email: </strong> @Model.User.Email</p>
+        <p><strong>Phone Number: </strong>@Model.User.PhoneNumber</p>
+
+        <a class="button buttonorg">Change phone number</a>
+        <a class="button buttonorg" href="/Account/ChangePassword">Change password</a>
+        
     </div>

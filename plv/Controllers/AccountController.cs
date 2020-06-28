@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
+using plv.ViewModels;
 
 namespace plv.Controllers
 {
@@ -43,6 +44,32 @@ namespace plv.Controllers
             else { return RedirectToAction(nameof(HomeController.Index), "Home"); }
         }
         #endregion
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            ChangePasswordViewModel viewModel = new ChangePasswordViewModel();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            ApplicationUser currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            var _  = await _userManager.ChangePasswordAsync(currentUser, model.OldPassword, model.NewPassword);
+
+            if(_.Succeeded)
+            {
+                return RedirectToAction("Manage", "Account");
+            }
+            else
+            {
+                model.ErrorMessage = "Something went wrong, try again";
+                return View(model);
+            }
+            
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -131,7 +158,13 @@ namespace plv.Controllers
 
         public IActionResult Manage()
         {
-            return View();
+            var roles = _userManager.GetRolesAsync(_userManager.FindByNameAsync(this.User.Identity.Name).Result).Result.ToList();
+            CurrentUserViewModel viewModel = new CurrentUserViewModel()
+            {
+                User = _userManager.FindByNameAsync(User.Identity.Name).Result,
+                Roles = roles
+            };
+            return View(viewModel);
         }
     }
 }
