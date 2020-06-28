@@ -12,6 +12,7 @@ namespace plv.Models
 
         [Display(Name = "Section Name: ")]
         [Required(ErrorMessage = "Enter section name")]
+        [StringLength(30)]
         public string Name { get; set; }
     }
 }
