@@ -27,7 +27,11 @@
             <p class="card-text">Nadawca: @Model.Document.Sender</p>
         }
 
-        <p class="card-text">@Model.Document.ShortOptionalDescription</p>
+        @if (!String.IsNullOrWhiteSpace(Model.Document.ShortOptionalDescription))
+        {
+            <p class="card-text">@Model.Document.ShortOptionalDescription</p>
+        }
+
 
         @if (this.User.IsInRole(Model.Document.Section + "-download"))
         {
