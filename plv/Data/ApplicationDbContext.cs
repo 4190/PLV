@@ -14,6 +14,9 @@ namespace plv.Data
         public DbSet<DocumentsSection> DocumentsSections { get; set; }
         public DbSet<DocEdits> DocumentEdits { get; set; }
         public DbSet<Downloads> Downloads { get; set; }
+        public DbSet<Block> Block1 { get; set; }
+        public DbSet<Block> Block2 { get; set; }
+        public DbSet<Block> Block3 { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
