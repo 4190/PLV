@@ -222,9 +222,17 @@ namespace plv.Controllers
             {
                 docInDB.Receiver = model.Document.Receiver;
             }
+            else
+            {
+                docInDB.Receiver = "";
+            }
             if (!String.IsNullOrEmpty(model.Document.Sender))
             {
                 docInDB.Sender = model.Document.Sender;
+            }
+            else
+            {
+                docInDB.Sender = "";
             }
             docInDB.ShortOptionalDescription = model.Document.ShortOptionalDescription;
             docInDB.LastUser = docInDB.CurrentUser;

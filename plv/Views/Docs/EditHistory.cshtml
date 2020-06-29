@@ -12,6 +12,7 @@
             <thead>
                 <tr>
                     <th>Edited by</th>
+                    <th>File</th>
                     <th>New Date</th>
                     <th>Previous User</th>
                     <th>New User</th>
@@ -25,51 +26,54 @@
             <tbody>
                 @foreach (var edit in Model)
                 {
-                    <tr>
-                        <td>@edit.EditedBy</td>
-                        @if (edit.NewDateIssued != DateTime.MinValue)
-                        {
-                            <td>@edit.NewDateIssued</td>
-                        }
-                        else
-                        {
-                            <td class="crossed"></td>
-                        }
+                <tr>
+                    <td>@edit.EditedBy</td>
+                    <td>@edit.DocumentName</td>
+                    @if (edit.NewDateIssued != DateTime.MinValue)
+                    {
+                        <td>@edit.NewDateIssued</td>
+                    }
+                    else
+                    {
+                        <td class="crossed"></td>
+                    }
 
-                        @if (!String.IsNullOrWhiteSpace(edit.NewUser))
-                        {
-                            <td>@edit.PreviousUser</td>
-                            <td>@edit.NewUser</td>
-                        }
-                        else
-                        {
-                            <td class="crossed"></td>
-                            <td class="crossed"></td>
-                        }
 
-                        @if (!String.IsNullOrWhiteSpace(edit.NewReceiver))
-                        {
-                            <td>@edit.PreviousReceiver</td>
-                            <td>@edit.NewReceiver</td>
-                        }
-                        else
-                        {
-                            <td class="crossed"></td>
-                            <td class="crossed"></td>
-                        }
 
-                        @if (!String.IsNullOrWhiteSpace(edit.NewSender))
-                        {
-                            <td>@edit.PreviousSender</td>
-                            <td>@edit.NewSender</td>
-                        }
-                        else
-                        {
-                            <td class="crossed"></td>
-                            <td class="crossed"></td>
-                        }
-                        <td>@edit.EditTime</td>
-                    </tr>
+                    @if (!String.IsNullOrWhiteSpace(edit.NewUser))
+                    {
+                        <td>@edit.PreviousUser</td>
+                        <td>@edit.NewUser</td>
+                    }
+                    else
+                    {
+                        <td class="crossed"></td>
+                        <td class="crossed"></td>
+                    }
+
+                    @if (!String.IsNullOrWhiteSpace(edit.NewReceiver))
+                    {
+                        <td>@edit.PreviousReceiver</td>
+                        <td>@edit.NewReceiver</td>
+                    }
+                    else
+                    {
+                        <td class="crossed"></td>
+                        <td class="crossed"></td>
+                    }
+
+                    @if (!String.IsNullOrWhiteSpace(edit.NewSender))
+                    {
+                        <td>@edit.PreviousSender</td>
+                        <td>@edit.NewSender</td>
+                    }
+                    else
+                    {
+                        <td class="crossed"></td>
+                        <td class="crossed"></td>
+                    }
+                    <td>@edit.EditTime</td>
+                </tr>
                 }
             </tbody>
         </table>

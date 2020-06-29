@@ -12,8 +12,9 @@
                 <thead>
                     <tr>
                         <th><p>Nazwa</p></th>
-                        <th><p>aaa</p></th>
-                        <th><p>aaa</p></th>
+                        <th><p>Odbiorca</p></th>
+                        <th><p>Nadawca</p></th>
+                        <th><p>Użytkownik</p></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,8 +24,9 @@
                             <td>
                                 <p>@doc.FilePath</p>
                             </td>
-                            <td><p>aaa</p></td>
-                            <td><p>aaa</p></td>
+                            <td><p>@doc.Receiver</p></td>
+                            <td><p>@doc.Sender</p></td>
+                            <td><p>@doc.CurrentUser</p></td>
                         </tr>
                     }
                 </tbody>
@@ -39,11 +41,11 @@
      </div>
 
 
-        @section Scripts
+@section Scripts
 {
-            <script>
-                $(document).ready(function () {
-                    $('#docs').DataTable();
-                });
-            </script>
-        }
+    <script>
+        $(document).ready(function () {
+            $('#docs').DataTable();
+        });
+    </script>
+}

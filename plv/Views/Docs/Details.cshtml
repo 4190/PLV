@@ -29,11 +29,10 @@
 
         <p class="card-text">@Model.Document.ShortOptionalDescription</p>
 
-
-
+        @if (this.User.IsInRole(Model.Document.Section + "-download"))
+        {
             <a class="button buttonorg" href="/Docs/Download/@Model.Document.Section/@Model.Document.FilePath">Download</a>
-
-
+        }
         @if (Model.IsOwnedByCurrentUser)
         {
             <a class="button buttonorg" href="/Docs/Edit/@Model.Document.Id">Edit</a>
