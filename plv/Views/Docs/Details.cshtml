@@ -50,12 +50,12 @@
         }
         @if (Model.IsOwnedByCurrentUser)
         {
-            <a class="button buttonorg" href="/Docs/Edit/@Model.Document.Id">Edit</a>
+            <a class="button buttonorg" href="/Docs/Edit/@Model.Document.Id">Edytuj</a>
         }
         @if (this.User.IsInRole("Admin"))
         {
-            <a class="button buttonorg" href="/Docs/EditHistory/@Model.Document.Id">Edit History</a>
-            <a class="button buttonorg" href="/Docs/DownloadHistory/@Model.Document.FilePath">Download History</a>
+            <a class="button buttonorg" href="/Docs/EditHistory/@Model.Document.Id">Historia edycji</a>
+            <a class="button buttonorg" href="/Docs/DownloadHistory/@Model.Document.FilePath">Historia pobrań</a>
         }
     </div>
 

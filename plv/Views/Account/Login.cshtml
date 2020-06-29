@@ -12,7 +12,7 @@
     <section>
         <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
             <h2>@ViewData["Title"]</h2>
-            <h4>Use a local account to log in.</h4>
+            <h4>Zaloguj się</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -35,13 +35,13 @@
             </div>
             @Html.AntiForgeryToken()
             <div class="form-group">
-                <button type="submit" class="button buttonorg">Log in</button>
+                <button type="submit" class="button buttonorg">Zaloguj</button>
             </div>
             <div class="form-group">
                     
-                    <a asp-action="ForgotPassword"><p>Forgot your password?</p></a>
 
-                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"><p>Register as a new user?</p></a>
+
+                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]"><p>Zarejestruj nowe konto</p></a>
 
             </div>
         </form>

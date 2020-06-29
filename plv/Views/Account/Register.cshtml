@@ -7,7 +7,7 @@
     <section>
         <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
             <h2>@ViewData["Title"]</h2>
-            <h4>Create a new account.</h4>
+            <h4>Stwórz nowe konto.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -26,7 +26,7 @@
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             @Html.AntiForgeryToken()
-            <button type="submit" class="button buttonorg">Register</button>
+            <button type="submit" class="button buttonorg">Rejestracja</button>
         </form>
     </section>
 </div>

@@ -6,7 +6,7 @@
 }
 
     <div class="plog col-md-6">
-        <h1 class="display-4 text-center emboss">SectionList</h1>
+        <h1 class="display-4 text-center emboss">Lista sekcji</h1>
 
         @if (Model.SectionList.Count == 0)
         {
@@ -18,14 +18,14 @@
 
             <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="switch">
-                <label class="custom-control-label" for="switch">Enable delete</label>
+                <label class="custom-control-label" for="switch">Odblokuj usuwanie</label>
             </div>
             <div class="table-style">
                 <table id="section">
                     <thead>
                         <tr>
-                            <th scope="col"><p>Name Section</p></th>
-                            <th scope="col"><p>Action</p></th>
+                            <th scope="col"><p>Sekcja</p></th>
+                            <th scope="col"><p>Akcja</p></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,7 +43,7 @@
                                         <input id="Sect_Id" name="Sect.Id" type="hidden" value="@sect.Id">
 
                                         @Html.AntiForgeryToken()
-                                        <button disabled type="submit" class="btn btn-secondary confirm-button">Delete</button>
+                                        <button disabled type="submit" class="btn btn-secondary confirm-button">Usuń</button>
                                     </form>
                                 </td>
                             </tr>
