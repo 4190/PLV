@@ -67,7 +67,7 @@ namespace plv.Controllers
 
             if (model.File != null)
             {
-                string fileName = GetUniqueFileName(model.File.FileName);
+                string fileName = GetUniqueFileName(model.File.FileName, model.Section);
 
                 CreateUploadDirectoryIfDoesNotExist();
                 CreateSectionDirectoryIfDoesNotExist(selectedSectionName);
@@ -328,10 +328,12 @@ namespace plv.Controllers
             };
         }
 
-        private string GetUniqueFileName(string fileName)
+        private string GetUniqueFileName(string fileName, string sectionName)
         {
             fileName = Path.GetFileName(fileName);
             return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + sectionName
                       + "_"
                       + Guid.NewGuid().ToString().Substring(0, 6)
                       + Path.GetExtension(fileName);
