@@ -1,24 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Security.Cryptography;
-using System.IO;
-using System.Text;
 using System.Linq;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using plv.BlockModels;
 using plv.Models;
 using plv.Data;
 using plv.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.CodeAnalysis.Differencing;
-using Microsoft.CodeAnalysis;
 
 namespace plv.Controllers
 {
