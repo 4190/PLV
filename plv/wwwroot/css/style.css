@@ -192,7 +192,7 @@ input
 }
 .plog text-danger
 {
-    color: var(--lbverylight) !important;
+    color: var(--lbverylight);
 }
 
 /*===========================================================================*/
@@ -274,7 +274,7 @@ table td.crossed::after
 
 .table-style tbody tr:hover 
 {
-    background-color: var(--lblight) !important;
+    background-color: var(--lblight);
     cursor: pointer;
     color: var(--pastalavista);
 }
