@@ -248,6 +248,8 @@ namespace plv.Controllers
 
             _context.SaveChanges();
 
+            UpdateFirstBlock(docInDB);
+
             return Redirect($"Details/{model.Document.Id}");
         }
 
@@ -427,16 +429,34 @@ namespace plv.Controllers
             SaveFirstBlock(doc);
         }
         
+        
+        
+        private void SaveDownloadLog(string userName, string sectionName, string fileName)
+        {
+            Downloads _ = new Downloads
+            {
+                UserName = userName,
+                SectionName = sectionName,
+                FileName = fileName,
+                DownloadTime = DateTime.Now
+            };
+
+            _context.Add(_); _context.SaveChanges();
+        }
+
+
+        #endregion
+        #region BlockMethods
         private void SaveFirstBlock(DocumentInDB doc)
         {
             FirstBlock block1 = new FirstBlock()
             {
                 PreviousDocIdHash = null,
                 DocIdHash = CalculateHash(doc.Id.ToString()),
-                
+
                 PreviousAddedByHash = null,
                 AddedByHash = CalculateHash(doc.AddedBy),
-                
+
                 PreviousCurrentUserHash = null,
                 CurrentUserHash = CalculateHash(doc.CurrentUser),
 
@@ -521,19 +541,97 @@ namespace plv.Controllers
             };
             _context.ThirdBlock.Add(block3); _context.SaveChanges();
         }
-        
-        private void SaveDownloadLog(string userName, string sectionName, string fileName)
-        {
-            Downloads _ = new Downloads
-            {
-                UserName = userName,
-                SectionName = sectionName,
-                FileName = fileName,
-                DownloadTime = DateTime.Now
-            };
 
-            _context.Add(_); _context.SaveChanges();
+        private void UpdateFirstBlock(DocumentInDB doc)
+        {
+            string firstBlockDocIdHash = CalculateHash(doc.Id.ToString());
+            FirstBlock block1 = _context.FirstBlock.Where(x => x.DocIdHash == firstBlockDocIdHash).Single();
+
+            block1.PreviousDocIdHash = null;
+            block1.DocIdHash = CalculateHash(doc.Id.ToString());
+
+            block1.PreviousAddedByHash = null;
+            block1.AddedByHash = CalculateHash(doc.AddedBy);
+
+            block1.PreviousCurrentUserHash = null;
+            block1.CurrentUserHash = CalculateHash(doc.CurrentUser);
+
+            block1.PreviousReceiverHash = null;
+            block1.ReceiverHash = CalculateHash(doc.Receiver);
+
+            block1.PreviousSenderHash = null;
+            block1.SenderHash = CalculateHash(doc.Sender);
+
+            block1.PreviousShortOptionalDescriptionHash = null;
+            block1.ShortOptionalDescriptionHash = CalculateHash(doc.ShortOptionalDescription);
+
+            block1.PreviousDateAddedHash = null;
+            block1.DateAddedHash = CalculateHash(doc.DateAdded.ToString());
+
+            block1.PreviousDateReceivedHash = null;
+            block1.DateReceivedHash = CalculateHash(doc.DateReceived.ToString());
+
+            _context.SaveChanges();
+            UpdateSecondBlock(block1);
         }
-#endregion
+        private void UpdateSecondBlock(FirstBlock block1)
+        {
+            SecondBlock block2 = _context.SecondBlock.Where(x => x.PreviousDocIdHash == block1.DocIdHash).Single();
+            block2.PreviousDocIdHash = block1.DocIdHash;
+            block2.DocIdHash = CalculateHash(block1.DocIdHash);
+
+            block2.PreviousAddedByHash = block1.AddedByHash;
+            block2.AddedByHash = CalculateHash(block1.AddedByHash);
+
+            block2.PreviousCurrentUserHash = block1.CurrentUserHash;
+            block2.CurrentUserHash = CalculateHash(block1.CurrentUserHash);
+
+            block2.PreviousReceiverHash = block1.ReceiverHash;
+            block2.ReceiverHash = CalculateHash(block1.ReceiverHash);
+
+            block2.PreviousSenderHash = block1.SenderHash;
+            block2.SenderHash = CalculateHash(block1.SenderHash);
+
+            block2.PreviousShortOptionalDescriptionHash = block1.ShortOptionalDescriptionHash;
+            block2.ShortOptionalDescriptionHash = CalculateHash(block1.ShortOptionalDescriptionHash);
+
+            block2.PreviousDateAddedHash = block1.DateAddedHash;
+            block2.DateAddedHash = CalculateHash(block1.DateAddedHash);
+
+            block2.PreviousDateReceivedHash = block1.DateReceivedHash;
+            block2.DateReceivedHash = CalculateHash(block1.DateReceivedHash);
+            _context.SaveChanges();
+            UpdateThirdBlock(block2);
+        }
+
+        private void UpdateThirdBlock(SecondBlock block2)
+        {
+            ThirdBlock block3 = _context.ThirdBlock.Where(x => x.PreviousDocIdHash == block2.DocIdHash).Single();
+            block3.PreviousDocIdHash = block2.DocIdHash;
+            block3.DocIdHash = CalculateHash(block2.DocIdHash);
+
+            block3.PreviousAddedByHash = block2.AddedByHash;
+            block3.AddedByHash = CalculateHash(block2.AddedByHash);
+
+            block3.PreviousCurrentUserHash = block2.CurrentUserHash;
+            block3.CurrentUserHash = CalculateHash(block2.CurrentUserHash);
+
+            block3.PreviousReceiverHash = block2.ReceiverHash;
+            block3.ReceiverHash = CalculateHash(block2.ReceiverHash);
+
+            block3.PreviousSenderHash = block2.SenderHash;
+            block3.SenderHash = CalculateHash(block2.SenderHash);
+
+            block3.PreviousShortOptionalDescriptionHash = block2.ShortOptionalDescriptionHash;
+            block3.ShortOptionalDescriptionHash = CalculateHash(block2.ShortOptionalDescriptionHash);
+
+            block3.PreviousDateAddedHash = block2.DateAddedHash;
+            block3.DateAddedHash = CalculateHash(block2.DateAddedHash);
+
+            block3.PreviousDateReceivedHash = block2.DateReceivedHash;
+            block3.DateReceivedHash = CalculateHash(block2.DateReceivedHash);
+            _context.SaveChanges();
+        }
+        #endregion
     }
 }
