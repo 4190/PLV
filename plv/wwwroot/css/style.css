@@ -11,7 +11,7 @@
 body 
 {
     background-color: var(--lblight);
-    width: 95%;
+    overflow-x: hidden;
 }
 
 input
@@ -303,6 +303,7 @@ table td.crossed::after
     background: #2b6fa2;
     color: red;
     margin: 0;
+    left: 0px;
 }
 
 #sidebar.active ul li:hover a

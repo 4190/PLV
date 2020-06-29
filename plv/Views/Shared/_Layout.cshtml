@@ -21,21 +21,24 @@
     }
 
 
-    @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
-    {
-        <nav id="sidebar" class="active">
-            <partial name="_AdminSidebar" />
-        </nav>
-    }
-    else if (this.User.Identity.IsAuthenticated && !this.User.IsInRole("Admin"))
-    {
-        <nav id="sidebar" class="active">
-            <partial name="_Sidebar" />
-        </nav>
-    }
+
     <div class="main-content">
         <main role="main">
             <div class="row">
+                <div class="col-md-1">
+                    @if (this.User.Identity.IsAuthenticated && this.User.IsInRole("Admin"))
+                    {
+                        <nav id="sidebar" class="active">
+                            <partial name="_AdminSidebar" />
+                        </nav>
+                    }
+                    else if (this.User.Identity.IsAuthenticated && !this.User.IsInRole("Admin"))
+                    {
+                        <nav id="sidebar" class="active">
+                            <partial name="_Sidebar" />
+                        </nav>
+                    }
+                </div>
                 @RenderBody()
             </div>
 
