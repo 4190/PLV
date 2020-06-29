@@ -5,6 +5,17 @@
 }
 
     <div class="plog col-md-6">
+        @if (Model.InvalidBlocksFieldsList.Count > 0)
+        {
+            <div class="alert alert-dismissible alert-danger">
+                <strong>Wystąpił problem w walidacji pól: </strong>
+
+                @foreach (var item in Model.InvalidBlocksFieldsList)
+                {
+                    <span>@item <br /></span>
+                }
+            </div>
+        }
 
         <h4 class="card-title">@Model.Document.FilePath</h4>
         @if (!String.IsNullOrWhiteSpace(Model.Document.Receiver))
@@ -35,7 +46,7 @@
 
         @if (this.User.IsInRole(Model.Document.Section + "-download"))
         {
-            <a class="button buttonorg" href="/Docs/Download/@Model.Document.Section/@Model.Document.FilePath/@Model.Document.Id">Download</a>
+            <a class="button buttonorg" href="/Docs/Download/@Model.Document.Section/@Model.Document.FilePath">Download</a>
         }
         @if (Model.IsOwnedByCurrentUser)
         {

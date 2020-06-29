@@ -18,6 +18,7 @@ using plv.Data;
 using plv.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.CodeAnalysis.Differencing;
+using Microsoft.CodeAnalysis;
 
 namespace plv.Controllers
 {
@@ -99,7 +100,7 @@ namespace plv.Controllers
                         model.File.CopyTo(stream); model.Success = true;
                         model.LogMessage = "Doc added to database";
                         SaveDocumentToDB(fileName, selectedSectionName, model);
-                        
+
                     }
                 }
             }
@@ -111,15 +112,20 @@ namespace plv.Controllers
         {
             DocumentInDB doc = _context.Documents.Find(id);
 
+            List<string> invalidBlocksFields = ValidateFirstBlock(doc);
+
             DocumentDetailsViewModel viewModel = new DocumentDetailsViewModel
             {
                 Document = doc,
-                IsOwnedByCurrentUser = (doc.CurrentUser == User.Identity.Name) ? true : false
+                IsOwnedByCurrentUser = (doc.CurrentUser == User.Identity.Name) ? true : false,
+                InvalidBlocksFieldsList = invalidBlocksFields
             };
 
 
             return View(viewModel);
         }
+
+
 
         [Route("Docs/Download/{sectionName}/{filename}")]
         public IActionResult DownloadDocument(string sectionName, string filename)
@@ -181,11 +187,11 @@ namespace plv.Controllers
         }
 
         [Route("Docs/DownloadHistory/{filename}")]
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DownloadHistory(string filename)
         {
             List<Downloads> downloadLog = new List<Downloads>();
-            if(filename == "all")
+            if (filename == "all")
             {
                 downloadLog = _context.Downloads.ToList();
             }
@@ -258,7 +264,7 @@ namespace plv.Controllers
         public IActionResult EditHistory(int? id)
         {
             List<DocEdits> history = new List<DocEdits>();
-            if (id == null || id == 0 )
+            if (id == null || id == 0)
             {
                 history = _context.DocumentEdits.ToList();
             }
@@ -266,7 +272,7 @@ namespace plv.Controllers
             {
                 history = _context.DocumentEdits.Where(c => c.DocumentId == id).ToList();
             }
-            
+
 
             return View(history);
         }
@@ -292,7 +298,7 @@ namespace plv.Controllers
         {
             if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/uploads/{sectionName}")))
             {
-                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), 
+                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(),
                     $"wwwroot/uploads/{sectionName}"));
             }
         }
@@ -317,9 +323,9 @@ namespace plv.Controllers
             List<ApplicationUser> users = _context.Users.ToList();
             List<ApplicationUser> currentSectionUsers = new List<ApplicationUser>();
 
-            foreach(var user in users)
+            foreach (var user in users)
             {
-                if(_userManager.IsInRoleAsync(user, sectionName).Result)
+                if (_userManager.IsInRoleAsync(user, sectionName).Result)
                 {
                     currentSectionUsers.Add(user);
                 }
@@ -359,38 +365,38 @@ namespace plv.Controllers
                       + Path.GetExtension(fileName);
         }
 
-        private void SaveDocEdits(string currentUserName, 
-            DocumentInDB oldDocState, 
+        private void SaveDocEdits(string currentUserName,
+            DocumentInDB oldDocState,
             EditDocumentViewModel newDocState)
         {
             DocEdits edits = new DocEdits();
 
             edits.EditedBy = currentUserName;
-            if(oldDocState.DateReceived != newDocState.Document.DateReceived)
+            if (oldDocState.DateReceived != newDocState.Document.DateReceived)
             {
                 edits.NewDateIssued = newDocState.Document.DateReceived;
             }
-            if(oldDocState.CurrentUser != newDocState.Document.CurrentUser)
+            if (oldDocState.CurrentUser != newDocState.Document.CurrentUser)
             {
                 edits.PreviousUser = oldDocState.CurrentUser;
                 edits.NewUser = newDocState.Document.CurrentUser;
             }
-            if(oldDocState.Receiver != newDocState.Document.Receiver)
+            if (oldDocState.Receiver != newDocState.Document.Receiver)
             {
                 edits.PreviousReceiver = oldDocState.Receiver;
                 edits.NewReceiver = newDocState.Document.Receiver;
             }
-            if(oldDocState.Sender != newDocState.Document.Sender)
+            if (oldDocState.Sender != newDocState.Document.Sender)
             {
                 edits.PreviousSender = oldDocState.Sender;
                 edits.NewSender = newDocState.Document.Sender;
             }
-            if(oldDocState.ShortOptionalDescription != newDocState.Document.ShortOptionalDescription)
+            if (oldDocState.ShortOptionalDescription != newDocState.Document.ShortOptionalDescription)
             {
                 edits.PreviousDescription = oldDocState.ShortOptionalDescription;
                 edits.NewDescription = newDocState.Document.ShortOptionalDescription;
             }
-            if(edits.NewDateIssued == null)
+            if (edits.NewDateIssued == null)
             {
                 edits.NewDateIssued = DateTime.MinValue;
             }
@@ -423,14 +429,14 @@ namespace plv.Controllers
             };
             _context.Documents.Add(doc);
             _context.DocumentsSections.Add(docSection);
-            
+
             _context.SaveChanges();
 
             SaveFirstBlock(doc);
         }
-        
-        
-        
+
+
+
         private void SaveDownloadLog(string userName, string sectionName, string fileName)
         {
             Downloads _ = new Downloads
@@ -632,6 +638,118 @@ namespace plv.Controllers
             block3.DateReceivedHash = CalculateHash(block2.DateReceivedHash);
             _context.SaveChanges();
         }
+
+        private List<string> ValidateFirstBlock(DocumentInDB doc)
+        {
+            string firstBlockDocIdHash = CalculateHash(doc.Id.ToString());
+            List<string> invalidHashes = new List<string>();
+            FirstBlock blockFromDB = _context.FirstBlock.Where(x => x.DocIdHash == firstBlockDocIdHash).Single();
+            FirstBlock validBlock = new FirstBlock()
+            {
+                PreviousDocIdHash = null,
+                DocIdHash = CalculateHash(doc.Id.ToString()),
+
+                PreviousAddedByHash = null,
+                AddedByHash = CalculateHash(doc.AddedBy),
+
+                PreviousCurrentUserHash = null,
+                CurrentUserHash = CalculateHash(doc.CurrentUser),
+
+                PreviousReceiverHash = null,
+                ReceiverHash = CalculateHash(doc.Receiver),
+
+                PreviousSenderHash = null,
+                SenderHash = CalculateHash(doc.Sender),
+
+                PreviousShortOptionalDescriptionHash = null,
+                ShortOptionalDescriptionHash = CalculateHash(doc.ShortOptionalDescription),
+
+                PreviousDateAddedHash = null,
+                DateAddedHash = CalculateHash(doc.DateAdded.ToString()),
+
+                PreviousDateReceivedHash = null,
+                DateReceivedHash = CalculateHash(doc.DateReceived.ToString())
+            };
+            if (blockFromDB.AddedByHash != validBlock.AddedByHash)
+                invalidHashes.Add("AddedBy");
+            if (blockFromDB.CurrentUserHash != validBlock.CurrentUserHash)
+                invalidHashes.Add("CurrentUser");
+            if (blockFromDB.ReceiverHash != validBlock.ReceiverHash)
+                invalidHashes.Add("Receiver");
+            if (blockFromDB.SenderHash != validBlock.SenderHash)
+                invalidHashes.Add("Sender");
+            if (blockFromDB.ShortOptionalDescriptionHash != validBlock.ShortOptionalDescriptionHash)
+                invalidHashes.Add("Description");
+            if (blockFromDB.DateAddedHash != validBlock.DateAddedHash)
+                invalidHashes.Add("Date Added");
+            if (blockFromDB.DateReceivedHash != validBlock.DateReceivedHash)
+                invalidHashes.Add("Date Received");
+
+            List<string> secondBlockInvalidHashes = ValidateSecondBlock(blockFromDB);
+
+            foreach(var item in secondBlockInvalidHashes)
+            {
+                if(!invalidHashes.Contains(item)) { invalidHashes.Add(item); }
+            }
+
+            return invalidHashes;
+        }
+
+        public List<string> ValidateSecondBlock(FirstBlock block)
+        {
+            string secondBlockDocIdHash = CalculateHash(block.DocIdHash);
+            List<string> invalidHashes = new List<string>();
+            SecondBlock blockFromDB = _context.SecondBlock.Where(x => x.DocIdHash == secondBlockDocIdHash).Single();
+
+            if (blockFromDB.PreviousAddedByHash != block.AddedByHash)
+                invalidHashes.Add("AddedBy");
+            if (blockFromDB.PreviousCurrentUserHash != block.CurrentUserHash)
+                invalidHashes.Add("CurrentUser");
+            if (blockFromDB.PreviousReceiverHash != block.ReceiverHash)
+                invalidHashes.Add("Receiver");
+            if (blockFromDB.PreviousSenderHash != block.SenderHash)
+                invalidHashes.Add("Sender");
+            if (blockFromDB.PreviousShortOptionalDescriptionHash != block.ShortOptionalDescriptionHash)
+                invalidHashes.Add("Description");
+            if (blockFromDB.PreviousDateAddedHash != block.DateAddedHash)
+                invalidHashes.Add("Date Added");
+            if (blockFromDB.PreviousDateReceivedHash != block.DateReceivedHash)
+                invalidHashes.Add("Date Received");
+
+            List<string> thirdBlockInvalidHashes = ValidateThirdBlock(blockFromDB);
+
+            foreach (var item in thirdBlockInvalidHashes)
+            {
+                if (!invalidHashes.Contains(item)) { invalidHashes.Add(item); }
+            }
+
+            return invalidHashes;
+        }
+
+        public List<string> ValidateThirdBlock(SecondBlock block)
+        {
+            string thirdBlockDocIdHash = CalculateHash(block.DocIdHash);
+            List<string> invalidHashes = new List<string>();
+            ThirdBlock blockFromDB = _context.ThirdBlock.Where(x => x.DocIdHash == thirdBlockDocIdHash).Single();
+
+            if (blockFromDB.PreviousAddedByHash != block.AddedByHash || blockFromDB.AddedByHash != CalculateHash(block.AddedByHash))
+                invalidHashes.Add("AddedBy");
+            if (blockFromDB.PreviousCurrentUserHash != block.CurrentUserHash || blockFromDB.CurrentUserHash != CalculateHash(block.CurrentUserHash))
+                invalidHashes.Add("CurrentUser");
+            if (blockFromDB.PreviousReceiverHash != block.ReceiverHash || blockFromDB.ReceiverHash != CalculateHash(block.ReceiverHash))
+                invalidHashes.Add("Receiver");
+            if (blockFromDB.PreviousSenderHash != block.SenderHash || blockFromDB.SenderHash != CalculateHash(block.SenderHash))
+                invalidHashes.Add("Sender");
+            if (blockFromDB.PreviousShortOptionalDescriptionHash != block.ShortOptionalDescriptionHash || blockFromDB.ShortOptionalDescriptionHash != CalculateHash(block.ShortOptionalDescriptionHash))
+                invalidHashes.Add("Description");
+            if (blockFromDB.PreviousDateAddedHash != block.DateAddedHash || blockFromDB.DateAddedHash != CalculateHash(block.DateAddedHash))
+                invalidHashes.Add("Date Added");
+            if (blockFromDB.PreviousDateReceivedHash != block.DateReceivedHash || blockFromDB.DateReceivedHash != CalculateHash(block.DateReceivedHash))
+                invalidHashes.Add("Date Received");
+
+            return invalidHashes;
+        }
+
         #endregion
     }
 }
