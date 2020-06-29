@@ -150,6 +150,186 @@ namespace plv.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("plv.BlockModels.FirstBlock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AddedByHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurrentUserHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateAddedHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateReceivedHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocIdHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousAddedByHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousCurrentUserHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousDateAddedHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousDateReceivedHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousDocIdHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousReceiverHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousSenderHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousShortOptionalDescriptionHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReceiverHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortOptionalDescriptionHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FirstBlock");
+                });
+
+            modelBuilder.Entity("plv.BlockModels.SecondBlock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AddedByHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurrentUserHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateAddedHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateReceivedHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocIdHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousAddedByHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousCurrentUserHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousDateAddedHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousDateReceivedHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousDocIdHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousReceiverHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousSenderHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousShortOptionalDescriptionHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReceiverHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortOptionalDescriptionHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SecondBlock");
+                });
+
+            modelBuilder.Entity("plv.BlockModels.ThirdBlock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AddedByHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurrentUserHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateAddedHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateReceivedHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocIdHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousAddedByHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousCurrentUserHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousDateAddedHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousDateReceivedHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousDocIdHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousReceiverHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousSenderHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreviousShortOptionalDescriptionHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReceiverHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortOptionalDescriptionHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ThirdBlock");
+                });
+
             modelBuilder.Entity("plv.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -213,66 +393,6 @@ namespace plv.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("plv.Models.Block", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AddedByHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CurrentUserHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DateAddedHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DateReceivedHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DocIdHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PreviousAddedByHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PreviousCurrentUserHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PreviousDateAddedHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PreviousDateReceivedHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PreviousDocIdHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PreviousReceiverHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PreviousSenderHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PreviousShortOptionalDescriptionHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SenderHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShortOptionalDescriptionHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Block");
                 });
 
             modelBuilder.Entity("plv.Models.DocEdits", b =>

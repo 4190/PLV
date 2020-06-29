@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace plv.Models
+namespace plv.BlockModels
 {
-    public class Block
+    public class FirstBlock
     {
         public int Id { get; set; }
-        
+
         public string PreviousDocIdHash { get; set; }
         public string DocIdHash { get; set; }
 
         public string PreviousAddedByHash { get; set; }
         public string AddedByHash { get; set; }
-        
+
         public string PreviousCurrentUserHash { get; set; }
         public string CurrentUserHash { get; set; }
 
@@ -34,20 +33,5 @@ namespace plv.Models
 
         public string PreviousDateReceivedHash { get; set; }
         public string DateReceivedHash { get; set; }
-
-        public string CalculateHash(string rawData)
-        {
-            using(SHA256 sha256hash = SHA256.Create())
-            {
-                byte[] bytes = sha256hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
-
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
-        }
     }
 }

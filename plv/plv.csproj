@@ -26,6 +26,12 @@
     <Compile Remove="Data\Migrations\20200625074749_AddedDocumentFieldsToLogTables.Designer.cs" />
     <Compile Remove="Data\Migrations\20200625075134_AddedDocumentFieldsToLogTables.cs" />
     <Compile Remove="Data\Migrations\20200625075134_AddedDocumentFieldsToLogTables.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200629051048_adding Block tables to DB.cs" />
+    <Compile Remove="Data\Migrations\20200629051048_adding Block tables to DB.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200629052758_adding Block tables to DB.cs" />
+    <Compile Remove="Data\Migrations\20200629052758_adding Block tables to DB.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200629060833_addingBlockTablesToDb.cs" />
+    <Compile Remove="Data\Migrations\20200629060833_addingBlockTablesToDb.Designer.cs" />
   </ItemGroup>
 
 

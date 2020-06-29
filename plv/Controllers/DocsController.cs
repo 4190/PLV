@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 using System.IO;
+using System.Text;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using plv.BlockModels;
 using plv.Models;
 using plv.Data;
 using plv.ViewModels;
@@ -96,6 +99,7 @@ namespace plv.Controllers
                         model.File.CopyTo(stream); model.Success = true;
                         model.LogMessage = "Doc added to database";
                         SaveDocumentToDB(fileName, selectedSectionName, model);
+                        
                     }
                 }
             }
@@ -265,7 +269,22 @@ namespace plv.Controllers
             return View(history);
         }
 
-#region HelperMethods
+        #region HelperMethods
+
+        private string CalculateHash(string rawData)
+        {
+            using (SHA256 sha256hash = SHA256.Create())
+            {
+                byte[] bytes = sha256hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
 
         private void CreateSectionDirectoryIfDoesNotExist(string sectionName)
         {
@@ -402,9 +421,107 @@ namespace plv.Controllers
             };
             _context.Documents.Add(doc);
             _context.DocumentsSections.Add(docSection);
+            
             _context.SaveChanges();
+
+            SaveFirstBlock(doc);
+        }
+        
+        private void SaveFirstBlock(DocumentInDB doc)
+        {
+            FirstBlock block1 = new FirstBlock()
+            {
+                PreviousDocIdHash = null,
+                DocIdHash = CalculateHash(doc.Id.ToString()),
+                
+                PreviousAddedByHash = null,
+                AddedByHash = CalculateHash(doc.AddedBy),
+                
+                PreviousCurrentUserHash = null,
+                CurrentUserHash = CalculateHash(doc.CurrentUser),
+
+                PreviousReceiverHash = null,
+                ReceiverHash = CalculateHash(doc.Receiver),
+
+                PreviousSenderHash = null,
+                SenderHash = CalculateHash(doc.Sender),
+
+                PreviousShortOptionalDescriptionHash = null,
+                ShortOptionalDescriptionHash = CalculateHash(doc.ShortOptionalDescription),
+
+                PreviousDateAddedHash = null,
+                DateAddedHash = CalculateHash(doc.DateAdded.ToString()),
+
+                PreviousDateReceivedHash = null,
+                DateReceivedHash = CalculateHash(doc.DateReceived.ToString())
+            };
+            _context.FirstBlock.Add(block1); _context.SaveChanges();
+            SaveSecondBlock(block1);
         }
 
+        private void SaveSecondBlock(FirstBlock block1)
+        {
+            SecondBlock block2 = new SecondBlock()
+            {
+                PreviousDocIdHash = block1.DocIdHash,
+                DocIdHash = CalculateHash(block1.DocIdHash),
+
+                PreviousAddedByHash = block1.AddedByHash,
+                AddedByHash = CalculateHash(block1.AddedByHash),
+
+                PreviousCurrentUserHash = block1.CurrentUserHash,
+                CurrentUserHash = CalculateHash(block1.CurrentUserHash),
+
+                PreviousReceiverHash = block1.ReceiverHash,
+                ReceiverHash = CalculateHash(block1.ReceiverHash),
+
+                PreviousSenderHash = block1.SenderHash,
+                SenderHash = CalculateHash(block1.SenderHash),
+
+                PreviousShortOptionalDescriptionHash = block1.ShortOptionalDescriptionHash,
+                ShortOptionalDescriptionHash = CalculateHash(block1.ShortOptionalDescriptionHash),
+
+                PreviousDateAddedHash = block1.DateAddedHash,
+                DateAddedHash = CalculateHash(block1.DateAddedHash),
+
+                PreviousDateReceivedHash = block1.DateReceivedHash,
+                DateReceivedHash = CalculateHash(block1.DateReceivedHash)
+            };
+            _context.SecondBlock.Add(block2); _context.SaveChanges();
+            SaveThirdBlock(block2);
+        }
+
+        private void SaveThirdBlock(SecondBlock block2)
+        {
+            ThirdBlock block3 = new ThirdBlock()
+            {
+                PreviousDocIdHash = block2.DocIdHash,
+                DocIdHash = CalculateHash(block2.DocIdHash),
+
+                PreviousAddedByHash = block2.AddedByHash,
+                AddedByHash = CalculateHash(block2.AddedByHash),
+
+                PreviousCurrentUserHash = block2.CurrentUserHash,
+                CurrentUserHash = CalculateHash(block2.CurrentUserHash),
+
+                PreviousReceiverHash = block2.ReceiverHash,
+                ReceiverHash = CalculateHash(block2.ReceiverHash),
+
+                PreviousSenderHash = block2.SenderHash,
+                SenderHash = CalculateHash(block2.SenderHash),
+
+                PreviousShortOptionalDescriptionHash = block2.ShortOptionalDescriptionHash,
+                ShortOptionalDescriptionHash = CalculateHash(block2.ShortOptionalDescriptionHash),
+
+                PreviousDateAddedHash = block2.DateAddedHash,
+                DateAddedHash = CalculateHash(block2.DateAddedHash),
+
+                PreviousDateReceivedHash = block2.DateReceivedHash,
+                DateReceivedHash = CalculateHash(block2.DateReceivedHash)
+            };
+            _context.ThirdBlock.Add(block3); _context.SaveChanges();
+        }
+        
         private void SaveDownloadLog(string userName, string sectionName, string fileName)
         {
             Downloads _ = new Downloads
