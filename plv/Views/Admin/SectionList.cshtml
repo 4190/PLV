@@ -10,8 +10,8 @@
 
         @if (Model.SectionList.Count == 0)
         {
-            <p>There are no sections created yet.</p>
-            <a href="NewSection"><p>Click here to create a new one.</p></a>
+            <p>Nie ma utworzonych sekcji.</p>
+            <a href="NewSection"><p>Kliknij tutaj, jeśli chcesz stworzyć nową sekcję.</p></a>
         }
         else
         {
@@ -32,13 +32,13 @@
 
                         @foreach (var sect in Model.SectionList)
                         {
-                            <tr>
+                            <tr id="wiersz">
                                 <td>
                                     <p>
                                         @sect.Name
                                     </p>
                                 </td>
-                                <td>
+                                <td class="col2">
                                     <form action="/Admin/DeleteSectionAndSectionRole" method="post">
                                         <input id="Sect_Id" name="Sect.Id" type="hidden" value="@sect.Id">
 
@@ -51,10 +51,8 @@
                     </tbody>
                 </table>
             </div>
-
-            <br><a href="NewSection"><p>Add new section</p></a>
+            <br><a href="NewSection"><p>Stwórz nową sekcję</p></a>
         }
-
     </div>
 
 @section Scripts
