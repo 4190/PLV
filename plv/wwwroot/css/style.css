@@ -305,8 +305,8 @@ table td.crossed::after
     position: fixed;
     height: 100vh;
     z-index: 1;
-    min-width: 270px;
-    max-width: 270px;
+    min-width: 280px;
+    max-width: 280px;
     background: #2b6fa2;
     color: red;
     margin: 0;
@@ -343,8 +343,8 @@ table td.crossed::after
 
 #sidebar.active 
 {
-    min-width: 80px;
-    max-width: 80px;
+    min-width: 90px;
+    max-width: 90px;
     text-align: center;
     font-size: 14px;
 }
