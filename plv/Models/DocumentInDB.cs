@@ -14,7 +14,6 @@ namespace plv.Models
 
         public string AddedBy { get; set; }
         public string CurrentUser { get; set; }
-        public string LastUser { get; set; }
         [Required]
         [Display(Name= "Odbiorca: ")]
         public string Receiver { get; set; }

@@ -235,7 +235,6 @@ namespace plv.Controllers
                 docInDB.Sender = "";
             }
             docInDB.ShortOptionalDescription = model.Document.ShortOptionalDescription;
-            docInDB.LastUser = docInDB.CurrentUser;
             docInDB.CurrentUser = model.Document.CurrentUser;
             if (model.Document.DateReceived != null && model.Document.DateReceived != DateTime.MinValue)
             {
