@@ -26,7 +26,12 @@
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
             @Html.AntiForgeryToken()
-            <button type="submit" class="button buttonorg">Rejestracja</button>
+            <div class="form-group">
+                <button type="submit" class="button buttonorg">Rejestracja</button>
+            </div>
+            <div class="form-group">
+                <a asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]"><p>Powrót do logowania</p></a>
+            </div>
         </form>
     </section>
 </div>

@@ -203,7 +203,6 @@ input
 table 
 {
     max-width:100%;
-    /*table-layout:fixed;*/
 }
 table tr
 {
@@ -232,13 +231,6 @@ table td.crossed::after
 /*================================== TABLE-STYLE ============================*/
 /*===========================================================================*/
 
-.table-style 
-{
-    color: var(--lbdark);
-    background-color: var(--lbverylight);
-    width: 100%;
-}
-
 .table-style a 
 {
     font-size: 1vw;
@@ -251,26 +243,14 @@ table td.crossed::after
     background: none;
 }
 
-.table-style thead tr 
-{
-    border-bottom: 2px solid black;
-}
-
 .table-style thead tr p 
 {
     color: var(--lbdark);
 }
 
-.table-style tbody tr 
-{
-    background-color: var(--pastalavista);
-    color: var(--lbdark);
-    border-bottom: 2px solid black;
-}
-
 .table-style tbody tr:hover p 
 {
-    color: #2b6fa2;
+    color: var(--pastalavista);
 }
 
 .table-style tbody tr:hover 
@@ -282,7 +262,6 @@ table td.crossed::after
 
 .table-style table tbody tr td 
 {
-    padding: 0;
     max-width: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -297,7 +276,22 @@ table td.crossed::after
 }
 
 /*===========================================================================*/
-/*=====================================SIDEBAR===============================*/
+/*================================ DATATABLES ===============================*/
+/*===========================================================================*/
+
+.dataTables_length, .dataTables_info {
+    float: left !important;
+}
+
+.dataTables_filter, .dataTables_paginate {
+    float: right !important;
+}
+
+.dataTables_wrapper {
+    font-size: 1vw;
+}
+/*===========================================================================*/
+/*==================================== SIDEBAR ==============================*/
 /*===========================================================================*/
 
 #sidebar 
@@ -455,19 +449,18 @@ table td.crossed::after
     background: var(--pastalavistalight);
 }
 
-#users_length
+.col2
 {
-    float:left;
+    width: 1vw;
+    text-align: center;
 }
-#users_filter 
+
+#wiersz:hover
 {
-    float: right;
+    background-color: var(--lblight);
+    color: var(--pastalavista);
 }
-#users_info
+.rowhist
 {
-    float: left;
-}
-#users_paginate
-{
-    float: right;
+    cursor: context-menu !important;
 }
