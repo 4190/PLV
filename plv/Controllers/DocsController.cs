@@ -109,7 +109,7 @@ namespace plv.Controllers
                             model.ShortOptionalDescription = "";
                         }
                         model.File.CopyTo(stream); model.Success = true;
-                        model.LogMessage = "Doc added to database";
+                        model.LogMessage = "Dokument dodany";
                         SaveDocumentToDB(fileName, selectedSectionName, model);
 
                     }
