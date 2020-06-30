@@ -58,7 +58,21 @@ namespace plv.Controllers
             if (String.IsNullOrEmpty(selectedSectionName))
             {
                 model.Success = false;
-                model.LogMessage = "Choose section";
+                model.LogMessage = "Wybierz sekcję dokumentów";
+                return RedirectToAction("Create");
+            }
+
+            if(String.IsNullOrEmpty(model.Receiver) && String.IsNullOrEmpty(model.Sender))
+            {
+                model.Success = false;
+                model.LogMessage = "Wypełnij pola nadawcy/odbiorcy";
+                return RedirectToAction("Create");
+            }
+
+            if(model.DateReceived == null)
+            {
+                model.Success = false;
+                model.LogMessage = "Wybierz datę otrzymania";
                 return RedirectToAction("Create");
             }
 
@@ -90,8 +104,12 @@ namespace plv.Controllers
                         {
                             model.Receiver = "";
                         }
+                        if(model.ShortOptionalDescription == null)
+                        {
+                            model.ShortOptionalDescription = "";
+                        }
                         model.File.CopyTo(stream); model.Success = true;
-                        model.LogMessage = "Doc added to database";
+                        model.LogMessage = "Dokument dodany";
                         SaveDocumentToDB(fileName, selectedSectionName, model);
 
                     }
@@ -236,6 +254,10 @@ namespace plv.Controllers
             else
             {
                 docInDB.Sender = "";
+            }
+            if(String.IsNullOrEmpty(model.Document.ShortOptionalDescription))
+            {
+                model.Document.ShortOptionalDescription = "";
             }
             docInDB.ShortOptionalDescription = model.Document.ShortOptionalDescription;
             docInDB.CurrentUser = model.Document.CurrentUser;
