@@ -58,7 +58,21 @@ namespace plv.Controllers
             if (String.IsNullOrEmpty(selectedSectionName))
             {
                 model.Success = false;
-                model.LogMessage = "Choose section";
+                model.LogMessage = "Wybierz sekcję dokumentów";
+                return RedirectToAction("Create");
+            }
+
+            if(String.IsNullOrEmpty(model.Receiver) && String.IsNullOrEmpty(model.Sender))
+            {
+                model.Success = false;
+                model.LogMessage = "Wypełnij pola nadawcy/odbiorcy";
+                return RedirectToAction("Create");
+            }
+
+            if(model.DateReceived == null)
+            {
+                model.Success = false;
+                model.LogMessage = "Wybierz datę otrzymania";
                 return RedirectToAction("Create");
             }
 
