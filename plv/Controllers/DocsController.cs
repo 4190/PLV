@@ -104,6 +104,10 @@ namespace plv.Controllers
                         {
                             model.Receiver = "";
                         }
+                        if(model.ShortOptionalDescription == null)
+                        {
+                            model.ShortOptionalDescription = "";
+                        }
                         model.File.CopyTo(stream); model.Success = true;
                         model.LogMessage = "Doc added to database";
                         SaveDocumentToDB(fileName, selectedSectionName, model);
@@ -250,6 +254,10 @@ namespace plv.Controllers
             else
             {
                 docInDB.Sender = "";
+            }
+            if(String.IsNullOrEmpty(model.Document.ShortOptionalDescription))
+            {
+                model.Document.ShortOptionalDescription = "";
             }
             docInDB.ShortOptionalDescription = model.Document.ShortOptionalDescription;
             docInDB.CurrentUser = model.Document.CurrentUser;
