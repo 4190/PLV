@@ -6,7 +6,7 @@
 
 
 <div class="plog col-md-10">
-    <h1  class="display-4 text-center emboss">Historia edycji pliku</h1>
+    <h1  class="display-4 text-center emboss">File Edit History</h1>
     <div class="table-style">
         <table id="edit-history">
             <thead>
@@ -26,7 +26,7 @@
             <tbody>
                 @foreach (var edit in Model)
                 {
-                <tr class="rowhist">
+                <tr>
                     <td>@edit.EditedBy</td>
                     <td>@edit.DocumentName</td>
                     @if (edit.NewDateIssued != DateTime.MinValue)

@@ -6,7 +6,7 @@
 
 
 <div class="plog col-md-6">
-    <h1  class="display-4 text-center emboss">Historia pobrań</h1>
+    <h1  class="display-4 text-center emboss">DownloadHistory</h1>
     <div class="table-style">
         <table id="downloads-table">
             <thead>
@@ -20,7 +20,7 @@
             <tbody>
                 @foreach (var log in Model)
                 {
-                    <tr class="rowhist">
+                    <tr>
                         <th>@log.UserName</th>
                         <th>@log.SectionName</th>
                         <th>@log.FileName</th>
