@@ -124,8 +124,9 @@ namespace plv
                 roleResult = await RoleManager.CreateAsync(new IdentityRole("User"));
             }
 
-            //here we are assigning the Admin role to the User that we have registered before
-            //Now, we are assinging admin role to this user("admin@gmail.com"). When will we run this project then it will
+            //here we are assigning the Admin role to account specified in startupConfig.json
+            //if user does not exist it will be created
+            //When will we run this project then it will
             //be assigned to that user.
             
 
@@ -144,11 +145,7 @@ namespace plv
                 };
                 await UserManager.CreateAsync(adminUser, configDictionary["adminPassword"]);
                 await UserManager.AddToRoleAsync(adminUser, "Admin");
-                return;
             }
-
-            
-            
         }
     }
 }
