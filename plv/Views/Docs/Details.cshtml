@@ -5,6 +5,7 @@
 }
 
     <div class="plog col-md-6">
+        @*
         @if (Model.InvalidBlocksFieldsList.Count > 0)
         {
             <div class="alert alert-dismissible alert-danger">
@@ -15,7 +16,7 @@
                     <span>@item <br /></span>
                 }
             </div>
-        }
+        }*@
 
         <h4 class="card-title">@Model.Document.FilePath</h4>
         @if (!String.IsNullOrWhiteSpace(Model.Document.Receiver))

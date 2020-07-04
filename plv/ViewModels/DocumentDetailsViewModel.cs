@@ -10,6 +10,6 @@ namespace plv.ViewModels
     {
         public DocumentInDB Document { get; set; }
         public bool IsOwnedByCurrentUser { get; set; }
-        public List<string> InvalidBlocksFieldsList { get; set; }
+     //   public List<string> InvalidBlocksFieldsList { get; set; }
     }
 }

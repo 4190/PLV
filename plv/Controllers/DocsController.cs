@@ -8,7 +8,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using plv.BlockModels;
+//using plv.BlockModels;
 using plv.Models;
 using plv.Data;
 using plv.ViewModels;
@@ -129,7 +129,7 @@ namespace plv.Controllers
             {
                 Document = doc,
                 IsOwnedByCurrentUser = (doc.CurrentUser == User.Identity.Name) ? true : false,
-                InvalidBlocksFieldsList = invalidBlocksFields
+              //  InvalidBlocksFieldsList = invalidBlocksFields
             };
 
 
@@ -469,6 +469,7 @@ namespace plv.Controllers
         #endregion
         /*
         fun with hashes.
+
         #region BlockMethods
         private void SaveFirstBlock(DocumentInDB doc)
         {
