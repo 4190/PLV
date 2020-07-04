@@ -123,7 +123,7 @@ namespace plv.Controllers
         {
             DocumentInDB doc = _context.Documents.Find(id);
 
-            List<string> invalidBlocksFields = ValidateFirstBlock(doc);
+           // List<string> invalidBlocksFields = ValidateFirstBlock(doc);
 
             DocumentDetailsViewModel viewModel = new DocumentDetailsViewModel
             {
@@ -269,7 +269,7 @@ namespace plv.Controllers
 
             _context.SaveChanges();
 
-            UpdateFirstBlock(docInDB);
+         //   UpdateFirstBlock(docInDB);
 
             return Redirect($"Details/{model.Document.Id}");
         }
@@ -447,7 +447,7 @@ namespace plv.Controllers
 
             _context.SaveChanges();
 
-            SaveFirstBlock(doc);
+        //    SaveFirstBlock(doc);
         }
 
 
@@ -467,6 +467,8 @@ namespace plv.Controllers
 
 
         #endregion
+        /*
+        fun with hashes.
         #region BlockMethods
         private void SaveFirstBlock(DocumentInDB doc)
         {
@@ -765,6 +767,6 @@ namespace plv.Controllers
             return invalidHashes;
         }
 
-        #endregion
+        #endregion*/
     }
 }
